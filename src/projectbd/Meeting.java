@@ -13,10 +13,43 @@ import java.util.UUID;
  * @author federicoponcedeleon
  */
 public class Meeting {
-    private UUID meetingId;
+    private final UUID meetingId;
     private Date date;
     private String place,
             description;
+    
+    public Meeting() {
+        this.meetingId = UUID.randomUUID();
+    }
+
+    public UUID getMeetingId() {
+        return meetingId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     
     
 }
