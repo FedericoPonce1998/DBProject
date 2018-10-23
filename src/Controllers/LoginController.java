@@ -25,6 +25,7 @@ public class LoginController {
         return instance;
     }
     
+<<<<<<< HEAD
     public User logInUser(String usuid, String password) {
         DBConnection db = DBConnection.Instance();
         db.getUserTable(usuid);
@@ -33,4 +34,6 @@ public class LoginController {
     }
     
             
+=======
+>>>>>>> master
 }
