@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectbd;
+package projectbd.Models;
 
 import java.util.Date;
 import java.util.UUID;
@@ -12,7 +12,7 @@ import java.util.UUID;
  *
  * @author federicoponcedeleon
  */
-public class MeetingService implements IMeeting{
+public class PersonalService implements IMeeting {
     
     private final UUID serviceId;
     private String name;
@@ -20,9 +20,9 @@ public class MeetingService implements IMeeting{
     private String description;
     private Date date;
     private Double price;
-    private UUID meetingId;
+    private String userId;
     
-    public MeetingService() {
+    public PersonalService() {
         this.serviceId = UUID.randomUUID();
     }
 
@@ -81,11 +81,11 @@ public class MeetingService implements IMeeting{
         this.price = price;
     }
     
-    public UUID getMeetingId() {
-        return this.meetingId;
+    public String getUserId() {
+        return this.userId;
     }
     
-    public void setMeetingId(UUID meetingId) {
-        this.meetingId = meetingId;
+    public void serUserId(String userId) {
+        this.userId = userId;
     }
 }

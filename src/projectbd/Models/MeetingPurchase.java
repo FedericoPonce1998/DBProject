@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectbd;
+package projectbd.Models;
 
 import java.util.UUID;
 
@@ -11,12 +11,12 @@ import java.util.UUID;
  *
  * @author federicoponcedeleon
  */
-public class PersonalPurchase implements IPurchase {
+public class MeetingPurchase implements IPurchase{
     private final UUID purchaseId;
     private String description;
-    private String userId;
+    private UUID meetingId;
     
-    public PersonalPurchase() {
+    public MeetingPurchase() {
         this.purchaseId = UUID.randomUUID();
     }
     
@@ -35,13 +35,11 @@ public class PersonalPurchase implements IPurchase {
         this.description = description;
     }
     
-    public String getUserId() {
-        return this.userId;
+    public UUID getMeetingId() {
+        return this.meetingId;
     }
     
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setMeetingId(UUID meetingId) {
+        this.meetingId = meetingId;
     }
-    
-    
 }

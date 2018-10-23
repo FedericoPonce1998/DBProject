@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectbd;
-
-import java.util.UUID;
+package Controllers;
 
 /**
  *
  * @author federicoponcedeleon
  */
-public interface IPurchase {
+public class LoginController {
     
-    public UUID getIdCompra();
-
-    public String getDescription();
-
-    public void setDescription(String description);
 }
