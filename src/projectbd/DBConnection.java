@@ -90,10 +90,7 @@ public class DBConnection {
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
             while (rs.next()) {
-                
                 System.out.println(rs.getString("usuid") + " " + rs.getString("usunom") + " " + rs.getString("usupass")+  "\t" );
-                    
- 
         }
             return rs;
             
@@ -129,6 +126,5 @@ public class DBConnection {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
     }
 }

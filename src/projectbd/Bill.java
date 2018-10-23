@@ -12,15 +12,17 @@ import java.util.UUID;
  *
  * @author federicoponcedeleon
  */
-public class Gasto {
+public class Bill {
     private final UUID idGasto;
     private String name;
     private Double price;
     private Date deadline;
     private UUID purchaseId;
     private UUID serviceId;
+    private String usuId;
+    private String usuReferenceId;
     
-    public Gasto () {
+    public Bill () {
         this.idGasto = UUID.randomUUID();
     }
 
@@ -66,6 +68,22 @@ public class Gasto {
 
     public void setServiceId(UUID serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public String getUsuId() {
+        return usuId;
+    }
+
+    public void setUsuId(String usuId) {
+        this.usuId = usuId;
+    }
+
+    public String getUsuReferenceId() {
+        return usuReferenceId;
+    }
+
+    public void setUsuReferenceId(String usuReferenceId) {
+        this.usuReferenceId = usuReferenceId;
     }
     
     

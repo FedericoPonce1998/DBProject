@@ -17,6 +17,8 @@ public class Meeting {
     private Date date;
     private String place,
             description;
+    private String usuOrgId;
+    private String[] usuInvitedId;
     
     public Meeting() {
         this.meetingId = UUID.randomUUID();

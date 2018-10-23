@@ -14,7 +14,7 @@ import java.util.UUID;
 public class PersonalPurchase implements IPurchase {
     private final UUID purchaseId;
     private String description;
-    private UUID userId;
+    private String userId;
     
     public PersonalPurchase() {
         this.purchaseId = UUID.randomUUID();
@@ -35,11 +35,11 @@ public class PersonalPurchase implements IPurchase {
         this.description = description;
     }
     
-    public UUID getUserId() {
+    public String getUserId() {
         return this.userId;
     }
     
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
     

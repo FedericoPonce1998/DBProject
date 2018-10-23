@@ -20,7 +20,7 @@ public class PersonalService implements IMeeting {
     private String description;
     private Date date;
     private Double price;
-    private UUID userId;
+    private String userId;
     
     public PersonalService() {
         this.serviceId = UUID.randomUUID();
@@ -81,11 +81,11 @@ public class PersonalService implements IMeeting {
         this.price = price;
     }
     
-    public UUID getUserId() {
+    public String getUserId() {
         return this.userId;
     }
     
-    public void serUserId(UUID userId) {
+    public void serUserId(String userId) {
         this.userId = userId;
     }
 }
