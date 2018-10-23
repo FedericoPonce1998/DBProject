@@ -5,10 +5,32 @@
  */
 package Controllers;
 
+import projectbd.DBConnection;
+import projectbd.Models.User;
+
 /**
  *
  * @author federicoponcedeleon
  */
 public class LoginController {
     
+    private static LoginController instance;
+    
+    private LoginController() {}
+    
+    public static LoginController getInstanceLogin() {
+        if (instance == null) {     
+            instance = new LoginController();
+        }
+        return Instance;
+    }
+    
+    public User logInUser(String usuid, String password) {
+        DBConnection db = DBConnection.Instance();
+        db.getUserTable(usuid);
+        if ()
+        return null;
+    }
+    
+            
 }
