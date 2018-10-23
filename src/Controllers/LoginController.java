@@ -11,4 +11,15 @@ package Controllers;
  */
 public class LoginController {
     
+    private static LoginController instance;
+    
+    private LoginController() {}
+    
+    public static LoginController getInstanceLogin() {
+        if (instance == null) {     
+            instance = new LoginController();
+        }
+        return instance;
+    }
+    
 }
