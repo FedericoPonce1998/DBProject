@@ -22,7 +22,7 @@ public class LoginController {
         if (instance == null) {     
             instance = new LoginController();
         }
-        return Instance;
+        return instance;
     }
     
     public User logInUser(String usuid, String password) {
