@@ -5,6 +5,8 @@
  */
 package Controllers;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import projectbd.DBConnection;
 import projectbd.Models.User;
 
@@ -25,15 +27,16 @@ public class LoginController {
         return instance;
     }
     
-<<<<<<< HEAD
-    public User logInUser(String usuid, String password) {
+    public User logInUser(String usuid, String password) throws SQLException {
         DBConnection db = DBConnection.Instance();
-        db.getUserTable(usuid);
-        if ()
-        return null;
+        ResultSet rs = db.getUserTable(usuid);
+        Object userRow = rs.getArray(1).getArray();
+        
+        User currentLoginUser = null;
+        if ( == usuid && usersTable.getArray(4) == password) {
+            currentLoginUser = usersTable;
+        }
+        return currentLoginUser;
     }
     
-            
-=======
->>>>>>> master
 }
