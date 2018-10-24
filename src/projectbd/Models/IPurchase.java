@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public interface IPurchase {
     
-    public UUID getIdCompra();
+    public String getIdCompra();
 
     public String getDescription();
 

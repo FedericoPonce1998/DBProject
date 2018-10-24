@@ -11,8 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectbd.Models.Meeting;
+import projectbd.Models.MeetingPurchase;
+import projectbd.Models.User;
 
 /**
  *
@@ -126,5 +131,55 @@ public class DBConnection {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    
+    public User getUser (String usuId) {
+        String SQL = "select * from usuarios where usuid = '" + usuId + "'";
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+                String usuNom = rs.getString("usunom"),
+                       usuPass = rs.getString("usupass"),
+                       usuAdd = rs.getString("usuDir"),
+                       usuMail = rs.getString("usumail");
+            
+                return new User(usuId, usuNom, usuPass, usuAdd, usuMail);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public Meeting getMeeting (String reuId) {
+        String SQL = "select * from reunion where reunionid = '" + reuId + "'";
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+                String place = rs.getString("lugar"),
+                       desc = rs.getString("descripcion"),
+                       org = rs.getString("organizador"),
+                       date = rs.getString("fecha");
+                
+                return new Meeting(reuId, place, date, desc, org);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public MeetingPurchase getMeetingPurchase (String purchaseid) {
+        String SQL = "select * from comprareunion where compraid = '" + purchaseid + "'";
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+                String meeting = rs.getString("meetingid"),
+                       desc = rs.getString("descripcion"),
+                       amount = rs.getString("precio");
+                
+                return new MeetingPurchase(purchaseid, meeting, desc, Double.parseDouble(amount));
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 }

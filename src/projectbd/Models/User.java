@@ -16,8 +16,12 @@ public class User {
     private String password;
     private String address;
     
-    public User (String userName) {
-        this.userName = userName;
+    public User (String usuName, String usuNom, String usuPass, String usuAdd, String usuMail) {
+        this.userName = usuName;
+        this.name = usuNom;
+        this.email = usuMail;
+        this.password = usuPass;
+        this.address = usuAdd;
     }
 
     public String getName() {

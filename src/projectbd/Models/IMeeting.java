@@ -5,8 +5,6 @@
  */
 package projectbd.Models;
 
-import java.util.Date;
-import java.util.UUID;
 
 /**
  *
@@ -14,7 +12,7 @@ import java.util.UUID;
  */
 public interface IMeeting {
     
-    public UUID getServiceId();
+    public String getServiceId();
     
     public String getName();
 
@@ -26,11 +24,6 @@ public interface IMeeting {
     public String getDescription();
 
     public void setDescription(String description);
-    public Date getDate();
-
-    public void setDate(Date date);
-
-    public Double getPrice();
-    public void setPrice(Double price);
+    
     
 }

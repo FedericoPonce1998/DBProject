@@ -13,20 +13,20 @@ import java.util.UUID;
  * @author federicoponcedeleon
  */
 public class Bill {
-    private final UUID idGasto;
+    private final String idGasto;
     private String name;
     private Double price;
     private Date deadline;
-    private UUID purchaseId;
-    private UUID serviceId;
+    private String purchaseId;
+    private String serviceId;
     private String usuId;
     private String usuReferenceId;
     
     public Bill () {
-        this.idGasto = UUID.randomUUID();
+        this.idGasto = "";
     }
 
-    public UUID getIdGasto() {
+    public String getIdGasto() {
         return idGasto;
     }
 
@@ -54,19 +54,19 @@ public class Bill {
         this.deadline = deadline;
     }
 
-    public UUID getPurchaseId() {
+    public String getPurchaseId() {
         return purchaseId;
     }
 
-    public void setPurchaseId(UUID purchaseId) {
+    public void setPurchaseId(String purchaseId) {
         this.purchaseId = purchaseId;
     }
 
-    public UUID getServiceId() {
+    public String getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(UUID serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
 

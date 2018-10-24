@@ -12,16 +12,16 @@ import java.util.UUID;
  * @author federicoponcedeleon
  */
 public class PersonalPurchase implements IPurchase {
-    private final UUID purchaseId;
+    private final String purchaseId;
     private String description;
     private String userId;
     
     public PersonalPurchase() {
-        this.purchaseId = UUID.randomUUID();
+        this.purchaseId = "";
     }
     
     @Override
-    public UUID getIdCompra() {
+    public String getIdCompra() {
         return purchaseId;
     }
 

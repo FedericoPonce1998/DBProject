@@ -5,23 +5,25 @@
  */
 package projectbd.Models;
 
-import java.util.UUID;
-
 /**
  *
  * @author federicoponcedeleon
  */
 public class MeetingPurchase implements IPurchase{
-    private final UUID purchaseId;
+    private final String purchaseId;
     private String description;
-    private UUID meetingId;
+    private String meetingId;
+    private Double amount;
     
-    public MeetingPurchase() {
-        this.purchaseId = UUID.randomUUID();
+    public MeetingPurchase(String purchaseId, String meetingId, String description, Double amount) {
+        this.purchaseId = purchaseId;
+        this.meetingId = meetingId;
+        this.description = description;
+        this.amount = amount;
     }
     
     @Override
-    public UUID getIdCompra() {
+    public String getIdCompra() {
         return purchaseId;
     }
 
@@ -35,11 +37,21 @@ public class MeetingPurchase implements IPurchase{
         this.description = description;
     }
     
-    public UUID getMeetingId() {
+    public String getMeetingId() {
         return this.meetingId;
     }
     
-    public void setMeetingId(UUID meetingId) {
+    public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
     }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+    
+    
 }

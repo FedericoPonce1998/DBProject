@@ -14,7 +14,7 @@ import java.util.UUID;
 public class PurchaseLine {
     private Double quantity;
     private String productName;
-    private UUID purchaseId;
+    private String purchaseId;
     private Integer lineId;
             
     public PurchaseLine() {
@@ -37,11 +37,11 @@ public class PurchaseLine {
         this.productName = productName;
     }
 
-    public UUID getPurchaseId() {
+    public String getPurchaseId() {
         return purchaseId;
     }
 
-    public void setPurchaseId(UUID purchaseId) {
+    public void setPurchaseId(String purchaseId) {
         this.purchaseId = purchaseId;
     }
 

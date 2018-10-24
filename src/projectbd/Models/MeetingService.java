@@ -14,20 +14,19 @@ import java.util.UUID;
  */
 public class MeetingService implements IMeeting{
     
-    private final UUID serviceId;
+    private final String serviceId;
     private String name;
     private String company;
     private String description;
-    private Date date;
     private Double price;
-    private UUID meetingId;
+    private String meetingId;
     
     public MeetingService() {
-        this.serviceId = UUID.randomUUID();
+        this.serviceId = "";
     }
 
     @Override
-    public UUID getServiceId() {
+    public String getServiceId() {
         return this.serviceId;
     }
 
@@ -61,31 +60,20 @@ public class MeetingService implements IMeeting{
         this.description = description;
     }
 
-    @Override
-    public Date getDate() {
-        return this.date;
-    }
-
-    @Override
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @Override
     public Double getPrice() {
         return this.price;
     }
 
-    @Override
     public void setPrice(Double price) {
         this.price = price;
     }
     
-    public UUID getMeetingId() {
+    public String getMeetingId() {
         return this.meetingId;
     }
     
-    public void setMeetingId(UUID meetingId) {
+    public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
     }
+
 }

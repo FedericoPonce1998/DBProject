@@ -6,7 +6,6 @@
 package projectbd.Models;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  *
@@ -14,20 +13,19 @@ import java.util.UUID;
  */
 public class PersonalService implements IMeeting {
     
-    private final UUID serviceId;
+    private final String serviceId;
     private String name;
     private String company;
     private String description;
     private Date date;
-    private Double price;
     private String userId;
     
     public PersonalService() {
-        this.serviceId = UUID.randomUUID();
+        this.serviceId = "";
     }
 
     @Override
-    public UUID getServiceId() {
+    public String getServiceId() {
         return this.serviceId;
     }
 
@@ -61,25 +59,15 @@ public class PersonalService implements IMeeting {
         this.description = description;
     }
 
-    @Override
     public Date getDate() {
         return this.date;
     }
 
-    @Override
     public void setDate(Date date) {
         this.date = date;
     }
 
-    @Override
-    public Double getPrice() {
-        return this.price;
-    }
-
-    @Override
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+   
     
     public String getUserId() {
         return this.userId;
