@@ -59,4 +59,18 @@ public class BillController {
         DBConnection db = DBConnection.Instance();
         return db.getBill(billId);
     }
+    
+    public boolean payOrganizer(String billId){
+        DBConnection db = DBConnection.Instance();
+        Bill bill = db.getBill(billId);
+        if (bill != null){
+            String billRefId = bill.getBillReferenceId();
+            String data1 = "gasto set estapago = true where gastoId = billId;";
+            String data2 = "gasto set estapago = true where gastoId = billRefId;";
+            db.updateData(data1);
+            db.updateData(data2);
+            return true;
+        }
+        return false;
+    }
 }

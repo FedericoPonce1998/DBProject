@@ -32,11 +32,11 @@ public class PurchaseController {
     
     public long createMeetingPurchase(String meetingId, String description, Double amount) {
         DBConnection db = DBConnection.Instance();
-        //firts I have to check if the meeting exists
+        //first I have to check if the meeting exists
         Meeting meeting = db.getMeeting(meetingId);
         if (meeting != null) {
             String newId = UUID.randomUUID().toString();
-            return db.insertData("comprareunion(usuid, usunom, usudir, usumail, usupass) " 
+            return db.insertData("comprareunion(compraid, descripcion, reunionid, costo) " 
                     + "VALUES(" + newId + "," + meetingId + ", " + description + ", " + amount + ";");
         }
         return -1;
@@ -76,6 +76,13 @@ public class PurchaseController {
         return db.deleteData("comprapersonal", sqlSentence) != -1;
     }
     
+    /**
+     * Creates a new bill after a personal purchase was made
+     * 
+     * @param purchaseId
+     * @param amount
+     * @return 
+     */
     public boolean payPersonalPurchase(String purchaseId, Double amount) {
         PersonalPurchase purchase = DBConnection.Instance().getPersonalPurchase(purchaseId);
         if (purchase == null) return false;
@@ -87,20 +94,37 @@ public class PurchaseController {
         return true;
     }
     
-    /*
-    public boolean payMeetingPurchase(String purchaseId, boolean isPaid) {
-        MeetingPurchase purchase = DBConnection.Instance().getMeetingPurchase(purchaseId);
+    /**
+     * Creates a bill for every guest in a meeting
+     * 
+     * @param purchaseId
+     * @param isPaid
+     * @return 
+     */
+    public boolean payMeetingPurchase(String purchaseId) {
         BillController bc = BillController.instance();
         DBConnection db = DBConnection.Instance();
+        MeetingPurchase purchase = db.getMeetingPurchase(purchaseId);
         Meeting meeting = db.getMeeting(purchase.getMeetingId());
         String meetingOrganizer = meeting.getUsuOrgId();
         String newId = UUID.randomUUID().toString();
-        Invited inv = db.getInvited(meeting.getMeetingId(), meetingOrganizer);
-        Double amountPerEach = purchase.getAmount() / inv.
-        db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
-                + "(" + newId + ", " + purchase.getDescription() + purchase.getAmount() + ", " + isPaid + ", "+ false + ", "+ meeting.getDate() + ", "+
-                purchaseId + ", "+ purchase + ", "+ newId + ", "");");
-        bc.createBill(purchaseId, Double.NaN, purchaseId, purchaseId, purchaseId, purchaseId, purchaseId, true, true)
+        Invited[] inv = db.getInvited(meeting.getMeetingId()); //EL METODO NO ESTA ASI, PERO DEBERIAS PASAR UNA REUNION Y DEBERIA DEVOLVER
+                                                                // UNA LISTA DE INVITADOS, NO TIENE SENTIDO PASAR UN ID DE USUARIO CUANDO NO 
+                                                                //DEBERIAS SABER CADA UNO DE TUS INVITADOS (EN EL METODO)
+        Double amountPerEach = purchase.getAmount() / (inv.length + 1); //The organizer is not in inv, but still pays his part
+        for (Invited invited : inv) {
+            db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
+                + "(" + newId + ", " + purchase.getDescription() + amountPerEach + ", " + false + ", "+ false + ", "+ meeting.getDate() + ", "+
+                purchaseId + ", "+ null + ", "+ invited.getUserId() + ", " + meetingOrganizer + ");");
+            
+            db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
+                + "(" + newId + ", " + purchase.getDescription() + amountPerEach + ", " + false + ", "+ true + ", "+ meeting.getDate() + ", "+
+                purchaseId + ", "+ null + ", "+ meetingOrganizer + ", " + invited.getUserId() + ");");
+        }
+        
+        //bc.createBill(purchaseId, Double.NaN, purchaseId, purchaseId, purchaseId, purchaseId, purchaseId, true, true);
                 
-    }*/
+        return true;
+    }
+    
 }

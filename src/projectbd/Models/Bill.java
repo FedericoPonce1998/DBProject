@@ -24,13 +24,13 @@ public class Bill {
     private String purchaseId;
     private String serviceId;
     private String usuId;
-    private String usuReferenceId;
+    private String billReferenceId;
     private boolean isPaid;
     private boolean isInput;
     
          
 
-    public Bill(String billId, String name, Double price, String deadline, String purchaseId, String serviceId, String usuId, String usuReferenceId, boolean isInput, boolean isPaid) {
+    public Bill(String billId, String name, Double price, String deadline, String purchaseId, String serviceId, String usuId, String billReferenceId, boolean isInput, boolean isPaid) {
         this.billId = billId;
         this.name = name;
         this.price = price;
@@ -42,7 +42,7 @@ public class Bill {
         this.purchaseId = purchaseId;
         this.serviceId = serviceId;
         this.usuId = usuId;
-        this.usuReferenceId = usuReferenceId;
+        this.billReferenceId = billReferenceId;
         this.isInput = isInput;
         this.isPaid = isPaid;
     }
@@ -103,12 +103,12 @@ public class Bill {
         this.usuId = usuId;
     }
 
-    public String getUsuReferenceId() {
-        return usuReferenceId;
+    public String getBillReferenceId() {
+        return billReferenceId;
     }
 
-    public void setUsuReferenceId(String usuReferenceId) {
-        this.usuReferenceId = usuReferenceId;
+    public void setBillReferenceId(String billReferenceId) {
+        this.billReferenceId = billReferenceId;
     }
 
     public boolean isIsPaid() {

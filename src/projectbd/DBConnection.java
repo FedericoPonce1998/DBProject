@@ -125,6 +125,10 @@ public class DBConnection {
         return writeDB("INSERT INTO " + data);
     }
     
+    public long updateData(String data) {
+        return writeDB("UPDATE " + data);
+    }
+    
     public long deleteData(String name, String data) {
         return writeDB("DELETE FROM " + name + " " + data);
     }
@@ -270,15 +274,17 @@ public class DBConnection {
         }
         return null;
     }
-
-    public Invited getInvited(String meetingId, String usuid) {
+    
+    public Invited[] getInvited(String meetingId) {
         String SQL = "select * from invitados where reunionid = '" + meetingId + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
-                
+                while (rs.next()) { //mirar gettable
+                String usuid = ;
                        
-                return new Invited(meetingId, usuid);
+                Invited inv = new Invited(usuid, meetingId);
+                }
     
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
