@@ -21,7 +21,7 @@ public class LoginController {
     
     private LoginController() {}
     
-    public static LoginController getInstanceLogin() {
+    public static LoginController instance() {
         if (instance == null) {     
             instance = new LoginController();
         }
@@ -29,13 +29,23 @@ public class LoginController {
     }
     
     public User logInUser(String usuid, String password) throws SQLException {
+        
         DBConnection db = DBConnection.Instance();
-        User currentLoginUser = db.getUser(usuid);
-        if (currentLoginUser.getUserName().equals(usuid) && currentLoginUser.getPassword().equals(password)) {
-            return currentLoginUser;
+        User currentLoggedinUser = db.getUser(usuid);
+        if (currentLoggedinUser.getUserName().equals(usuid) && currentLoggedinUser.getPassword().equals(password)) {
+            MainController mc = MainController.instance();
+            mc.setCurrentUser(currentLoggedinUser);
+            return currentLoggedinUser;
         }
         return null;
     }
+    
+    public void logOutUser() {
+        MainController mc = MainController.instance();
+        mc.setCurrentUser(null);
+    }
+    
+    
     
     
 }

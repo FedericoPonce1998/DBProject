@@ -17,8 +17,11 @@ public class PurchaseLine {
     private String purchaseId;
     private Integer lineId;
             
-    public PurchaseLine() {
-        
+    public PurchaseLine(String purchaseId, String productName, Integer lineId, Double quantity) {
+        this.purchaseId = purchaseId;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.lineId = lineId;
     }
 
     public Double getQuantity() {

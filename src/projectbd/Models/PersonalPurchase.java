@@ -16,8 +16,10 @@ public class PersonalPurchase implements IPurchase {
     private String description;
     private String userId;
     
-    public PersonalPurchase() {
-        this.purchaseId = "";
+    public PersonalPurchase(String purchaseId, String description, String userId) {
+        this.purchaseId = purchaseId;
+        this.description = description;
+        this.userId = userId;
     }
     
     @Override

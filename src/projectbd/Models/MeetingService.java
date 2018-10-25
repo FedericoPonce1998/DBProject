@@ -21,8 +21,13 @@ public class MeetingService implements IMeeting{
     private Double price;
     private String meetingId;
     
-    public MeetingService() {
-        this.serviceId = "";
+    public MeetingService(String serviceId, String name, String company, String description, Double price, String meeting) {
+        this.serviceId = serviceId;
+        this.company = company;
+        this.description = description;
+        this.price = price;
+        this.meetingId = meeting;
+        this.name = name;
     }
 
     @Override

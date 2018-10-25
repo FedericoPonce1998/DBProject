@@ -5,7 +5,11 @@
  */
 package projectbd.Models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,10 +24,23 @@ public class PersonalService implements IMeeting {
     private Date date;
     private String userId;
     
-    public PersonalService() {
-        this.serviceId = "";
+    public PersonalService(String serviceId, String name, String company, String description, String date, String userId) {
+        this.serviceId = serviceId;
+        this.name = name;
+        this.company = company;
+        this.description = description;
+        try {
+            this.date = parseToDate(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(PersonalService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.userId = userId;
+        
     }
 
+    private Date parseToDate(String toParse) throws ParseException {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toParse);
+    }
     @Override
     public String getServiceId() {
         return this.serviceId;
