@@ -43,9 +43,9 @@ public class UserController {
         return -1;
     }
     
-     public boolean deleteFriend(String userId, String userIdAmigo) {
+     public boolean deleteFriend(String userId, String userIdFriend) {
         DBConnection db = DBConnection.Instance();
-        String sqlSentence = "WHERE useriduno = " + userId + "and useriddos = " + userIdAmigo;
+        String sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + ") or (usuiduno = '"+ userIdFriend + "' and usuiddos= '" + userId + "');";
         return db.deleteData("amigo", sqlSentence) != -1;
     }
     

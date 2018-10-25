@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectbd.Models.Bill;
+import projectbd.Models.Invited;
 import projectbd.Models.Meeting;
 import projectbd.Models.MeetingPurchase;
 import projectbd.Models.MeetingService;
@@ -269,20 +270,20 @@ public class DBConnection {
         }
         return null;
     }
+
+    public Invited getInvited(String meetingId, String usuid) {
+        String SQL = "select * from invitados where reunionid = '" + meetingId + "'";
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+                
+                       
+                return new Invited(meetingId, usuid);
     
-    public boolean dropMeetingService(String serviceId) {
-        return false;
-    }
-    
-    public boolean dropPersonalService(String serviceId) {
-        return false;
-    }
-    
-    public boolean dropMeetingPurchase(String purchaseId) {
-        return false;
-    }
-    
-    public boolean dropPersonalPurchase(String purchaseId) {
-        return false;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 }
+    

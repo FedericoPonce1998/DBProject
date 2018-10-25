@@ -41,9 +41,7 @@ public class ProjectBD {
         System.out.println("Amigo " + success); 
         success = db.createTable("CREATE TABLE IF NOT EXISTS Invitado(usuid varchar(40) NOT NULL REFERENCES Usuarios (usuid), reunionid SERIAL NOT NULL REFERENCES Reunion (reunionid), PRIMARY KEY (usuid, reunionid))");
         System.out.println("Invitado " + success);
-        //db.insertUser();
         db.getTable();
-        //System.out.println(success);
     }
     
 }

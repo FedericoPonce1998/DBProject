@@ -5,8 +5,10 @@
  */
 package Controllers;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import projectbd.DBConnection;
+import projectbd.Models.Invited;
 import projectbd.Models.Meeting;
 import projectbd.Models.MeetingPurchase;
 import projectbd.Models.PersonalPurchase;
@@ -73,4 +75,32 @@ public class PurchaseController {
         String sqlSentence = "WHERE compraid = " + purchaseId;
         return db.deleteData("comprapersonal", sqlSentence) != -1;
     }
+    
+    public boolean payPersonalPurchase(String purchaseId, Double amount) {
+        PersonalPurchase purchase = DBConnection.Instance().getPersonalPurchase(purchaseId);
+        if (purchase == null) return false;
+        DBConnection db = DBConnection.Instance();
+        String newId = UUID.randomUUID().toString();
+        db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
+                + "(" + newId + ", " + purchase.getDescription() + ", " + amount + ", " + true + ", "+ false + ", "+ LocalDateTime.now().toString() + ", "+
+                purchaseId + ", "+ null + ", "+ purchase.getUserId() + ", " + null + ");");
+        return true;
+    }
+    
+    /*
+    public boolean payMeetingPurchase(String purchaseId, boolean isPaid) {
+        MeetingPurchase purchase = DBConnection.Instance().getMeetingPurchase(purchaseId);
+        BillController bc = BillController.instance();
+        DBConnection db = DBConnection.Instance();
+        Meeting meeting = db.getMeeting(purchase.getMeetingId());
+        String meetingOrganizer = meeting.getUsuOrgId();
+        String newId = UUID.randomUUID().toString();
+        Invited inv = db.getInvited(meeting.getMeetingId(), meetingOrganizer);
+        Double amountPerEach = purchase.getAmount() / inv.
+        db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
+                + "(" + newId + ", " + purchase.getDescription() + purchase.getAmount() + ", " + isPaid + ", "+ false + ", "+ meeting.getDate() + ", "+
+                purchaseId + ", "+ purchase + ", "+ newId + ", "");");
+        bc.createBill(purchaseId, Double.NaN, purchaseId, purchaseId, purchaseId, purchaseId, purchaseId, true, true)
+                
+    }*/
 }

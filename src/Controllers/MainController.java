@@ -31,7 +31,4 @@ public class MainController {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-    
-    
-    
 }
