@@ -125,8 +125,9 @@ public class DBConnection {
     }
     
     public long deleteData(String name, String data) {
-        return writeDB("DELETE FROM " + name + " WHERE id = " + data);
+        return writeDB("DELETE FROM " + name + " " + data);
     }
+    
     
     public User getUser (String usuId) {
         String SQL = "select * from usuarios where usuid = '" + usuId + "'";

@@ -66,11 +66,13 @@ public class ServiceController {
     
     public boolean deleteMeetingService(String serviceId) {
         DBConnection db = DBConnection.Instance();
-        return db.deleteData("servicioreunion", serviceId) != -1;
+        String sqlSentence = "WHERE idservicio = " + serviceId;
+        return db.deleteData("servicioreunion", sqlSentence) != -1;
     }
     
     public boolean deletePersonalService(String serviceId) {
         DBConnection db = DBConnection.Instance();
-        return db.deleteData("serviciopersonal", serviceId) != -1;
+        String sqlSentence = "WHERE idservicio = " + serviceId;
+        return db.deleteData("serviciopersonal",  sqlSentence) != -1;
     }
 }

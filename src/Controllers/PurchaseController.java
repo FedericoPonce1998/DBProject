@@ -64,11 +64,13 @@ public class PurchaseController {
     
     public boolean deleteMeetingPurchase(String purchaseId) {
         DBConnection db = DBConnection.Instance();
-        return db.deleteData("comprareunion", purchaseId) != -1;
+        String sqlSentence = "WHERE compraid = " + purchaseId;
+        return db.deleteData("comprareunion",purchaseId) != -1;
     }
     
     public boolean deletePersonalPurchase(String purchaseId) {
         DBConnection db = DBConnection.Instance();
-        return db.deleteData("comprapersonal", purchaseId) != -1;
+        String sqlSentence = "WHERE compraid = " + purchaseId;
+        return db.deleteData("comprapersonal", sqlSentence) != -1;
     }
 }
