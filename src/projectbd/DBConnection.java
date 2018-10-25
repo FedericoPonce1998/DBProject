@@ -268,5 +268,22 @@ public class DBConnection {
         }
         return null;
     }
+
+    
+    public boolean dropMeetingService(String serviceId) {
+        return false;
+    }
+    
+    public boolean dropPersonalService(String serviceId) {
+        return false;
+    }
+    
+    public boolean dropMeetingPurchase(String purchaseId) {
+        return false;
+    }
+    
+    public boolean dropPersonalPurchase(String purchaseId) {
+        return false;
+    }
 }
     

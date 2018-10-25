@@ -27,6 +27,7 @@ public class LoginController {
     }
     
     public User logInUser(String usuid, String password) throws SQLException {
+        
         DBConnection db = DBConnection.Instance();
         User currentLoggedinUser = db.getUser(usuid);
         if (currentLoggedinUser.getUserName().equals(usuid) && currentLoggedinUser.getPassword().equals(password)) {

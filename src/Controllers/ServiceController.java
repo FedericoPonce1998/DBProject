@@ -9,6 +9,9 @@ import java.util.UUID;
 import projectbd.DBConnection;
 import projectbd.Models.Meeting;
 import projectbd.Models.MeetingService;
+import projectbd.Models.MeetingPurchase;
+import projectbd.Models.MeetingService;
+import projectbd.Models.PersonalPurchase;
 import projectbd.Models.PersonalService;
 import projectbd.Models.User;
 
