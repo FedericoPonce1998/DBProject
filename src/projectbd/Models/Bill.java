@@ -5,15 +5,19 @@
  */
 package projectbd.Models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author federicoponcedeleon
  */
 public class Bill {
-    private final String idGasto;
+    private final String billId;
     private String name;
     private Double price;
     private Date deadline;
@@ -21,13 +25,34 @@ public class Bill {
     private String serviceId;
     private String usuId;
     private String usuReferenceId;
+    private boolean isPaid;
+    private boolean isInput;
     
-    public Bill () {
-        this.idGasto = "";
-    }
+         
 
-    public String getIdGasto() {
-        return idGasto;
+    public Bill(String billId, String name, Double price, String deadline, String purchaseId, String serviceId, String usuId, String usuReferenceId, boolean isInput, boolean isPaid) {
+        this.billId = billId;
+        this.name = name;
+        this.price = price;
+        try {
+            this.deadline = parseToDate(deadline);
+        } catch (ParseException ex) {
+            Logger.getLogger(Bill.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.purchaseId = purchaseId;
+        this.serviceId = serviceId;
+        this.usuId = usuId;
+        this.usuReferenceId = usuReferenceId;
+        this.isInput = isInput;
+        this.isPaid = isPaid;
+    }
+    
+    private Date parseToDate(String toParse) throws ParseException {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toParse);
+    }
+    
+    public String getBillId() {
+        return billId;
     }
 
     public String getName() {
@@ -84,6 +109,22 @@ public class Bill {
 
     public void setUsuReferenceId(String usuReferenceId) {
         this.usuReferenceId = usuReferenceId;
+    }
+
+    public boolean isIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
+    }
+
+    public boolean isIsInput() {
+        return isInput;
+    }
+
+    public void setIsInput(boolean isInput) {
+        this.isInput = isInput;
     }
     
     
