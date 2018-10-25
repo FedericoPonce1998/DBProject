@@ -8,6 +8,7 @@ package Controllers;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import projectbd.DBConnection;
+import projectbd.Models.Invited;
 import projectbd.Models.Meeting;
 import projectbd.Models.MeetingPurchase;
 import projectbd.Models.PersonalPurchase;
@@ -92,6 +93,8 @@ public class PurchaseController {
         Meeting meeting = db.getMeeting(purchase.getMeetingId());
         String meetingOrganizer = meeting.getUsuOrgId();
         String newId = UUID.randomUUID().toString();
+        Invited inv = db.getInvited(meeting.getMeetingId(), meetingOrganizer);
+        Double amountPerEach = purchase.getAmount() / inv.
         db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
                 + "(" + newId + ", " + purchase.getDescription() + purchase.getAmount() + ", " + isPaid + ", "+ false + ", "+ meeting.getDate() + ", "+
                 purchaseId + ", "+ purchase + ", "+ newId + ", "");");
