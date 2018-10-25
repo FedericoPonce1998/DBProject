@@ -8,9 +8,6 @@ package Controllers;
 import java.util.UUID;
 import projectbd.DBConnection;
 import projectbd.Models.Bill;
-import projectbd.Models.Meeting;
-import projectbd.Models.MeetingService;
-import projectbd.Models.PersonalService;
 import projectbd.Models.User;
 
 /**

@@ -68,6 +68,8 @@ public class Meeting {
         this.description = description;
     }
     
-    
+    public String getUsuOrgId() {
+        return this.usuOrgId;
+    }
     
 }
