@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectbd.Models.Bill;
@@ -275,21 +276,25 @@ public class DBConnection {
         return null;
     }
     
-    public Invited[] getInvited(String meetingId) {
+    public ArrayList<Invited> getInvited(String meetingId) {
         String SQL = "select * from invitados where reunionid = '" + meetingId + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                ArrayList<Invited> output = new ArrayList<>();
                 while (rs.next()) { //mirar gettable
-                String usuid = ;
+                    String usuid = rs.getString("usuid");
+                    
                        
-                Invited inv = new Invited(usuid, meetingId);
+                    Invited inv = new Invited(usuid, meetingId);
+                    output.add(inv);
                 }
-    
+                return output;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return null;
     }
+    
 }
     
