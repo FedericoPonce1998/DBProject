@@ -45,6 +45,7 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPasswordFirst = new javax.swing.JPasswordField();
         jPasswordSecond = new javax.swing.JPasswordField();
+        jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -59,7 +60,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 80, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 80, -1));
 
         jLabel2.setText("Nombre de usuario:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
@@ -96,6 +97,10 @@ public class RegisterForm extends javax.swing.JFrame {
 
         jPasswordSecond.setText("jPasswordField2");
         getContentPane().add(jPasswordSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-icon.png"))); // NOI18N
+        jLabel8.setText("jLabel8");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 90, 60));
 
         jButton2.setText("Registrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +194,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPasswordField jPasswordFirst;
     private javax.swing.JPasswordField jPasswordSecond;
     private javax.swing.JTextField jTextAddress;

@@ -12,6 +12,7 @@ import projectbd.Models.Invited;
 import projectbd.Models.Meeting;
 import projectbd.Models.MeetingPurchase;
 import projectbd.Models.PersonalPurchase;
+import projectbd.Models.PurchaseLine;
 import projectbd.Models.User;
 
 /**
@@ -95,7 +96,7 @@ public class PurchaseController {
     public boolean deletePersonalPurchaseLine(String puchaseId, String lineId) {
         DBConnection db = DBConnection.Instance();
         PurchaseLine pl = db.getPurchaseLine(lineId, puchaseId);
-        db.deleteData(lineId, lineId);
+        return db.deleteData(lineId, lineId) != -1;
     }
     
     public boolean addMeetingPurchaseLine(String puchaseId, String name, Double quantity) {

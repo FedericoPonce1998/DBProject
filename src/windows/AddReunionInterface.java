@@ -38,6 +38,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jComboBoxOrganizer = new javax.swing.JComboBox<>();
         jDate = new javax.swing.JTextField();
         jButtonAdd = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,6 +86,16 @@ public class AddReunionInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(102, 153, 255));
+        jButton1.setForeground(new java.awt.Color(0, 143, 255));
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 90, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 498, 677));
 
@@ -107,6 +118,10 @@ public class AddReunionInterface extends javax.swing.JFrame {
        // MeetingController mc = MeetingController.addMeeting(place, description, date, user);
         
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,6 +159,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JComboBox<String> jComboBoxOrganizer;
     private javax.swing.JTextField jDate;

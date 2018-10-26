@@ -44,7 +44,6 @@ public class LoginController {
     }
     
     public User registerUser(String userName, String password, String name, String dir, String mail) {
-        DBConnection db = DBConnection.Instance();
         if (!userName.isEmpty() && userName.length() < 40 && password.length() > 4 && password.length() < 20 
                 && name.length() > 3 && dir.length() > 5 && mail.contains("@")) {
             UserController uc = UserController.getInstanceUser();
@@ -60,14 +59,14 @@ public class LoginController {
     public String forgottenContrasena(String userName) {
         DBConnection db = DBConnection.Instance();
         User user = db.getUser(userName);
-        if (user == null) return '';
+        if (user == null) return "";
         return user.getPassword();
     }
     
     public boolean updatePassword(String userName, String mail, String newPassword) {
         DBConnection db= DBConnection.Instance();
         User user = db.getUser(userName);
-        long result;
+        long result = -1;
         String data1 = "usuarios set usupass = " + newPassword + " where usuid = " + userName;
         if (user.getEmail().equals(mail)) {
             result = db.updateData(data1);
