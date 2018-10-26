@@ -32,13 +32,13 @@ public class UserController {
         return instance;
     }
     
-    public long addFriend(String userId, String userIdAmigo){
+    public long addFriend(String userId, String userIdFriend){
         DBConnection db = DBConnection.Instance();
         User user = db.getUser(userId);
-        User user2 = db.getUser(userIdAmigo);
+        User user2 = db.getUser(userIdFriend);
         if (user != null && user2 != null) {
             return db.insertData("amigos(usuiduno, usuiddos) " 
-                    + "VALUES(" + userId + "," + userIdAmigo + ";");
+                    + "VALUES(" + userId + "," + userIdFriend + ";");
         }
         return -1;
     }
@@ -48,6 +48,14 @@ public class UserController {
         String sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + ") or (usuiduno = '"+ userIdFriend + "' and usuiddos= '" + userId + "');";
         return db.deleteData("amigo", sqlSentence) != -1;
     }
+     
+     public boolean createUser(String userName, String password, String name, String dir, String mail) {
+         if (userName.isEmpty() || password.isEmpty() || name.isEmpty() || mail.isEmpty() || dir.isEmpty()) return false;
+         DBConnection db = DBConnection.Instance();
+         return db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES (" + userName + ", " +
+                    name  + ", "+ dir + ", " + mail + ")") != -1;
+     }
+     
     
     
 }

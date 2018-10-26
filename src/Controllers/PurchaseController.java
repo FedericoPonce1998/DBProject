@@ -32,26 +32,16 @@ public class PurchaseController {
     
     public long createMeetingPurchase(String meetingId, String description, Double amount) {
         DBConnection db = DBConnection.Instance();
-        //first I have to check if the meeting exists
-        Meeting meeting = db.getMeeting(meetingId);
-        if (meeting != null) {
-            String newId = UUID.randomUUID().toString();
-            return db.insertData("comprareunion(compraid, descripcion, reunionid, costo) " 
-                    + "VALUES(" + newId + "," + meetingId + ", " + description + ", " + amount + ";");
-        }
-        return -1;
+        String newId = UUID.randomUUID().toString();
+        return db.insertData("comprareunion(compraid, descripcion, reunionid, costo) " 
+                + "VALUES(" + newId + "," + meetingId + ", " + description + ", " + amount + ";");
     }
     
     public long createPersonalPurchase(String description, String userId) {
         DBConnection db = DBConnection.Instance();
-        //firts I have to check if the user exists
-        User user = db.getUser(userId);
-        if (user != null) {
-            String newId = UUID.randomUUID().toString();
-            return db.insertData("comprapersonal(compraid, descripcion, usuid) " 
-                    + "VALUES(" + newId + "," + description + ", " + userId + ";");
-        }
-        return -1;
+        String newId = UUID.randomUUID().toString();
+        return db.insertData("comprapersonal(compraid, descripcion, usuid) " 
+                + "VALUES(" + newId + "," + description + ", " + userId + ";");
     }
     
     public MeetingPurchase getMeetingPurchase(String purchaseId) {
@@ -75,25 +65,7 @@ public class PurchaseController {
         String sqlSentence = "WHERE compraid = " + purchaseId;
         return db.deleteData("comprapersonal", sqlSentence) != -1;
     }
-    
-    /**
-     * Creates a new bill after a personal purchase was made
-     * 
-     * @param purchaseId
-     * @param amount
-     * @return 
-     */
-    public boolean payPersonalPurchase(String purchaseId, Double amount) {
-        PersonalPurchase purchase = DBConnection.Instance().getPersonalPurchase(purchaseId);
-        if (purchase == null) return false;
-        DBConnection db = DBConnection.Instance();
-        String newId = UUID.randomUUID().toString();
-        db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
-                + "(" + newId + ", " + purchase.getDescription() + ", " + amount + ", " + true + ", "+ false + ", "+ LocalDateTime.now().toString() + ", "+
-                purchaseId + ", "+ null + ", "+ purchase.getUserId() + ", " + null + ");");
-        return true;
-    }
-    
+   
     /**
      * Creates a bill for every guest in a meeting
      * 
@@ -101,30 +73,38 @@ public class PurchaseController {
      * @param isPaid
      * @return 
      */
-    public boolean payMeetingPurchase(String purchaseId) {
+    public boolean payPersonalPurchase(String purchaseId, Double amount) {
         BillController bc = BillController.instance();
         DBConnection db = DBConnection.Instance();
-        MeetingPurchase purchase = db.getMeetingPurchase(purchaseId);
-        Meeting meeting = db.getMeeting(purchase.getMeetingId());
-        String meetingOrganizer = meeting.getUsuOrgId();
-        String newId = UUID.randomUUID().toString();
-        Invited[] inv = db.getInvited(meeting.getMeetingId()); //EL METODO NO ESTA ASI, PERO DEBERIAS PASAR UNA REUNION Y DEBERIA DEVOLVER
-                                                                // UNA LISTA DE INVITADOS, NO TIENE SENTIDO PASAR UN ID DE USUARIO CUANDO NO 
-                                                                //DEBERIAS SABER CADA UNO DE TUS INVITADOS (EN EL METODO)
-        Double amountPerEach = purchase.getAmount() / (inv.length + 1); //The organizer is not in inv, but still pays his part
-        for (Invited invited : inv) {
-            db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
-                + "(" + newId + ", " + purchase.getDescription() + amountPerEach + ", " + false + ", "+ false + ", "+ meeting.getDate() + ", "+
-                purchaseId + ", "+ null + ", "+ invited.getUserId() + ", " + meetingOrganizer + ");");
-            
-            db.insertData("Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, usuid, usuidreferencia) VALUES "
-                + "(" + newId + ", " + purchase.getDescription() + amountPerEach + ", " + false + ", "+ true + ", "+ meeting.getDate() + ", "+
-                purchaseId + ", "+ null + ", "+ meetingOrganizer + ", " + invited.getUserId() + ");");
-        }
-        
-        //bc.createBill(purchaseId, Double.NaN, purchaseId, purchaseId, purchaseId, purchaseId, purchaseId, true, true);
-                
-        return true;
+        PersonalPurchase purchase = db.getPersonalPurchase(purchaseId);
+        if (purchase == null) return false;
+        User purchaseOwner = db.getUser(purchase.getUserId());
+        if (purchaseOwner == null) return false;
+        return bc.createBill(purchase.getDescription(), amount, null, purchaseId, null, purchaseOwner.getUserName(), null, false, true) != -1;
     }
     
+    public boolean addPersonalPurchaseLine(String puchaseId, String name, Double quantity) {
+        DBConnection db = DBConnection.Instance();
+        PersonalPurchase purchase = db.getPersonalPurchase(puchaseId);
+        if (purchase == null) return false;
+        String newId = UUID.randomUUID().toString();
+        return db.insertData("compralinea(lineaid, compraid, nombre, cantidad) values(" + newId + ", " + puchaseId + ", " + name+ ", " 
+        + quantity + ");") != -1;
+    }
+    //VER!!!    
+    public boolean deletePersonalPurchaseLine(String puchaseId, String lineId) {
+        DBConnection db = DBConnection.Instance();
+        PurchaseLine pl = db.getPurchaseLine(lineId, puchaseId);
+        db.deleteData(lineId, lineId);
+    }
+    
+    public boolean addMeetingPurchaseLine(String puchaseId, String name, Double quantity) {
+        DBConnection db = DBConnection.Instance();
+        MeetingPurchase purchase = db.getMeetingPurchase(puchaseId);
+        if (purchase == null) return false;
+        String newId = UUID.randomUUID().toString();
+        return db.insertData("compralinea(lineaid, compraid, nombre, cantidad) values(" + newId + ", " + puchaseId + ", " + name+ ", " 
+        + quantity + ");") != -1;
+    }
+   
 }

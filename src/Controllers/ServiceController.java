@@ -9,6 +9,7 @@ import java.util.UUID;
 import projectbd.DBConnection;
 import projectbd.Models.Meeting;
 import projectbd.Models.MeetingService;
+import projectbd.Models.PersonalPurchase;
 import projectbd.Models.PersonalService;
 import projectbd.Models.User;
 
@@ -72,5 +73,15 @@ public class ServiceController {
         DBConnection db = DBConnection.Instance();
         String sqlSentence = "WHERE idservicio = " + serviceId;
         return db.deleteData("serviciopersonal",  sqlSentence) != -1;
+    }
+    
+    public boolean payPersonalService(String serviceId, Double amount) {
+        BillController bc = BillController.instance();
+        DBConnection db = DBConnection.Instance();
+        PersonalService service = db.getPersonalService(serviceId);
+        if (service == null) return false;
+        User purchaseOwner = db.getUser(service.getUserId());
+        if (purchaseOwner == null) return false;
+        return bc.createBill(service.getDescription(), amount, null, null, service.getServiceId(), purchaseOwner.getUserName(), null, false, true) != -1;
     }
 }

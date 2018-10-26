@@ -47,8 +47,8 @@ public class LoginController {
         DBConnection db = DBConnection.Instance();
         if (!userName.isEmpty() && userName.length() < 40 && password.length() > 4 && password.length() < 20 
                 && name.length() > 3 && dir.length() > 5 && mail.contains("@")) {
-            db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES (" + userName + ", " +
-                    name  + ", "+ dir + ", " + mail + ")");
+            UserController uc = UserController.getInstanceUser();
+            uc.createUser(userName, password, name, dir, mail);
             MainController mc = MainController.instance();
             User currentUser = new User(userName, name, password, dir, mail);
             mc.setCurrentUser(currentUser);
@@ -56,4 +56,23 @@ public class LoginController {
         }
         return null;
     }
+    
+    public String forgottenContrasena(String userName) {
+        DBConnection db = DBConnection.Instance();
+        User user = db.getUser(userName);
+        if (user == null) return '';
+        return user.getPassword();
+    }
+    
+    public boolean updatePassword(String userName, String mail, String newPassword) {
+        DBConnection db= DBConnection.Instance();
+        User user = db.getUser(userName);
+        long result;
+        String data1 = "usuarios set usupass = " + newPassword + " where usuid = " + userName;
+        if (user.getEmail().equals(mail)) {
+            result = db.updateData(data1);
+        }
+        return result != -1;
+    }
 }
+

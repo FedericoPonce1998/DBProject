@@ -23,7 +23,7 @@ public class ProjectBD {
         //db.createDataBase();
         boolean success = db.createTable("CREATE TABLE IF NOT EXISTS Usuarios(usuid varchar(40) NOT NULL PRIMARY KEY, usunom varchar(100) NOT NULL, usudir varchar(100), usumail varchar(50) NOT NULL, usupass varchar(15) NOT NULL)");
         System.out.println("Usuario " + success);
-        success = db.createTable("CREATE TABLE IF NOT EXISTS Reunion(reunionid SERIAL NOT NULL PRIMARY KEY, fecha TIMESTAMP NOT NULL, lugar varchar(100) NOT NULL, descripcion varchar(255), organizadorid varchar(40) NOT NULL, FOREIGN KEY (organizadorid) REFERENCES Usuarios(usuid))");
+        success = db.createTable("CREATE TABLE IF NOT EXISTS Reunion(reunionid SERIAL NOT NULL PRIMARY KEY, fecha TIMESTAMP NOT NULL, lugar varchar(100) NOT NULL, descripcion varchar(255), organizadorid varchar(40) NOT NULL, FOREIGN KEY (organizadorid) REFERENCES Usuarios(usuid), nopagan)");
         System.out.println("Reunion " + success);
         success = db.createTable("CREATE TABLE IF NOT EXISTS CompraPersonal(compraid SERIAL NOT NULL PRIMARY KEY, descripcion varchar(255), usuid varchar(40) NOT NULL REFERENCES Usuarios (usuid))");
         System.out.println("CompraPersonal " + success); 

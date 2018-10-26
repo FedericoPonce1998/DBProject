@@ -23,7 +23,10 @@ public class Meeting {
     private String place,
             description;
     private String usuOrgId;
+    private String purchaseId;
+    private String serviceId;
     private String[] usuInvitedId;
+    
     public Meeting(String meetingId, String place, String date, String description, String organizer) {
         this.meetingId = meetingId;
         this. place = place;
@@ -71,5 +74,31 @@ public class Meeting {
     public String getUsuOrgId() {
         return this.usuOrgId;
     }
+
+    public String getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(String purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String[] getUsuInvitedId() {
+        return usuInvitedId;
+    }
+
+    public void setUsuInvitedId(String[] usuInvitedId) {
+        this.usuInvitedId = usuInvitedId;
+    }
+    
+    
     
 }

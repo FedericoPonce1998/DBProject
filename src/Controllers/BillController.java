@@ -26,7 +26,20 @@ public class BillController {
         return instance;
     }
     
-    public long createBill(String name, Double price, String deadline, String purchaseId, String serviceId, String usuId, String usuReferenceId, boolean isInput, boolean isPaid) {
+    /**
+     * Inserts a bill into data base
+     * @param name
+     * @param price
+     * @param deadline
+     * @param purchaseId
+     * @param serviceId
+     * @param usuId
+     * @param referenceId
+     * @param isInput
+     * @param isPaid
+     * @return 
+     */
+    public long createBill(String name, Double price, String deadline, String purchaseId, String serviceId, String usuId, String referenceId, boolean isInput, boolean isPaid) {
         DBConnection db = DBConnection.Instance();
         //firts I have to check if the meeting exists
         
@@ -36,8 +49,8 @@ public class BillController {
             String data = "Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioidvicio, "
                             + "usuid, usuidReferencia) VALUES (" + newId + ", " + name + ", " + price + ", " + isPaid + ", " + isInput + ", " + 
                             deadline + ", " + purchaseId + ", " + serviceId + ", " + usuId;
-            if (!usuReferenceId.isEmpty()) {
-                User usuref = db.getUser(usuReferenceId);
+            if (!referenceId.isEmpty()) {
+                User usuref = db.getUser(referenceId);
                 
                 if (usuref != null) {
                     //crear con usuref
@@ -65,8 +78,8 @@ public class BillController {
         Bill bill = db.getBill(billId);
         if (bill != null){
             String billRefId = bill.getBillReferenceId();
-            String data1 = "gasto set estapago = true where gastoId = billId;";
-            String data2 = "gasto set estapago = true where gastoId = billRefId;";
+            String data1 = "gasto set estapago = true where gastoId = " + billId;
+            String data2 = "gasto set estapago = true where gastoId = " + billRefId;
             db.updateData(data1);
             db.updateData(data2);
             return true;
