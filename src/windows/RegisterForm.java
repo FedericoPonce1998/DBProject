@@ -45,8 +45,8 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPasswordFirst = new javax.swing.JPasswordField();
         jPasswordSecond = new javax.swing.JPasswordField();
-        jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,10 +72,10 @@ public class RegisterForm extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, 20));
 
         jLabel5.setText("Direccion:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
 
         jLabel6.setText("Mail: ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
 
         jTextUserName.setText("jTextField1");
         getContentPane().add(jTextUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
@@ -83,8 +83,13 @@ public class RegisterForm extends javax.swing.JFrame {
         jTextAddress.setText("jTextField1");
         getContentPane().add(jTextAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, -1));
 
-        jTextMail.setText("jTextField1");
-        getContentPane().add(jTextMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
+        jTextMail.setText("Ingrese su mail");
+        jTextMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextMailActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 240, -1));
 
         jTextName.setText("jTextField1");
         getContentPane().add(jTextName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
@@ -98,10 +103,6 @@ public class RegisterForm extends javax.swing.JFrame {
         jPasswordSecond.setText("jPasswordField2");
         getContentPane().add(jPasswordSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, -1, -1));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-icon.png"))); // NOI18N
-        jLabel8.setText("jLabel8");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 90, 60));
-
         jButton2.setText("Registrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +110,9 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arroba-icon.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 90, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 498, 677));
@@ -148,6 +152,10 @@ public class RegisterForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextMailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextMailActionPerformed
 
     /**
      * @param args the command line arguments
