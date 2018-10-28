@@ -5,6 +5,7 @@
  */
 package projectbd;
 
+import com.sun.istack.internal.FinalArrayList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectbd.Models.Bill;
+import projectbd.Models.Friends;
 import projectbd.Models.Invited;
 import projectbd.Models.Meeting;
 import projectbd.Models.MeetingPurchase;
@@ -294,6 +296,26 @@ public class DBConnection {
             System.out.println(ex.getMessage());
         }
         return null;
+    }
+    
+    public ArrayList<Friends> getFriends(String userId) throws SQLException{
+        String sqlSentence = "select * from amigos where usuiduno = '"+ userId+"';" ;
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(sqlSentence)){
+                    ArrayList<Friends> output = new ArrayList<>();
+                    while (rs.next()){
+                        String usuiIdDos = rs.getString("usuiddos");
+                        Friends friend = new Friends(userId, usuiIdDos);
+                        output.add(friend);
+                    }
+                    return output;
+                }catch (SQLException ex){
+                         System.out.println(ex.getMessage());
+                        }
+        return null;
+           
+        
     }
     
 }

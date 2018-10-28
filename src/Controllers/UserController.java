@@ -14,13 +14,7 @@ import projectbd.Models.User;
  * @author Mayra
  */
 public class UserController {
-    //Agregar amigo
-    //Eliminar amigo
-    //agregar compra
-    //agregar servicio
-    //agregar reunion
-    //eliminar, compra, servicio, reunion 
-    //Agregar gasto 
+    
     private static UserController instance;
     
     private UserController() {}

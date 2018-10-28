@@ -5,7 +5,14 @@
  */
 package windows;
 
+import Controllers.FriendController;
+import Controllers.MainController;
+import Controllers.MeetingController;
+import Controllers.UserController;
+import javax.swing.JComboBox;
+import projectbd.Models.Friends;
 import projectbd.Models.User;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +25,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
      */
     public AddReunionInterface() {
         initComponents();
+        listAmigos.setListData(getFriendsList());
     }
 
     /**
@@ -29,75 +37,127 @@ public class AddReunionInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        localeEditor1 = new com.toedter.components.LocaleEditor();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : ((javax.persistence.Query)null).getResultList();
+        list2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : ((javax.persistence.Query)null).getResultList();
+        popupMenu1 = new java.awt.PopupMenu();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
         jTextPlace = new javax.swing.JTextField();
         jTextDescription = new javax.swing.JTextField();
-        jComboBoxOrganizer = new javax.swing.JComboBox<>();
-        jDate = new javax.swing.JTextField();
         jButtonAdd = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listAmigos = new javax.swing.JList<>();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
 
+        jLabel6.setText("jLabel6");
+
+        jLabel7.setText("jLabel7");
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
+
+        jRadioButtonMenuItem2.setSelected(true);
+        jRadioButtonMenuItem2.setText("jRadioButtonMenuItem2");
+
+        jRadioButtonMenuItem3.setSelected(true);
+        jRadioButtonMenuItem3.setText("jRadioButtonMenuItem3");
+
+        jRadioButtonMenuItem4.setSelected(true);
+        jRadioButtonMenuItem4.setText("jRadioButtonMenuItem4");
+
+        popupMenu1.setLabel("popupMenu1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(640, 980));
+        setPreferredSize(new java.awt.Dimension(300, 480));
+        setResizable(false);
+        setSize(new java.awt.Dimension(640, 980));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Fecha:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jTextPlace.setToolTipText("");
+        jTextPlace.setName("txtLugar"); // NOI18N
+        getContentPane().add(jTextPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 188, 25));
 
-        jLabel3.setText("Organizador:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
-
-        jLabel4.setText("Descripcion:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
-
-        jLabel5.setText("Lugar:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
-
-        jTextPlace.setText("jTextField1");
-        getContentPane().add(jTextPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
-
-        jTextDescription.setText("jTextField1");
+        jTextDescription.setToolTipText("Descripción");
         jTextDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextDescriptionActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
-
-        jComboBoxOrganizer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxOrganizer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxOrganizerActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jComboBoxOrganizer, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, -1, -1));
-
-        jDate.setText("cambiar");
-        getContentPane().add(jDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        getContentPane().add(jTextDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 188, 25));
 
         jButtonAdd.setText("Agregar");
+        jButtonAdd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, -1, -1));
+        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 60, -1));
 
-        jButton1.setBackground(new java.awt.Color(102, 153, 255));
-        jButton1.setForeground(new java.awt.Color(0, 143, 255));
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/map-icon.png"))); // NOI18N
+        jLabel8.setToolTipText("Lugar");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 130, 70, 70));
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 140, 120, 160));
+        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 25));
+
+        jButton2.setText("Cancelar");
+        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 90, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 60, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people-icon.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 190, 130, 190));
+
+        listAmigos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listAmigos.setToolTipText("Invitados");
+        listAmigos.setMaximumSize(new java.awt.Dimension(158, 75));
+        listAmigos.setMinimumSize(new java.awt.Dimension(158, 75));
+        listAmigos.setName("listAmigos"); // NOI18N
+        listAmigos.setPreferredSize(new java.awt.Dimension(158, 75));
+        jScrollPane1.setViewportView(listAmigos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 190, 40));
+
+        try {
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextField1.setText("00:00");
+        getContentPane().add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 40, 25));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 498, 677));
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -106,22 +166,34 @@ public class AddReunionInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextDescriptionActionPerformed
 
-    private void jComboBoxOrganizerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOrganizerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxOrganizerActionPerformed
-
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        String date = jDate.getText(),
-               description = jTextDescription.getText(),
-               place = jTextPlace.getText();
-        User org = (User) jComboBoxOrganizer.getSelectedItem();
+        //String date = jDate.getText(),
+               //description = jTextDescription.getText(),
+               //place = jTextPlace.getText();
+        //User org = (User) jComboBoxOrganizer.getSelectedItem();
+       
+        
        // MeetingController mc = MeetingController.addMeeting(place, description, date, user);
         
+       
+       
     }//GEN-LAST:event_jButtonAddActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    private String[] getFriendsList(){
+        MainController mainC = MainController.instance();
+        User loggedUser = mainC.getCurrentUser();
+        ArrayList<Friends> friendsList = FriendController.getInstanceFriend().getFriends(loggedUser.getUserName());
+        String[] output = new String[friendsList.size()];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = friendsList.get(i).getUserId2();
+        }
+        return output;
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,16 +231,32 @@ public class AddReunionInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdd;
-    private javax.swing.JComboBox<String> jComboBoxOrganizer;
-    private javax.swing.JTextField jDate;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextDescription;
     private javax.swing.JTextField jTextPlace;
+    private java.util.List list1;
+    private java.util.List list2;
+    private javax.swing.JList<String> listAmigos;
+    private com.toedter.components.LocaleEditor localeEditor1;
+    private java.awt.PopupMenu popupMenu1;
     // End of variables declaration//GEN-END:variables
 }
