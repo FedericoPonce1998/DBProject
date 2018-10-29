@@ -70,4 +70,14 @@ public class MeetingController {
         if (invited == null) return false;
         return db.insertData("invitados(reunionid, usuid) values(" + meetingId + ", " + invitedId + ");") != -1;
     }
+    
+    public boolean rejectInivitation(String invitedId, String meetingId) {
+        DBConnection db = DBConnection.Instance();
+        Meeting meeting = db.getMeeting(meetingId);
+        if (meeting == null) return false;
+        User invited = db.getUser(invitedId);
+        if (invited == null) return false;
+        String data = "where usuid = " + invitedId + "and reunionid = " + meetingId + ");";
+        return db.deleteData("invitados",data) != -1;
+    }
 }

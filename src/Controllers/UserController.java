@@ -31,8 +31,14 @@ public class UserController {
         User user = db.getUser(userId);
         User user2 = db.getUser(userIdFriend);
         if (user != null && user2 != null) {
-            return db.insertData("amigos(usuiduno, usuiddos) " 
-                    + "VALUES(" + userId + "," + userIdFriend + ";");
+            if (userId.compareTo(userIdFriend) < 0){
+                return db.insertData("amigos(usuiduno, usuiddos) " 
+                        + "VALUES(" + userIdFriend + "," + userId + ";");
+            }
+            else {
+                return db.insertData("amigos(usuiduno, usuiddos) " 
+                        + "VALUES(" + userId + "," + userIdFriend + ";");
+            }
         }
         return -1;
     }
