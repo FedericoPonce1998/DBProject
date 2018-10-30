@@ -3,18 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/look-up-icon.png</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/people-icon.png</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/HomeInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/MainController.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/menu-icon.png</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/projectbd/DBConnection.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/map-icon.png</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/PurchaseController.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/ServiceController.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/projectbd/Models/Bill.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/edit-icon.png</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/RegisterForm.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddReunionInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/MeetingController.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/projectbd/ProjectBD.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/preceleste%20(1).png</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/projectbd/Models/Friends.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/home-icon.png</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/UserController.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/LoginInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/person-icon.png</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/cellphone-icon.png</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/BillController.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/LoginController.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/projectbd/Models/PurchaseLine.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/RegisterForm.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/UserController.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/LoginInterface.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/MeetingController.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/MainController.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/projectbd/ProjectBD.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/images/calendar-icon.png</file>
         </group>
     </open-files>
 </project-private>

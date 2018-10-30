@@ -80,11 +80,7 @@ public class HomeInterface extends javax.swing.JFrame {
         jMenu13 = new javax.swing.JMenu();
         jMenu14 = new javax.swing.JMenu();
         menuIcon = new javax.swing.JLabel();
-        animatedLabel1 = new com.jgoodies.animation.components.AnimatedLabel();
         jLabel2 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
 
@@ -174,9 +170,7 @@ public class HomeInterface extends javax.swing.JFrame {
         jMenuBar5.add(jMenu14);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         menuIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
@@ -186,19 +180,10 @@ public class HomeInterface extends javax.swing.JFrame {
             }
         });
         getContentPane().add(menuIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -50, 100, 120));
-        getContentPane().add(animatedLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
         jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 290, 210));
-
-        jMenu3.setText("File");
-        jMenuBar1.add(jMenu3);
-
-        jMenu6.setText("Edit");
-        jMenuBar1.add(jMenu6);
-
-        setJMenuBar(jMenuBar1);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 290, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -243,7 +228,6 @@ public class HomeInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.jgoodies.animation.components.AnimatedLabel animatedLabel1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel2;
@@ -254,12 +238,9 @@ public class HomeInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuBar jMenuBar5;

@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import projectbd.Models.Friends;
 import projectbd.Models.User;
 import java.util.ArrayList;
+import projectbd.DBConnection;
 
 /**
  *
@@ -20,12 +21,17 @@ import java.util.ArrayList;
  */
 public class AddReunionInterface extends javax.swing.JFrame {
 
+    private ArrayList<Friends> listOfFriends;
+    private ArrayList<String> selectedFriends;
     /**
      * Creates new form AddReunionInterface
      */
     public AddReunionInterface() {
         initComponents();
         listAmigos.setListData(getFriendsList());
+        listOfFriends = new ArrayList<>();
+        selectedFriends = new ArrayList<>();
+         
     }
 
     /**
@@ -39,7 +45,6 @@ public class AddReunionInterface extends javax.swing.JFrame {
 
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        localeEditor1 = new com.toedter.components.LocaleEditor();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
@@ -52,18 +57,25 @@ public class AddReunionInterface extends javax.swing.JFrame {
         popupMenu1 = new java.awt.PopupMenu();
         buttonGroup4 = new javax.swing.ButtonGroup();
         buttonGroup5 = new javax.swing.ButtonGroup();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jTextPlace = new javax.swing.JTextField();
         jTextDescription = new javax.swing.JTextField();
         jButtonAdd = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listAmigos = new javax.swing.JList<>();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButtonAdd1 = new javax.swing.JButton();
+        jButtonAdd2 = new javax.swing.JButton();
+        listSelectedFriends = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         jLabel6.setText("jLabel6");
 
@@ -83,16 +95,18 @@ public class AddReunionInterface extends javax.swing.JFrame {
 
         popupMenu1.setLabel("popupMenu1");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(640, 980));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(640, 980));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextPlace.setToolTipText("");
         jTextPlace.setName("txtLugar"); // NOI18N
-        getContentPane().add(jTextPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 188, 25));
+        getContentPane().add(jTextPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 200, 25));
 
         jTextDescription.setToolTipText("Descripción");
         jTextDescription.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +114,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
                 jTextDescriptionActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 188, 25));
+        getContentPane().add(jTextDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 200, 25));
 
         jButtonAdd.setText("Agregar");
         jButtonAdd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -109,7 +123,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
                 jButtonAddActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 60, -1));
+        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 60, -1));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/map-icon.png"))); // NOI18N
@@ -119,7 +133,6 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 140, 120, 160));
-        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 25));
 
         jButton2.setText("Cancelar");
         jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -128,7 +141,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 60, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, 60, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people-icon.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 190, 130, 190));
@@ -145,7 +158,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         listAmigos.setPreferredSize(new java.awt.Dimension(158, 75));
         jScrollPane1.setViewportView(listAmigos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 190, 40));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 200, 40));
 
         try {
             jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
@@ -153,11 +166,41 @@ public class AddReunionInterface extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jFormattedTextField1.setText("00:00");
-        getContentPane().add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 40, 25));
+        getContentPane().add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 60, 25));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/description-icon.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 60, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clock-icon.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+
+        jButtonAdd1.setText("Invitar");
+        jButtonAdd1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonAdd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdd1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 60, -1));
+
+        jButtonAdd2.setText("Eliminar");
+        jButtonAdd2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonAdd2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdd2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAdd2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 60, -1));
+        getContentPane().add(listSelectedFriends, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 200, 90));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 520));
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/map-icon.png"))); // NOI18N
+        jLabel10.setToolTipText("Lugar");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 130, 70, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -183,10 +226,10 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private String[] getFriendsList(){
         MainController mainC = MainController.instance();
         User loggedUser = mainC.getCurrentUser();
-        ArrayList<Friends> friendsList = FriendController.getInstanceFriend().getFriends(loggedUser.getUserName());
-        String[] output = new String[friendsList.size()];
+        this.listOfFriends = FriendController.getInstanceFriend().getFriends(loggedUser.getUserName());
+        String[] output = new String[listOfFriends.size()];
         for (int i = 0; i < output.length; i++) {
-            output[i] = friendsList.get(i).getUserId2();
+            output[i] = listOfFriends.get(i).getUserId2();
         }
         return output;
     }
@@ -194,6 +237,15 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd1ActionPerformed
+        String selectedFriend = listAmigos.getSelectedValue();
+        selectedFriends.add(selectedFriend);
+    }//GEN-LAST:event_jButtonAdd1ActionPerformed
+
+    private void jButtonAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAdd2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,10 +290,14 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdd;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JButton jButtonAdd1;
+    private javax.swing.JButton jButtonAdd2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -251,12 +307,14 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextDescription;
     private javax.swing.JTextField jTextPlace;
     private java.util.List list1;
     private java.util.List list2;
     private javax.swing.JList<String> listAmigos;
-    private com.toedter.components.LocaleEditor localeEditor1;
+    private java.awt.List listSelectedFriends;
     private java.awt.PopupMenu popupMenu1;
     // End of variables declaration//GEN-END:variables
 }
