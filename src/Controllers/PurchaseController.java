@@ -8,12 +8,12 @@ package Controllers;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import projectbd.DBConnection;
-import projectbd.Models.Invited;
-import projectbd.Models.Meeting;
-import projectbd.Models.MeetingPurchase;
-import projectbd.Models.PersonalPurchase;
-import projectbd.Models.PurchaseLine;
-import projectbd.Models.User;
+import Models.Invited;
+import Models.Meeting;
+import Models.MeetingPurchase;
+import Models.PersonalPurchase;
+import Models.PurchaseLine;
+import Models.User;
 
 /**
  *
