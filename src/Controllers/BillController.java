@@ -7,8 +7,7 @@ package Controllers;
 
 import java.util.UUID;
 import projectbd.DBConnection;
-import projectbd.Models.Bill;
-import projectbd.Models.User;
+import Models.User;
 
 /**
  *
