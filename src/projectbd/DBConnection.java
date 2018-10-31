@@ -5,7 +5,6 @@
  */
 package projectbd;
 
-import com.sun.istack.internal.FinalArrayList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,16 +14,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectbd.Models.Bill;
-import projectbd.Models.Friends;
-import projectbd.Models.Invited;
-import projectbd.Models.Meeting;
-import projectbd.Models.MeetingPurchase;
-import projectbd.Models.MeetingService;
-import projectbd.Models.PersonalPurchase;
-import projectbd.Models.PersonalService;
-import projectbd.Models.PurchaseLine;
-import projectbd.Models.User;
+import Models.Bill;
+import Models.Friends;
+import Models.Invited;
+import Models.Meeting;
+import Models.MeetingPurchase;
+import Models.MeetingService;
+import Models.PersonalPurchase;
+import Models.PersonalService;
+import Models.PurchaseLine;
+import Models.User;
 
 /**
  *
