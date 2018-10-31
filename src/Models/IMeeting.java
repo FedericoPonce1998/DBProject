@@ -3,19 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectbd.Models;
+package Models;
 
-import java.util.UUID;
 
 /**
  *
  * @author federicoponcedeleon
  */
-public interface IPurchase {
+public interface IMeeting {
     
-    public String getIdCompra();
+    public String getServiceId();
+    
+    public String getName();
+
+    public void setName(String name);
+
+    public String getCompany();
+    public void setCompany(String company);
 
     public String getDescription();
 
     public void setDescription(String description);
+    
+    
 }

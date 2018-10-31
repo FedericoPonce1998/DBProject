@@ -7,7 +7,7 @@ package Controllers;
 
 import java.sql.SQLException;
 import projectbd.DBConnection;
-import projectbd.Models.Friends;
+import Models.Friends;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -4,19 +4,22 @@
  * and open the template in the editor.
  */
 package windows;
-import AppPackage.AnimationClass;
 /**
  *
  * @author federicoponcedeleon
  */
 public class HomeInterface extends javax.swing.JFrame {
 
+    MenuInterface menu;
     /**
      * Creates new form HomeInterface
      */
     public HomeInterface() {
         initComponents();
         this.setLocationRelativeTo(null);
+        menu = new MenuInterface();
+        menu.setVisible(false);
+        menu.setLocationRelativeTo(this);
     }
 
     /**
@@ -181,15 +184,15 @@ public class HomeInterface extends javax.swing.JFrame {
         });
         getContentPane().add(menuIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -50, 100, 120));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 290, 290));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 290, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuIconMouseClicked
-        AnimationClass 
+        menu.setVisible(true);
     }//GEN-LAST:event_menuIconMouseClicked
 
     /**

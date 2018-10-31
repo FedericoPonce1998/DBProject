@@ -5,7 +5,9 @@
  */
 package Controllers;
 
-import projectbd.Models.User;
+import com.oracle.webservices.internal.api.message.MessageContext;
+import Models.User;
+import windows.MessageContainer;
 
 /**
  *
@@ -14,8 +16,12 @@ import projectbd.Models.User;
 public class MainController {
     private static MainController instance;
     private User currentUser;
+    private final MessageContainer messageContainer;
     
-    private MainController() {}
+    private MainController() {
+        this.messageContainer = new MessageContainer();
+        messageContainer.setVisible(false);
+    }
     
     public static MainController instance() {
         if (instance == null) {     
@@ -30,5 +36,15 @@ public class MainController {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public void showMessage(String message) {
+        this.messageContainer.setMessage(message);
+        this.messageContainer.setVisible(true);
+    }
+    
+    public void hideMessage() {
+        this.messageContainer.setMessage("");
+        this.messageContainer.setVisible(false);
     }
 }

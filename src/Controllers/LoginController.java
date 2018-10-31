@@ -7,7 +7,7 @@ package Controllers;
 
 import java.sql.SQLException;
 import projectbd.DBConnection;
-import projectbd.Models.User;
+import Models.User;
 
 /**
  *

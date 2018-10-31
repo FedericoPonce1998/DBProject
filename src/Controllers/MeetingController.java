@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 import projectbd.DBConnection;
-import projectbd.Models.Invited;
-import projectbd.Models.Meeting;
-import projectbd.Models.MeetingPurchase;
-import projectbd.Models.MeetingService;
-import projectbd.Models.User;
+import Models.Invited;
+import Models.Meeting;
+import Models.MeetingPurchase;
+import Models.MeetingService;
+import Models.User;
 
 /**
  *

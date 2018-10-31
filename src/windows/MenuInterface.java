@@ -5,8 +5,7 @@
  */
 package windows;
 
-import apple.laf.JRSUIConstants;
-import javafx.animation.Animation;
+import Animacion.Animacion;
 
 /**
  *
@@ -31,49 +30,84 @@ public class MenuInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelPurchaseImg = new javax.swing.JLabel();
+        jLabelMeetingImg = new javax.swing.JLabel();
+        jLabelBillImg = new javax.swing.JLabel();
+        jLabelFriendImg = new javax.swing.JLabel();
         jLabelPurchase = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabelServiceImg = new javax.swing.JLabel();
         jLabelMeeting = new javax.swing.JLabel();
         jLabelFriends = new javax.swing.JLabel();
         jLabelBill = new javax.swing.JLabel();
         jLabelService = new javax.swing.JLabel();
         jLabelAddFriend = new javax.swing.JLabel();
         jLabelRemoveFriend = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jLabelListFriends = new javax.swing.JLabel();
+        jLabelListMeeting = new javax.swing.JLabel();
+        jLabelAddMeeting = new javax.swing.JLabel();
+        jLabelRemoveMeeting = new javax.swing.JLabel();
+        jLabelListOrDeleteFriend = new javax.swing.JLabel();
+        jLabelAddFriend2 = new javax.swing.JLabel();
+        jLabelAddMeeting2 = new javax.swing.JLabel();
+        jLabelListAllMeetings = new javax.swing.JLabel();
+        jLabelListAssisted = new javax.swing.JLabel();
+        jLabelListDidntAssisted = new javax.swing.JLabel();
+        jLabelListOrganized = new javax.swing.JLabel();
+        jLabelListOrDeletePurchase = new javax.swing.JLabel();
+        jLabelAddPurchase2 = new javax.swing.JLabel();
+        jLabelListOrDeleteService = new javax.swing.JLabel();
+        jLabelAddService2 = new javax.swing.JLabel();
+        jLabelListDidntCharged = new javax.swing.JLabel();
+        jLabelAddBill2 = new javax.swing.JLabel();
+        jLabelListPaidBills = new javax.swing.JLabel();
+        jLabelListDidntPayBills = new javax.swing.JLabel();
+        jLabelListAllBills = new javax.swing.JLabel();
+        jLabelListCharged = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(300, 480));
+        setMaximumSize(new java.awt.Dimension(250, 360));
+        setMinimumSize(new java.awt.Dimension(250, 360));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(250, 360));
         setResizable(false);
+        setSize(new java.awt.Dimension(250, 360));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/purchase-icon.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 110, 90, 80));
+        jLabelPurchaseImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/purchase-icon.png"))); // NOI18N
+        getContentPane().add(jLabelPurchaseImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 110, 90, 80));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/meeting-icon.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 20, -1, -1));
+        jLabelMeetingImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/meeting-icon.png"))); // NOI18N
+        getContentPane().add(jLabelMeetingImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 20, -1, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bill-icon.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 200, -1, -1));
+        jLabelBillImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bill-icon.png"))); // NOI18N
+        getContentPane().add(jLabelBillImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 200, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/friends-icon.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -40, -1, -1));
+        jLabelFriendImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/friends-icon.png"))); // NOI18N
+        getContentPane().add(jLabelFriendImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -40, -1, -1));
 
         jLabelPurchase.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabelPurchase.setText("Compras");
+        jLabelPurchase.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelPurchaseMouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabelPurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 110, 50));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/service-icon.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 150, -1, -1));
+        jLabelServiceImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/service-icon.png"))); // NOI18N
+        getContentPane().add(jLabelServiceImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 150, -1, -1));
 
         jLabelMeeting.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabelMeeting.setText("Reuniones");
+        jLabelMeeting.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelMeetingMouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabelMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, 50));
 
         jLabelFriends.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -87,28 +121,282 @@ public class MenuInterface extends javax.swing.JFrame {
 
         jLabelBill.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabelBill.setText("Gastos");
+        jLabelBill.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBillMouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabelBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 100, 50));
 
         jLabelService.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabelService.setText("Servicios");
+        jLabelService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelServiceMouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabelService, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 120, 50));
 
         jLabelAddFriend.setText("Agregar ");
-        getContentPane().add(jLabelAddFriend, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 190, -1));
+        getContentPane().add(jLabelAddFriend, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 190, -1));
 
         jLabelRemoveFriend.setText("Eliminar ");
-        getContentPane().add(jLabelRemoveFriend, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 220, 40));
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 290, 450));
+        getContentPane().add(jLabelRemoveFriend, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 220, 40));
+
+        jLabelListFriends.setText("Ver amigos");
+        getContentPane().add(jLabelListFriends, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 180, -1));
+
+        jLabelListMeeting.setText("Ver");
+        getContentPane().add(jLabelListMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 100, -1));
+
+        jLabelAddMeeting.setText("Agregar");
+        getContentPane().add(jLabelAddMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 110, -1));
+
+        jLabelRemoveMeeting.setText("Eliminar");
+        getContentPane().add(jLabelRemoveMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 100, -1));
+
+        jLabelListOrDeleteFriend.setText("Ver / Eliminar");
+        getContentPane().add(jLabelListOrDeleteFriend, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelAddFriend2.setText("Agregar ");
+        getContentPane().add(jLabelAddFriend2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelAddMeeting2.setText("Agregar");
+        getContentPane().add(jLabelAddMeeting2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 190, -1));
+
+        jLabelListAllMeetings.setText("Ver todas");
+        getContentPane().add(jLabelListAllMeetings, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelListAssisted.setText("Ver asistidas");
+        getContentPane().add(jLabelListAssisted, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelListDidntAssisted.setText("Ver no asistidas");
+        getContentPane().add(jLabelListDidntAssisted, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelListOrganized.setText("Ver organizadas");
+        getContentPane().add(jLabelListOrganized, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelListOrDeletePurchase.setText("Ver / Eliminar");
+        getContentPane().add(jLabelListOrDeletePurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelAddPurchase2.setText("Agregar");
+        getContentPane().add(jLabelAddPurchase2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 140, -1));
+
+        jLabelListOrDeleteService.setText("Ver / Eliminar");
+        getContentPane().add(jLabelListOrDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelAddService2.setText("Agregar");
+        getContentPane().add(jLabelAddService2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 120, -1));
+
+        jLabelListDidntCharged.setText("Ver no cobrados");
+        getContentPane().add(jLabelListDidntCharged, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelAddBill2.setText("Agregar");
+        getContentPane().add(jLabelAddBill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, 160, -1));
+
+        jLabelListPaidBills.setText("Ver pagos");
+        getContentPane().add(jLabelListPaidBills, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelListDidntPayBills.setText("Ver no pagos");
+        getContentPane().add(jLabelListDidntPayBills, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelListAllBills.setText("Ver todos");
+        getContentPane().add(jLabelListAllBills, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabelListCharged.setText("Ver cobrados");
+        getContentPane().add(jLabelListCharged, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
+
+        jLabel2.setText("Cerrar");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelFriendsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFriendsMouseClicked
-        Animacion animacion = new Animacion();
-        animacion.bajar(100,40,1, jLabelRemoveFriend);
-        animacion.bajar(100,70,1, jLabelAddFriend);
+        if (jLabelAddMeeting2.getY() > 0) this.closeMeeting();
+        if (jLabelAddPurchase2.getY() > 0) this.closePurchase();
+        if (jLabelAddService2.getY() > 0) this.closeService();
+        if (jLabelAddBill2.getY() > 0) this.closeBill();
+        if (jLabelAddFriend2.getY() < 0) {
+            this.openFriends();
+        } 
+        else {
+            this.closeFriends();
+        }
     }//GEN-LAST:event_jLabelFriendsMouseClicked
 
+    private void openFriends() {
+        Animacion.bajar(-40, 51, 4, 2, jLabelAddFriend2);
+        Animacion.bajar(-40, 72, 4, 2, jLabelListOrDeleteFriend);
+        Animacion.bajar(60, 90, 4, 2, jLabelMeeting);
+        Animacion.bajar(20, 48, 6, 2, jLabelMeetingImg);
+        Animacion.bajar(120, 160, 4, 2, jLabelPurchase);
+        Animacion.bajar(110, 148, 6, 2, jLabelPurchaseImg);
+        Animacion.bajar(180, 220, 4, 2, jLabelService);
+        Animacion.bajar(150, 178, 6, 2, jLabelServiceImg);
+        Animacion.bajar(240, 280, 4, 2, jLabelBill);
+        Animacion.bajar(200, 238, 6, 2, jLabelBillImg);
+    }
+    
+    private void closeFriends() {
+        Animacion.subir(jLabelAddFriend.getY(), -40, 4, 2, jLabelAddFriend2);
+        Animacion.subir(jLabelListFriends.getY(), -40, 4, 2, jLabelListOrDeleteFriend);
+        Animacion.subir(jLabelMeeting.getY(), 60, 4, 2, jLabelMeeting);
+        Animacion.subir(jLabelMeetingImg.getY(), 20, 6, 2, jLabelMeetingImg);
+        Animacion.subir(jLabelPurchase.getY(), 120, 4, 2, jLabelPurchase);
+        Animacion.subir(jLabelPurchaseImg.getY(), 110, 6, 2, jLabelPurchaseImg);
+        Animacion.subir(jLabelService.getY(), 180, 4, 2, jLabelService);
+        Animacion.subir(jLabelServiceImg.getY(), 150, 6, 2, jLabelServiceImg);
+        Animacion.subir(jLabelBill.getY(), 240, 4, 2, jLabelBill);
+        Animacion.subir(jLabelBillImg.getY(), 200, 6, 2, jLabelBillImg);
+    }
+    
+    private void jLabelMeetingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMeetingMouseClicked
+        if (jLabelAddFriend2.getY() > 0) this.closeFriends();
+        if (jLabelAddPurchase2.getY() > 0) this.closePurchase();
+        if (jLabelAddService2.getY() > 0) this.closeService();
+        if (jLabelAddBill2.getY() > 0) this.closeBill();
+        if (jLabelAddMeeting2.getY() < 0) {
+            this.openMeeting();
+        } 
+        else {
+            this.closeMeeting();
+        }
+        
+    }//GEN-LAST:event_jLabelMeetingMouseClicked
+
+    private void jLabelPurchaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPurchaseMouseClicked
+        if (jLabelAddFriend2.getY() > 0) this.closeFriends();
+        if (jLabelAddMeeting2.getY() > 0) this.closeMeeting();
+        if (jLabelAddService2.getY() > 0) this.closeService();
+        if (jLabelAddBill2.getY() > 0) this.closeBill();
+        if (jLabelAddPurchase2.getY() < 0) {
+            this.openPurchase();
+        }
+        else {
+            this.closePurchase();
+        }
+    }//GEN-LAST:event_jLabelPurchaseMouseClicked
+
+    private void jLabelServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelServiceMouseClicked
+        if (jLabelAddFriend2.getY() > 0) this.closeFriends();
+        if (jLabelAddMeeting2.getY() > 0) this.closeMeeting();
+        if (jLabelAddPurchase2.getY() > 0) this.closePurchase();
+        if (jLabelAddBill2.getY() > 0) this.closeBill();
+        if (jLabelAddService2.getY() < 0) {
+            this.openService();
+        }
+        else {
+            this.closeService();
+        }
+    }//GEN-LAST:event_jLabelServiceMouseClicked
+
+    private void jLabelBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBillMouseClicked
+        if (jLabelAddFriend2.getY() > 0) this.closeFriends();
+        if (jLabelAddMeeting2.getY() > 0) this.closeMeeting();
+        if (jLabelAddPurchase2.getY() > 0) this.closePurchase();
+        if (jLabelAddService2.getY() > 0) this.closeService();
+        if (jLabelAddBill2.getY() < 0) {
+            this.openBill();
+        }
+        else {
+            this.closeBill();
+        }
+    }//GEN-LAST:event_jLabelBillMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void openBill(){
+        Animacion.bajar(-40, 280, 4, 2, jLabelAddBill2);
+        Animacion.bajar(-40, 302, 4, 2, jLabelListPaidBills);
+        Animacion.bajar(-40, 324, 4, 2, jLabelListDidntPayBills);
+        Animacion.bajar(-40, 346, 4, 2, jLabelListCharged);
+        Animacion.bajar(-40, 368, 4, 2, jLabelListDidntCharged);
+        Animacion.bajar(-40, 390, 4, 2, jLabelListAllBills);
+    }
+    
+    private void closeBill() {
+        Animacion.subir(jLabelAddBill2.getY(), -40, 4, 2, jLabelAddBill2);
+        Animacion.subir(jLabelListPaidBills.getY(), -40, 4, 2, jLabelListPaidBills);
+        Animacion.subir(jLabelListDidntPayBills.getY(), -40, 4, 2, jLabelListDidntPayBills);
+        Animacion.subir(jLabelListCharged.getY(), -40, 4, 2, jLabelListCharged);
+        Animacion.subir(jLabelListDidntCharged.getY(), -40, 4, 2, jLabelListDidntCharged);
+        Animacion.subir(jLabelListAllBills.getY(), -40, 4, 2, jLabelListAllBills);
+    }
+    
+    private void openService() {
+        Animacion.bajar(-40, 220, 4, 2, jLabelAddService2);
+        Animacion.bajar(-40, 241, 4, 2, jLabelListOrDeleteService);
+        Animacion.bajar(240, 260, 4, 2, jLabelBill);
+        Animacion.bajar(200, 218, 6, 2, jLabelBillImg);
+    }
+    
+    private void closeService() {
+        Animacion.subir(jLabelAddService2.getY(), -40, 4, 2, jLabelAddService2);
+        Animacion.subir(jLabelBill.getY(), -40, 4, 2, jLabelListOrDeleteService);
+        Animacion.subir(jLabelBill.getY(), 240, 4, 2, jLabelBill);
+        Animacion.subir(jLabelBillImg.getY(), 200, 6, 2, jLabelBillImg);
+    }
+    
+    private void openPurchase() {
+        
+        Animacion.bajar(-40, 160, 4, 2, jLabelAddPurchase2);
+        Animacion.bajar(-40, 183, 4, 2, jLabelListOrDeletePurchase);
+        Animacion.bajar(180, 210, 4, 2, jLabelService);
+        Animacion.bajar(150, 178, 6, 2, jLabelServiceImg);
+        Animacion.bajar(240, 280, 4, 2, jLabelBill);
+        Animacion.bajar(200, 238, 6, 2, jLabelBillImg);
+        
+        
+        
+    }
+    
+    private void closePurchase() {
+        Animacion.subir(jLabelAddPurchase2.getY(), -40, 4, 2, jLabelAddPurchase2);
+        Animacion.subir(jLabelListOrDeletePurchase.getY(), -40, 4, 2, jLabelListOrDeletePurchase);
+        Animacion.subir(jLabelService.getY(), 180, 4, 2, jLabelService);
+        Animacion.subir(jLabelServiceImg.getY(), 150, 6, 2, jLabelServiceImg);
+        Animacion.subir(jLabelBill.getY(), 240, 4, 2, jLabelBill);
+        Animacion.subir(jLabelBillImg.getY(), 200, 6, 2, jLabelBillImg);
+    }
+    
+    private void openMeeting() {
+        Animacion.bajar(-40, 100, 4, 2, jLabelAddMeeting2); //105
+        Animacion.bajar(-40, 121, 4, 2, jLabelListAssisted); //126
+        Animacion.bajar(-40, 142, 4, 2, jLabelListDidntAssisted); //147
+        Animacion.bajar(-40, 163, 4, 2, jLabelListOrganized); //147
+        Animacion.bajar(-40, 184, 4, 2, jLabelListAllMeetings); //147
+        Animacion.bajar(jLabelPurchase.getY(), 200, 4, 2, jLabelPurchase);
+        Animacion.bajar(jLabelPurchaseImg.getY(), 180, 6, 2, jLabelPurchaseImg);
+        Animacion.bajar(jLabelService.getY(), 250, 4, 2, jLabelService);
+        Animacion.bajar(jLabelServiceImg.getY(), 210, 6, 2, jLabelServiceImg);
+        Animacion.bajar(jLabelBill.getY(), 310, 4, 2, jLabelBill);
+        Animacion.bajar(jLabelBillImg.getY(), 260, 6, 2, jLabelBillImg);
+    }
+    
+    private void closeMeeting() {
+        Animacion.subir(jLabelAddMeeting2.getY(), -40, 4, 2, jLabelAddMeeting2);
+        Animacion.subir(jLabelListAssisted.getY(), -40, 4, 2, jLabelListAssisted); //126
+        Animacion.subir(jLabelListDidntAssisted.getY(), -40, 4, 2, jLabelListDidntAssisted); //147
+        Animacion.subir(jLabelListOrganized.getY(), -40, 4, 2, jLabelListOrganized); //147
+        Animacion.subir(jLabelListAllMeetings.getY(), -40, 4, 2, jLabelListAllMeetings); //147
+        Animacion.subir(jLabelPurchase.getY(), 120, 4, 2, jLabelPurchase);
+        Animacion.subir(jLabelPurchaseImg.getY(), 110, 6, 2, jLabelPurchaseImg);
+        Animacion.subir(jLabelService.getY(), 180, 4, 2, jLabelService);
+        Animacion.subir(jLabelServiceImg.getY(), 150, 6, 2, jLabelServiceImg);
+        Animacion.subir(jLabelBill.getY(), 240, 4, 2, jLabelBill);
+        Animacion.subir(jLabelBillImg.getY(), 200, 6, 2, jLabelBillImg);
+    }
     /**
      * @param args the command line arguments
      */
@@ -148,16 +436,38 @@ public class MenuInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelAddBill2;
     private javax.swing.JLabel jLabelAddFriend;
+    private javax.swing.JLabel jLabelAddFriend2;
+    private javax.swing.JLabel jLabelAddMeeting;
+    private javax.swing.JLabel jLabelAddMeeting2;
+    private javax.swing.JLabel jLabelAddPurchase2;
+    private javax.swing.JLabel jLabelAddService2;
     private javax.swing.JLabel jLabelBill;
+    private javax.swing.JLabel jLabelBillImg;
+    private javax.swing.JLabel jLabelFriendImg;
     private javax.swing.JLabel jLabelFriends;
+    private javax.swing.JLabel jLabelListAllBills;
+    private javax.swing.JLabel jLabelListAllMeetings;
+    private javax.swing.JLabel jLabelListAssisted;
+    private javax.swing.JLabel jLabelListCharged;
+    private javax.swing.JLabel jLabelListDidntAssisted;
+    private javax.swing.JLabel jLabelListDidntCharged;
+    private javax.swing.JLabel jLabelListDidntPayBills;
+    private javax.swing.JLabel jLabelListFriends;
+    private javax.swing.JLabel jLabelListMeeting;
+    private javax.swing.JLabel jLabelListOrDeleteFriend;
+    private javax.swing.JLabel jLabelListOrDeletePurchase;
+    private javax.swing.JLabel jLabelListOrDeleteService;
+    private javax.swing.JLabel jLabelListOrganized;
+    private javax.swing.JLabel jLabelListPaidBills;
     private javax.swing.JLabel jLabelMeeting;
+    private javax.swing.JLabel jLabelMeetingImg;
     private javax.swing.JLabel jLabelPurchase;
+    private javax.swing.JLabel jLabelPurchaseImg;
     private javax.swing.JLabel jLabelRemoveFriend;
+    private javax.swing.JLabel jLabelRemoveMeeting;
     private javax.swing.JLabel jLabelService;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabelServiceImg;
     // End of variables declaration//GEN-END:variables
 }

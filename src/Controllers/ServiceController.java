@@ -7,11 +7,11 @@ package Controllers;
 
 import java.util.UUID;
 import projectbd.DBConnection;
-import projectbd.Models.Meeting;
-import projectbd.Models.MeetingService;
-import projectbd.Models.PersonalPurchase;
-import projectbd.Models.PersonalService;
-import projectbd.Models.User;
+import Models.Meeting;
+import Models.MeetingService;
+import Models.PersonalPurchase;
+import Models.PersonalService;
+import Models.User;
 
 /**
  *

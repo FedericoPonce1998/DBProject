@@ -7,7 +7,7 @@ package windows;
 
 import Controllers.LoginController;
 import Controllers.MainController;
-import projectbd.Models.User;
+import Models.User;
 
 /**
  *
@@ -63,8 +63,6 @@ public class RegisterForm extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/person-icon.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 50, 100, 80));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key-icon.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 190, 70, 80));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home-icon.png"))); // NOI18N

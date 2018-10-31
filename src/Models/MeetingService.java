@@ -3,44 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectbd.Models;
+package Models;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.UUID;
 
 /**
  *
  * @author federicoponcedeleon
  */
-public class PersonalService implements IMeeting {
+public class MeetingService implements IMeeting{
     
     private final String serviceId;
     private String name;
     private String company;
     private String description;
-    private Date date;
-    private String userId;
+    private Double price;
+    private String meetingId;
     
-    public PersonalService(String serviceId, String name, String company, String description, String date, String userId) {
+    public MeetingService(String serviceId, String name, String company, String description, Double price, String meeting) {
         this.serviceId = serviceId;
-        this.name = name;
         this.company = company;
         this.description = description;
-        try {
-            this.date = parseToDate(date);
-        } catch (ParseException ex) {
-            Logger.getLogger(PersonalService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.userId = userId;
-        
+        this.price = price;
+        this.meetingId = meeting;
+        this.name = name;
     }
 
-    private Date parseToDate(String toParse) throws ParseException {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toParse);
-    }
     @Override
     public String getServiceId() {
         return this.serviceId;
@@ -76,21 +65,20 @@ public class PersonalService implements IMeeting {
         this.description = description;
     }
 
-    public Date getDate() {
-        return this.date;
+    public Double getPrice() {
+        return this.price;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+    
+    public String getMeetingId() {
+        return this.meetingId;
+    }
+    
+    public void setMeetingId(String meetingId) {
+        this.meetingId = meetingId;
     }
 
-   
-    
-    public String getUserId() {
-        return this.userId;
-    }
-    
-    public void serUserId(String userId) {
-        this.userId = userId;
-    }
 }

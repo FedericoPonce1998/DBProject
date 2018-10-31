@@ -10,8 +10,8 @@ import Controllers.MainController;
 import Controllers.MeetingController;
 import Controllers.UserController;
 import javax.swing.JComboBox;
-import projectbd.Models.Friends;
-import projectbd.Models.User;
+import Models.Friends;
+import Models.User;
 import java.util.ArrayList;
 import projectbd.DBConnection;
 
@@ -72,7 +72,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButtonAdd1 = new javax.swing.JButton();
-        jButtonAdd2 = new javax.swing.JButton();
+        jButtonRemove = new javax.swing.JButton();
         listSelectedFriends = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -183,14 +183,14 @@ public class AddReunionInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 60, -1));
 
-        jButtonAdd2.setText("Eliminar");
-        jButtonAdd2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonAdd2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRemove.setText("Eliminar");
+        jButtonRemove.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAdd2ActionPerformed(evt);
+                jButtonRemoveActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAdd2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 60, -1));
+        getContentPane().add(jButtonRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 60, -1));
         getContentPane().add(listSelectedFriends, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 200, 90));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
@@ -216,9 +216,11 @@ public class AddReunionInterface extends javax.swing.JFrame {
         //User org = (User) jComboBoxOrganizer.getSelectedItem();
        
         
-       // MeetingController mc = MeetingController.addMeeting(place, description, date, user);
-        
-       
+        //MeetingController mc = MeetingController.addMeeting(place, description, date, user);
+        //MainController main = MainController.instance();
+       //if (error) {
+         //  main.showMessage("Ocurrio un error al crear la reunion");
+       //}
        
     }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -243,9 +245,11 @@ public class AddReunionInterface extends javax.swing.JFrame {
         selectedFriends.add(selectedFriend);
     }//GEN-LAST:event_jButtonAdd1ActionPerformed
 
-    private void jButtonAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd2ActionPerformed
+    
+    
+    private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAdd2ActionPerformed
+    }//GEN-LAST:event_jButtonRemoveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,7 +295,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonAdd1;
-    private javax.swing.JButton jButtonAdd2;
+    private javax.swing.JButton jButtonRemove;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -10,7 +10,7 @@ import Controllers.MainController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectbd.Models.User;
+import Models.User;
 
 /**
  *
@@ -24,6 +24,7 @@ public class LoginInterface extends javax.swing.JFrame {
     public LoginInterface() {
         initComponents();
         this.setLocationRelativeTo(null);
+        jLabelErroneousData.setText("");
     }
 
     /**
@@ -42,6 +43,8 @@ public class LoginInterface extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButtonExit = new javax.swing.JButton();
+        jLabelErroneousData = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,7 +71,7 @@ public class LoginInterface extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 70, 25));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 70, 25));
 
         jLabel1.setText("¿No estas registrado?");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
@@ -83,9 +86,23 @@ public class LoginInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, -1));
 
+        jButtonExit.setText("Salir");
+        jButtonExit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 70, 25));
+
+        jLabelErroneousData.setFont(new java.awt.Font("Lucida Sans", 1, 13)); // NOI18N
+        jLabelErroneousData.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelErroneousData.setText("Datos erroneos. Por favor, intentelo nuevamente");
+        getContentPane().add(jLabelErroneousData, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 360, -1));
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
         jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 470));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,7 +117,7 @@ public class LoginInterface extends javax.swing.JFrame {
                 MainController mc = MainController.instance();
                 mc.setCurrentUser(user);
             } else {
-                
+                jLabelErroneousData.setText("Datos erroneos. Por favor, intentelo nuevamente");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginInterface.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,6 +130,10 @@ public class LoginInterface extends javax.swing.JFrame {
         this.setVisible(false);
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,11 +173,13 @@ public class LoginInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonExit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelErroneousData;
     private javax.swing.JPasswordField jPassword;
     private javax.swing.JTextField jTextUserName;
     // End of variables declaration//GEN-END:variables
