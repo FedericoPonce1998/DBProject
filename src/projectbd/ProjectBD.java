@@ -5,6 +5,8 @@
  */
 package projectbd;
 
+import windows.MenuInterface;
+
 /**
  *
  * @author federicoponcedeleon
@@ -16,7 +18,7 @@ public class ProjectBD {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+        /*
         DBConnection db = DBConnection.Instance();
         //db.createDataBase();
         db.conectDB();
@@ -39,9 +41,11 @@ public class ProjectBD {
         System.out.println("Gasto " + success); 
         success = db.createTable("CREATE TABLE IF NOT EXISTS Amigo(usuiduno varchar(40) NOT NULL REFERENCES Usuarios (usuid), usuiddos varchar(40) NOT NULL REFERENCES Usuarios (usuid), PRIMARY KEY (usuiduno, usuiddos))");
         System.out.println("Amigo " + success); 
-        success = db.createTable("CREATE TABLE IF NOT EXISTS Invitado(usuid varchar(40) NOT NULL REFERENCES Usuarios (usuid), reunionid SERIAL NOT NULL REFERENCES Reunion (reunionid), PRIMARY KEY (usuid, reunionid))");
+        success = db.createTable("CREATE TABLE IF NOT EXISTS Invitado(usuid varchar(40) NOT NULL REFERENCES Usuarios (usuid), reunionid SERIAL NOT NULL REFERENCES Reunion (reunionid), PRIMARY KEY (usuid, reunionid), asistio boolean NOT NULL)");
         System.out.println("Invitado " + success);
-        db.getTable();
+        db.getTable();*/
+        MenuInterface mi = new MenuInterface();
+        mi.setVisible(true);
     }
     
 }

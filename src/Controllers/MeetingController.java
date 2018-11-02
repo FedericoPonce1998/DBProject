@@ -80,4 +80,9 @@ public class MeetingController {
         String data = "where usuid = " + invitedId + "and reunionid = " + meetingId + ");";
         return db.deleteData("invitados",data) != -1;
     }
+    
+    public ArrayList<Meeting> getAllMeetings(String usuid) {
+        DBConnection db = DBConnection.Instance();
+        return db.getAllMeetings(usuid);
+    }
 }

@@ -6,6 +6,16 @@
 package windows;
 
 import Animacion.Animacion;
+import Controllers.BillController;
+import Controllers.MainController;
+import Controllers.MeetingController;
+import Controllers.PurchaseController;
+import Models.Bill;
+import Models.Meeting;
+import Models.PersonalPurchase;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -64,17 +74,19 @@ public class MenuInterface extends javax.swing.JFrame {
         jLabelListAllBills = new javax.swing.JLabel();
         jLabelListCharged = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(250, 360));
-        setMinimumSize(new java.awt.Dimension(250, 360));
+        setBounds(new java.awt.Rectangle(0, 23, 260, 385));
+        setMaximumSize(new java.awt.Dimension(260, 385));
+        setMinimumSize(new java.awt.Dimension(260, 385));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(250, 360));
+        setPreferredSize(new java.awt.Dimension(260, 385));
         setResizable(false);
-        setSize(new java.awt.Dimension(250, 360));
+        setSize(new java.awt.Dimension(260, 385));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelPurchaseImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/purchase-icon.png"))); // NOI18N
@@ -214,8 +226,16 @@ public class MenuInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, -1, -1));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 80, -1));
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 360));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -233,6 +253,169 @@ public class MenuInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabelFriendsMouseClicked
 
+    private void jLabelAddFriend2MouseClicked(java.awt.event.MouseEvent evt) {
+        AddFriendInterface interf = new AddFriendInterface();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListOrDeleteFriendMouseClicked(java.awt.event.MouseEvent evt) {
+        ListFriendInterface interf = new ListFriendInterface();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelAddMeeting2MouseClicked(java.awt.event.MouseEvent evt) {
+        AddReunionInterface interf = new AddReunionInterface();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListAllMeetingsMouseClicked(java.awt.event.MouseEvent evt) {
+        MeetingController meetingController = MeetingController.instance();
+        MainController mainC = MainController.instance();
+        ArrayList<Meeting> result = meetingController.
+        ContainerListInterface interf = new ContainerListInterface();
+        for (Bill bill : result) {
+            BillInformationInterface billInterface = new BillInformationInterface();
+            interf.addBill(billInterface);
+        }
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelAddBill2MouseClicked(java.awt.event.MouseEvent evt) {
+        AddBillInterface interf = new AddBillInterface();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListAllBillsMouseClicked(java.awt.event.MouseEvent evt) {
+        BillController billController = BillController.instance();
+        MainController mainC = MainController.instance();
+        ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 0);
+        ContainerListInterface interf = new ContainerListInterface();
+        for (Bill bill : result) {
+            BillInformationInterface billInterface = new BillInformationInterface();
+            interf.addBill(billInterface);
+        }
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListDidntAssistedMouseClicked(java.awt.event.MouseEvent evt) {
+        ListDidntAssisted interf = new ListDidntAssisted();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListDidntChargedMouseClicked(java.awt.event.MouseEvent evt) {
+        BillController billController = BillController.instance();
+        MainController mainC = MainController.instance();
+        ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 4);
+        ContainerListInterface interf = new ContainerListInterface();
+        for (Bill bill : result) {
+            BillInformationInterface billInterface = new BillInformationInterface();
+            interf.addBill(billInterface);
+        }
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+   
+    private void jLabelListDidntPayBillsMouseClicked(java.awt.event.MouseEvent evt) {
+        BillController billController = BillController.instance();
+        MainController mainC = MainController.instance();
+        ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 1);
+        ContainerListInterface interf = new ContainerListInterface();
+        for (Bill bill : result) {
+            BillInformationInterface billInterface = new BillInformationInterface();
+            interf.addBill(billInterface);
+        }
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListPaidBillsMouseClicked(java.awt.event.MouseEvent evt) {
+        BillController billController = BillController.instance();
+        MainController mainC = MainController.instance();
+        ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 2);
+        ContainerListInterface interf = new ContainerListInterface();
+        for (Bill bill : result) {
+            BillInformationInterface billInterface = new BillInformationInterface();
+            interf.addBill(billInterface);
+        }
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListCharged(java.awt.event.MouseEvent evt) {
+        /*BillController billController = BillController.instance();
+        MainController mainC = MainController.instance();
+        ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 3);
+        ContainerListInterface interf = new ContainerListInterface();
+        for (Bill bill : result) {
+            BillInformationInterface billInterface = new BillInformationInterface();
+            interf.addBill(billInterface);
+        }*/
+        MainController mc = MainController.instance();
+        ArrayList<JFrame> list = new ArrayList<>();
+        BillInformationInterface billInterface = new BillInformationInterface();
+        list.add(billInterface);
+        billInterface = new BillInformationInterface();
+        list.add(billInterface);
+        billInterface = new BillInformationInterface();
+        list.add(billInterface);
+        mc.showContent(list);
+        this.setVisible(false);
+        dispose();
+    }
+    
+    private void jLabelListOrDeletePurchaseMouseClicked(java.awt.event.MouseEvent evt) {
+        PurchaseController purchaseC = PurchaseController.instance();
+        MainController mainC = MainController.instance();
+        ArrayList<PersonalPurchase> purchases = purchaseC.getAllPersonalPurchase(mainC.getCurrentUser().getUserName());
+        ContainerListInterface interf = new ContainerListInterface();
+        for (PersonalPurchase purchase : purchases) {
+            PurchaseInformationInterface purchaseInfo = new PurchaseInformationInterface(purchase);
+            interf.addPurchase(purchaseInfo);
+        }
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelAddPurchase2MouseClicked(java.awt.event.MouseEvent evt) {
+        AddPurchaseInterface interf = new AddPurchaseInterface();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelListOrDeleteServiceMouseClicked(java.awt.event.MouseEvent evt) {
+        ListOrDeleteService interf = new ListOrDeleteService();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    private void jLabelAddService2MouseClicked(java.awt.event.MouseEvent evt) {
+        AddServiceInterface interf = new AddServiceInterface();
+        this.setVisible(false);
+        interf.setVisible(true);
+        dispose();
+    }
+    
+    
     private void openFriends() {
         Animacion.bajar(-40, 51, 4, 2, jLabelAddFriend2);
         Animacion.bajar(-40, 72, 4, 2, jLabelListOrDeleteFriend);
@@ -316,6 +499,27 @@ public class MenuInterface extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MainContainer mc = new MainContainer();
+        //MainController mc = MainController.instance();
+        ArrayList<JPanel> list = new ArrayList<>();
+        billinterface billInter = new billinterface();
+        list.add(billInter);
+        billInter = new billinterface();
+        list.add(billInter);
+        billInter = new billinterface();
+        list.add(billInter);
+        billInter = new billinterface();
+        list.add(billInter);
+        billInter = new billinterface();
+        list.add(billInter);
+        billInter = new billinterface();
+        list.add(billInter);
+        mc.listar(list);
+        this.setVisible(false);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void openBill(){
         Animacion.bajar(-40, 280, 4, 2, jLabelAddBill2);
         Animacion.bajar(-40, 302, 4, 2, jLabelListPaidBills);
@@ -323,6 +527,7 @@ public class MenuInterface extends javax.swing.JFrame {
         Animacion.bajar(-40, 346, 4, 2, jLabelListCharged);
         Animacion.bajar(-40, 368, 4, 2, jLabelListDidntCharged);
         Animacion.bajar(-40, 390, 4, 2, jLabelListAllBills);
+        
     }
     
     private void closeBill() {
@@ -433,6 +638,7 @@ public class MenuInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

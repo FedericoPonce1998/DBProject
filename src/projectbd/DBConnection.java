@@ -24,6 +24,7 @@ import Models.PersonalPurchase;
 import Models.PersonalService;
 import Models.PurchaseLine;
 import Models.User;
+import java.util.Date;
 
 /**
  *
@@ -219,6 +220,25 @@ public class DBConnection {
         return null;
     }
     
+    public ArrayList<PersonalPurchase> getAllPersonalPurchase (String usuid) {
+        String SQL = "select * from comprapersonal where usuid = '" + usuid + "'";
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+                ArrayList<PersonalPurchase> output = new ArrayList<>();
+                while (rs.next()) {
+                    String desc = rs.getString("descripcion"),
+                       pId = rs.getString("compraid");
+                    PersonalPurchase p = new PersonalPurchase(pId, desc, usuid);
+                    output.add(p);
+                }
+                return output;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
     public PersonalService getPersonalService (String serviceid) {
         String SQL = "select * from comprapersonal where compraid = '" + serviceid + "'";
         try (
@@ -247,6 +267,30 @@ public class DBConnection {
                        quantity = rs.getString("cantidad");
                        
                 return new PurchaseLine(purchaseId, product, Integer.parseInt(lineId), Double.parseDouble(quantity));
+    
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public ArrayList<PurchaseLine> getPurchaseLines (String purchaseId) {
+        String SQL = "select * from lineacompra where compraid = '" + purchaseId + "'";
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+                ArrayList<PurchaseLine> output = new ArrayList<>();
+                while (rs.next()) {
+                    String product = rs.getString("nombre"),
+                           quantity = rs.getString("cantidad"),
+                           lineId = rs.getString("lineaid");
+                    
+                    PurchaseLine pl = new PurchaseLine(purchaseId, product, Integer.parseInt(lineId), Double.parseDouble(quantity));
+                    output.add(pl);
+                }
+                
+                       
+                return output;
     
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -284,10 +328,11 @@ public class DBConnection {
                 ResultSet rs = stmt.executeQuery(SQL)) {
                 ArrayList<Invited> output = new ArrayList<>();
                 while (rs.next()) { //mirar gettable
-                    String usuid = rs.getString("usuid");
-                    
+                    String usuid = rs.getString("usuid"),
+                           assisted = rs.getString("asistio");
+                   
                        
-                    Invited inv = new Invited(usuid, meetingId);
+                    Invited inv = new Invited(usuid, meetingId, assisted.equals("true"));
                     output.add(inv);
                 }
                 return output;
@@ -298,15 +343,22 @@ public class DBConnection {
     }
     
     public ArrayList<Friends> getFriends(String userId) throws SQLException{
-        String sqlSentence = "select * from amigos where usuiduno = '"+ userId+"';" ;
+        String sqlSentence = "select * from amigos where usuiduno = '"+ userId+"' or usuiddos = '"+ userId+"';" ;
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(sqlSentence)){
                     ArrayList<Friends> output = new ArrayList<>();
                     while (rs.next()){
+                        String usuiIdUno = rs.getString("usuiduno");
                         String usuiIdDos = rs.getString("usuiddos");
-                        Friends friend = new Friends(userId, usuiIdDos);
-                        output.add(friend);
+                        if (usuiIdUno.equals(userId)){
+                            Friends friend = new Friends(userId, usuiIdDos);
+                            output.add(friend);
+                        }
+                        else {
+                            Friends friend = new Friends(usuiIdUno, userId);
+                            output.add(friend);
+                        }
                     }
                     return output;
                 }catch (SQLException ex){
@@ -314,7 +366,154 @@ public class DBConnection {
                         }
         return null;
            
+    }
+    
+    /**
+     * 0 = todos
+     * 1 = a pagar no pago
+     * 2 = a pagar pago
+     * 3 = ingreso no pago
+     * 4 = ingreso pago
+     * @param usuid
+     * @param opcion
+     * @return 
+     */
+    public ArrayList<Bill> getUsersBills(String usuid, int opcion) { 
+        DBConnection db = DBConnection.Instance();
+        String SQL = "";
+        switch(opcion){
+            case 0:
+                SQL = "select * from gasto where usuid = '" + usuid + "'";
+                break;
+            case 1: 
+                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ false+" and esingreso = "+false;
+                break;
+            case 2:
+                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ true+" and esingreso = "+false;
+                break;
+            case 3:
+                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ false+" and esingreso = "+true;
+                break;
+            case 4:
+                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ true+" and esingreso = "+true;
+                break;
+        }
+        try (
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL)) {
+            ArrayList<Bill> output = new ArrayList<>();
+            while (rs.next()) { 
+                String billId = rs.getString("gastoid");
+                String name = rs.getString("motivo");
+                Double price = Double.parseDouble(rs.getString("montofinal"));
+                String deadline = rs.getString("fecha");
+                String purchaseId = rs.getString("compraid");
+                String serviceId = rs.getString("servicioid");
+                String billReferenceId = rs.getString("gastoreferencia");
+                boolean isPaid = rs.getString("estapago").equals("true");
+                boolean isInput = rs.getString("esingreso").equals("true");
+
+
+                Bill bill = new Bill(billId, name, price, deadline, purchaseId, serviceId, usuid, billReferenceId, isInput, isPaid);
+                output.add(bill);
+            }
+            return output;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public ArrayList<Bill> getByExpDate(String usuid){
+        Date d = new Date();
+        long difference = d.getTime() + 60000*1440*3; // tres dias en milisegundos
+        Date newDate = new Date(difference);
+        String SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ false+" and esingreso = "+false+ " and fecha < " + newDate + "';"; //Si falla este metodo, revisar el <newDate
         
+        try (
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL)) {
+            ArrayList<Bill> output = new ArrayList<>();
+            while (rs.next()) { 
+                String billId = rs.getString("gastoid");
+                String name = rs.getString("motivo");
+                Double price = Double.parseDouble(rs.getString("montofinal"));
+                String deadline = rs.getString("fecha");
+                String purchaseId = rs.getString("compraid");
+                String serviceId = rs.getString("servicioid");
+                String billReferenceId = rs.getString("gastoreferencia");
+                boolean isPaid = rs.getString("estapago").equals("true");
+                boolean isInput = rs.getString("esingreso").equals("true");
+
+
+                Bill bill = new Bill(billId, name, price, deadline, purchaseId, serviceId, usuid, billReferenceId, isInput, isPaid);
+                output.add(bill);
+            }
+            return output;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public ArrayList<Meeting> getAllMeetings(String usuid){
+        String SQL = "select reunionid from invitados where usuid = '" + usuid + "';";
+        try (
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL)) {
+            ArrayList<Meeting> output = new ArrayList<>();
+            while (rs.next()) { 
+                String meetingId = rs.getString(1); //is the reunionid (may be index 0)
+                Meeting meeting = this.getMeeting(meetingId);
+                output.add(meeting); //gets the meeting which the user was invited
+            }
+                //SQL = "select organizadorid from reunion where reunionid = '" + meetingId + "';"; //need to bring all meetings the user has organized
+            
+            return output;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public ArrayList<Meeting> getAllOrganizedBy(String usuid) {
+        String SQL = "select * from reunion where organizadorid = '" + usuid + "';";
+        try (
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL)) {
+            ArrayList<Meeting> output = new ArrayList<>();
+            while (rs.next()) {
+                String place = rs.getString("lugar"),
+                       desc = rs.getString("descripcion"),
+                       meetingid = rs.getString("organizador"),
+                       date = rs.getString("fecha");
+                
+                Meeting meeting = new Meeting(meetingid, place, date, desc, usuid);
+                output.add(meeting); //gets the meeting which the user was invited
+            }
+            return output;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public ArrayList<Meeting> getAssisted(String usuid, boolean assisted) {
+        String SQL = "select * from invitados where usuid = '" + usuid + "' and asistio = '" + assisted + "';";
+        try (
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+                ArrayList<Meeting> output = new ArrayList<>();
+                while (rs.next()) { //mirar gettable
+                    String meetingid = rs.getString("reunionid");
+                    Meeting meeting = new Meeting(meetingid, SQL, SQL, meetingid, usuid);
+                    output.add(meeting);
+                }
+                return output;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
     
 }

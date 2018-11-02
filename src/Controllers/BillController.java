@@ -5,9 +5,12 @@
  */
 package Controllers;
 
+import Models.Bill;
 import java.util.UUID;
 import projectbd.DBConnection;
 import Models.User;
+import java.util.ArrayList;
+import windows.HomeInterface;
 
 /**
  *
@@ -84,5 +87,25 @@ public class BillController {
             return true;
         }
         return false;
+    }
+    
+    /**
+     * 0 = todos
+     * 1 = a pagar no pago
+     * 2 = a pagar pago
+     * 3 = ingreso no pago
+     * 4 = ingreso pago
+     * @param usuid
+     * @param opcion
+     * @return 
+     */
+    public ArrayList<Bill> getUsersBills(String usuid, int opcion){
+        DBConnection db = DBConnection.Instance();
+        return db.getUsersBills(usuid, opcion);
+    }
+    
+    public ArrayList<Bill> getByExpDate(String usuid){
+        DBConnection db = DBConnection.Instance();
+        return db.getByExpDate(usuid);
     }
 }

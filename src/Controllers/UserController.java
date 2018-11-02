@@ -5,7 +5,12 @@
  */
 package Controllers;
 
+import Models.Friends;
 import Models.User;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectbd.DBConnection;
 
 /**
@@ -44,7 +49,13 @@ public class UserController {
     
      public boolean deleteFriend(String userId, String userIdFriend) {
         DBConnection db = DBConnection.Instance();
-        String sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + ") or (usuiduno = '"+ userIdFriend + "' and usuiddos= '" + userId + "');";
+        String sqlSentence;
+        if (userId.compareTo(userIdFriend) < 0) {
+            sqlSentence = "where (usuiduno = '" + userIdFriend + "' and usuiddos =  '" + userId + ");";
+        }
+        else{ 
+            sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + ");";
+        }
         return db.deleteData("amigo", sqlSentence) != -1;
     }
      
@@ -54,6 +65,16 @@ public class UserController {
          return db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES (" + userName + ", " +
                     name  + ", "+ dir + ", " + mail + ")") != -1;
      }
+     
+     public ArrayList<Friends> getFriends(String userId){
+         DBConnection db = DBConnection.Instance();
+        try {
+            return db.getFriends(userId);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
+    }
      
     
     

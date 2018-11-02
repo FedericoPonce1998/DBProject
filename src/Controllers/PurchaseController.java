@@ -14,6 +14,7 @@ import Models.MeetingPurchase;
 import Models.PersonalPurchase;
 import Models.PurchaseLine;
 import Models.User;
+import java.util.ArrayList;
 
 /**
  *
@@ -106,6 +107,11 @@ public class PurchaseController {
         String newId = UUID.randomUUID().toString();
         return db.insertData("compralinea(lineaid, compraid, nombre, cantidad) values(" + newId + ", " + puchaseId + ", " + name+ ", " 
         + quantity + ");") != -1;
+    }
+    
+    public ArrayList<PersonalPurchase> getAllPersonalPurchase(String usuId) {
+        DBConnection db = DBConnection.Instance();
+        return db.getAllPersonalPurchase(usuId);
     }
    
 }

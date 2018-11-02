@@ -12,10 +12,12 @@ package Models;
 public class Invited {
     private String userId,
            meetingId;
+    private boolean assisted;
     
-    public Invited(String usuId, String meetingId) {
+    public Invited(String usuId, String meetingId, boolean assisted) {
         this.userId = usuId;
         this.meetingId = meetingId;
+        this.assisted = assisted;
     }
 
     public String getUserId() {
@@ -32,6 +34,14 @@ public class Invited {
 
     public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
+    }
+
+    public boolean assisted() {
+        return assisted;
+    }
+
+    public void setAssisted(boolean assisted) {
+        this.assisted = assisted;
     }
          
 }

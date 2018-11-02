@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package windows;
+import AppPackage.AnimationClass;
+import java.awt.Color;
+import javax.swing.JLabel;
 /**
  *
  * @author federicoponcedeleon
@@ -21,7 +24,15 @@ public class HomeInterface extends javax.swing.JFrame {
         menu.setVisible(false);
         menu.setLocationRelativeTo(this);
     }
-
+        
+    public void setColor(JLabel label){
+        label.setBackground(new Color(204,204,204));
+    }
+    
+    public void resetColor(JLabel label){
+        label.setBackground(Color.white);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +94,11 @@ public class HomeInterface extends javax.swing.JFrame {
         jMenu13 = new javax.swing.JMenu();
         jMenu14 = new javax.swing.JMenu();
         menuIcon = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        agregarGasto = new javax.swing.JLabel();
+        agregarReunion = new javax.swing.JLabel();
+        agregarCompra = new javax.swing.JLabel();
+        agregarCompra1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -173,7 +188,11 @@ public class HomeInterface extends javax.swing.JFrame {
         jMenuBar5.add(jMenu14);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
+        setPreferredSize(new java.awt.Dimension(300, 480));
+        setResizable(false);
+        setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         menuIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
@@ -182,11 +201,60 @@ public class HomeInterface extends javax.swing.JFrame {
                 menuIconMouseClicked(evt);
             }
         });
-        getContentPane().add(menuIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -50, 100, 120));
+        getContentPane().add(menuIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -50, 100, 120));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 290, 530));
+        agregarGasto.setBackground(new java.awt.Color(51, 51, 51));
+        agregarGasto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        agregarGasto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        agregarGasto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bill-icon.png"))); // NOI18N
+        agregarGasto.setText("Agregar gasto");
+        agregarGasto.setToolTipText("");
+        agregarGasto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        agregarGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                agregarGastoMouseEntered(evt);
+            }
+        });
+        getContentPane().add(agregarGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 270, 80));
+
+        agregarReunion.setBackground(new java.awt.Color(204, 204, 204));
+        agregarReunion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        agregarReunion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        agregarReunion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/meeting-icon.png"))); // NOI18N
+        agregarReunion.setText("Agregar reunion");
+        agregarReunion.setToolTipText("");
+        agregarReunion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        agregarReunion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                agregarReunionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                agregarReunionMouseExited(evt);
+            }
+        });
+        getContentPane().add(agregarReunion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 270, 80));
+
+        agregarCompra.setBackground(new java.awt.Color(51, 51, 51));
+        agregarCompra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        agregarCompra.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        agregarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/look-up-icon.png"))); // NOI18N
+        agregarCompra.setText("<html> \n<p> Cuentas por</p>\t\n<p> pagar</p>\t\n</html>");
+        agregarCompra.setToolTipText("");
+        agregarCompra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        getContentPane().add(agregarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 270, 80));
+
+        agregarCompra1.setBackground(new java.awt.Color(51, 51, 51));
+        agregarCompra1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        agregarCompra1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        agregarCompra1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/purchase-icon.png"))); // NOI18N
+        agregarCompra1.setText("Agregar compra");
+        agregarCompra1.setToolTipText("");
+        agregarCompra1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        getContentPane().add(agregarCompra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 270, 80));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -195,6 +263,26 @@ public class HomeInterface extends javax.swing.JFrame {
         menu.setVisible(true);
     }//GEN-LAST:event_menuIconMouseClicked
 
+    private void agregarReunionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarReunionMouseEntered
+        setColor(agregarReunion);
+    }//GEN-LAST:event_agregarReunionMouseEntered
+
+    private void agregarReunionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarReunionMouseExited
+        resetColor(agregarReunion);
+    }//GEN-LAST:event_agregarReunionMouseExited
+
+    private void agregarGastoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarGastoMouseEntered
+        setColor(agregarGasto);
+    }//GEN-LAST:event_agregarGastoMouseEntered
+    private void agregarGastoMouseExited(java.awt.event.MouseEvent evt) {                                           
+        resetColor(agregarGasto);
+    }  
+    private void agregarCompraMouseEntered(java.awt.event.MouseEvent evt) {                                          
+        setColor(agregarCompra);
+    }                                         
+    private void agregarCompraMouseExited(java.awt.event.MouseEvent evt) {                                           
+        resetColor(agregarCompra);
+    }  
     /**
      * @param args the command line arguments
      */
@@ -231,9 +319,13 @@ public class HomeInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel agregarCompra;
+    private javax.swing.JLabel agregarCompra1;
+    private javax.swing.JLabel agregarGasto;
+    private javax.swing.JLabel agregarReunion;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
