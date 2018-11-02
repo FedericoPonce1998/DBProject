@@ -59,13 +59,13 @@ public class PurchaseController {
     public boolean deleteMeetingPurchase(String purchaseId) {
         DBConnection db = DBConnection.Instance();
         String sqlSentence = "WHERE compraid = " + purchaseId;
-        return db.deleteData("comprareunion",purchaseId) != -1;
+        return (db.deleteData("comprareunion",sqlSentence) != -1)&&(db.deleteData("lineacompra", sqlSentence)!= -1);
     }
     
     public boolean deletePersonalPurchase(String purchaseId) {
         DBConnection db = DBConnection.Instance();
-        String sqlSentence = "WHERE compraid = " + purchaseId;
-        return db.deleteData("comprapersonal", sqlSentence) != -1;
+        String sqlSentence = "WHERE compraid = '" + purchaseId+"';";
+        return (db.deleteData("comprapersonal", sqlSentence) != -1) && (db.deleteData("lineacompra", sqlSentence)!= -1);
     }
    
     /**
@@ -93,12 +93,14 @@ public class PurchaseController {
         return db.insertData("compralinea(lineaid, compraid, nombre, cantidad) values(" + newId + ", " + puchaseId + ", " + name+ ", " 
         + quantity + ");") != -1;
     }
-    //VER!!!    
-    public boolean deletePersonalPurchaseLine(String puchaseId, String lineId) {
+    
+    public boolean deletePurchaseLine(String puchaseId, String lineId) {
         DBConnection db = DBConnection.Instance();
         PurchaseLine pl = db.getPurchaseLine(lineId, puchaseId);
-        return db.deleteData(lineId, lineId) != -1;
+        String sqlSentence = "where lineId = '"+ lineId + "';";
+        return db.deleteData("lineacompra", sqlSentence) != -1;
     }
+
     
     public boolean addMeetingPurchaseLine(String puchaseId, String name, Double quantity) {
         DBConnection db = DBConnection.Instance();

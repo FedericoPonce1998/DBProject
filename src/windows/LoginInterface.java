@@ -48,8 +48,12 @@ public class LoginInterface extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(300, 480));
+        setMinimumSize(new java.awt.Dimension(300, 480));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
+        setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key-icon.png"))); // NOI18N
@@ -71,10 +75,10 @@ public class LoginInterface extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 70, 25));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 60, 25));
 
         jLabel1.setText("¿No estas registrado?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 204));
         jLabel4.setText("Registrarse");
@@ -95,14 +99,13 @@ public class LoginInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 70, 25));
 
-        jLabelErroneousData.setFont(new java.awt.Font("Lucida Sans", 1, 13)); // NOI18N
         jLabelErroneousData.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelErroneousData.setText("Datos erroneos. Por favor, intentelo nuevamente");
-        getContentPane().add(jLabelErroneousData, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 360, -1));
+        jLabelErroneousData.setText("<html>\n<p>Datos erroneos.</p>\n<p>Por favor, intentelo nuevamente</p>\n</html>\n");
+        getContentPane().add(jLabelErroneousData, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 470));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

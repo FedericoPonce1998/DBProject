@@ -103,11 +103,11 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(288, 530));
-        setMinimumSize(new java.awt.Dimension(288, 530));
-        setPreferredSize(new java.awt.Dimension(288, 530));
+        setMaximumSize(new java.awt.Dimension(288, 520));
+        setMinimumSize(new java.awt.Dimension(288, 520));
+        setPreferredSize(new java.awt.Dimension(288, 520));
         setResizable(false);
-        setSize(new java.awt.Dimension(288, 530));
+        setSize(new java.awt.Dimension(288, 520));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtPlace.setToolTipText("");
