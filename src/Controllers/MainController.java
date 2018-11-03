@@ -38,7 +38,7 @@ public class MainController {
         }
         return instance;
     }
-
+    
     public User getCurrentUser() {
         return currentUser;
     }

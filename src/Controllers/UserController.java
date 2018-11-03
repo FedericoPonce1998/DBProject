@@ -60,7 +60,6 @@ public class UserController {
     }
      
      public boolean createUser(String userName, String password, String name, String dir, String mail) {
-         if (userName.isEmpty() || password.isEmpty() || name.isEmpty() || mail.isEmpty() || dir.isEmpty()) return false;
          DBConnection db = DBConnection.Instance();
          return db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES (" + userName + ", " +
                     name  + ", "+ dir + ", " + mail + ")") != -1;

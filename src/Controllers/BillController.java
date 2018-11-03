@@ -89,6 +89,17 @@ public class BillController {
         return false;
     }
     
+    public boolean payBill(String billId) {
+        DBConnection db = DBConnection.Instance();
+        Bill bill = db.getBill(billId);
+        if (bill != null){
+            String data1 = "gasto set estapago = true where gastoId = " + billId;
+            db.updateData(data1);
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * 0 = todos
      * 1 = a pagar no pago

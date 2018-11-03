@@ -45,28 +45,28 @@ public class LoginInterface extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButtonExit = new javax.swing.JButton();
         jLabelErroneousData = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key-icon.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 140, 100, 150));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 100, 150));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/person-icon.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 90, -1, 170));
 
         jPassword.setText("jkknknnnnnn");
-        getContentPane().add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 188, 25));
+        getContentPane().add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 210, 25));
 
         jTextUserName.setToolTipText("Usuario");
-        getContentPane().add(jTextUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 188, 25));
+        getContentPane().add(jTextUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 210, 25));
 
         jButton3.setText("Ingresar");
         jButton3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -75,12 +75,12 @@ public class LoginInterface extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 60, 25));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 70, 25));
 
         jLabel1.setText("¿No estas registrado?");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Registrarse");
         jLabel4.setName("registerClick"); // NOI18N
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,24 +88,31 @@ public class LoginInterface extends javax.swing.JFrame {
                 jLabel4MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, -1, -1));
 
-        jButtonExit.setText("Salir");
-        jButtonExit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close-icon.png"))); // NOI18N
+        jButtonExit.setBorder(null);
         jButtonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExitActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 70, 25));
+        getContentPane().add(jButtonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 50, 50));
 
         jLabelErroneousData.setForeground(new java.awt.Color(255, 0, 0));
         jLabelErroneousData.setText("<html>\n<p>Datos erroneos.</p>\n<p>Por favor, intentelo nuevamente</p>\n</html>\n");
         getContentPane().add(jLabelErroneousData, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, -20, -1, -1));
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 470));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 300, 350));
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 120));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,7 +189,9 @@ public class LoginInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelErroneousData;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPassword;
     private javax.swing.JTextField jTextUserName;
     // End of variables declaration//GEN-END:variables

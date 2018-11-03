@@ -98,7 +98,9 @@ public class HomeInterface extends javax.swing.JFrame {
         agregarReunion = new javax.swing.JLabel();
         agregarCompra = new javax.swing.JLabel();
         agregarCompra1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         jMenu1.setText("jMenu1");
 
@@ -188,9 +190,7 @@ public class HomeInterface extends javax.swing.JFrame {
         jMenuBar5.add(jMenu14);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,7 +201,7 @@ public class HomeInterface extends javax.swing.JFrame {
                 menuIconMouseClicked(evt);
             }
         });
-        getContentPane().add(menuIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -50, 100, 120));
+        getContentPane().add(menuIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, -30, 100, 120));
 
         agregarGasto.setBackground(new java.awt.Color(51, 51, 51));
         agregarGasto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -215,7 +215,7 @@ public class HomeInterface extends javax.swing.JFrame {
                 agregarGastoMouseEntered(evt);
             }
         });
-        getContentPane().add(agregarGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 270, 80));
+        getContentPane().add(agregarGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, 80));
 
         agregarReunion.setBackground(new java.awt.Color(204, 204, 204));
         agregarReunion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -232,7 +232,7 @@ public class HomeInterface extends javax.swing.JFrame {
                 agregarReunionMouseExited(evt);
             }
         });
-        getContentPane().add(agregarReunion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 270, 80));
+        getContentPane().add(agregarReunion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, 80));
 
         agregarCompra.setBackground(new java.awt.Color(51, 51, 51));
         agregarCompra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -241,7 +241,7 @@ public class HomeInterface extends javax.swing.JFrame {
         agregarCompra.setText("<html> \n<p> Cuentas por</p>\t\n<p> pagar</p>\t\n</html>");
         agregarCompra.setToolTipText("");
         agregarCompra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
-        getContentPane().add(agregarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 270, 80));
+        getContentPane().add(agregarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 270, 80));
 
         agregarCompra1.setBackground(new java.awt.Color(51, 51, 51));
         agregarCompra1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -250,11 +250,19 @@ public class HomeInterface extends javax.swing.JFrame {
         agregarCompra1.setText("Agregar compra");
         agregarCompra1.setToolTipText("");
         agregarCompra1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
-        getContentPane().add(agregarCompra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 270, 80));
+        getContentPane().add(agregarCompra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 270, 80));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -10, 160, 100));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 520));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 70, 320, 450));
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 320, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -326,6 +334,7 @@ public class HomeInterface extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
@@ -342,6 +351,7 @@ public class HomeInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;

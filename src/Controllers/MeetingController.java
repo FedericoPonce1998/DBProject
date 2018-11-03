@@ -40,7 +40,13 @@ public class MeetingController {
         return db.insertData(SQL) != -1;
     }
     
-    public boolean payMeeting(String meetingid, String deadline) {
+    /**
+     * El metodo se refiere a pagar los servicios y las compras de una reunionr
+     * @param meetingid
+     * @param deadline
+     * @return 
+     */
+    public boolean payMeeting(String meetingid) {
         DBConnection db = DBConnection.Instance();
         Meeting meeting = db.getMeeting(meetingid);
         if (meeting == null) return false;
@@ -55,8 +61,8 @@ public class MeetingController {
         Double meetingAmount = meetingPurchase.getAmount() / (invitedList.size() + 1);
         BillController bc = BillController.instance();
         for (Invited inv : invitedList) {
-            bc.createBill(meetingid, meetingAmount, deadline, meetingPurchase.getIdCompra(), service.getServiceId(), organizer.getUserName(), inv.getUserId(), true, true);//account for the organizer
-            bc.createBill(meetingid, meetingAmount, deadline, meetingPurchase.getIdCompra(), service.getServiceId(), inv.getUserId(), organizer.getUserName(), false, false);//account for the invited
+            bc.createBill(meetingid, meetingAmount, null, meetingPurchase.getIdCompra(), service.getServiceId(), organizer.getUserName(), inv.getUserId(), true, true);//account for the organizer
+            bc.createBill(meetingid, meetingAmount, null, meetingPurchase.getIdCompra(), service.getServiceId(), inv.getUserId(), organizer.getUserName(), false, false);//account for the invited
             
         }
         return true;
@@ -68,17 +74,16 @@ public class MeetingController {
         if (meeting == null) return false;
         User invited = db.getUser(invitedId);
         if (invited == null) return false;
-        return db.insertData("invitados(reunionid, usuid) values(" + meetingId + ", " + invitedId + ");") != -1;
+        return db.insertData("invitados(reunionid, usuid, asistio) values(" + meetingId + ", " + invitedId + ", true);") != -1;
     }
     
     public boolean rejectInivitation(String invitedId, String meetingId) {
         DBConnection db = DBConnection.Instance();
         Meeting meeting = db.getMeeting(meetingId);
-        if (meeting == null) return false;
+        if (meeting == null || meeting.getDate().after(new Date())) return false; //checks if the meeting is up to date
         User invited = db.getUser(invitedId);
         if (invited == null) return false;
-        String data = "where usuid = " + invitedId + "and reunionid = " + meetingId + ");";
-        return db.deleteData("invitados",data) != -1;
+        return db.updateData("invitados set asistio = false where reunionid = " + meetingId + " and usuid + " + invitedId + ");") != -1;
     }
     
     public ArrayList<Meeting> getAllMeetings(String usuid) {

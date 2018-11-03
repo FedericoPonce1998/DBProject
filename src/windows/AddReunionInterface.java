@@ -5,7 +5,6 @@
  */
 package windows;
 
-import Controllers.FriendController;
 import Controllers.MainController;
 import Controllers.MeetingController;
 import Controllers.UserController;
@@ -74,11 +73,16 @@ public class AddReunionInterface extends javax.swing.JFrame {
         btnInvite = new javax.swing.JButton();
         jButtonRemove = new javax.swing.JButton();
         listSelectedFriends = new java.awt.List();
-        date = new com.toedter.calendar.JDateChooser();
         txtError = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
 
         jLabel6.setText("jLabel6");
 
@@ -172,13 +176,13 @@ public class AddReunionInterface extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtTime.setText("00:00");
-        getContentPane().add(txtTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 60, 25));
+        getContentPane().add(txtTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 50, 25));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/description-icon.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 20, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clock-icon.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 180));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, 180));
 
         btnInvite.setText("Invitar");
         btnInvite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -204,23 +208,38 @@ public class AddReunionInterface extends javax.swing.JFrame {
             }
         });
         getContentPane().add(listSelectedFriends, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 200, 90));
-        getContentPane().add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, 25));
 
         txtError.setForeground(new java.awt.Color(255, 0, 7));
         txtError.setText("cambiar");
         getContentPane().add(txtError, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 50, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -20, 90, 60));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -60, 90, 150));
+        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 100, 25));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, -20, 160, 80));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 300, 530));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 300, 470));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/map-icon.png"))); // NOI18N
         jLabel10.setToolTipText("Lugar");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 90, 70, 70));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Agregar reunion");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 130, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -248,7 +267,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private String[] getFriendsList(){
         MainController mainC = MainController.instance();
         User loggedUser = mainC.getCurrentUser();
-        this.listOfFriends = FriendController.getInstanceFriend().getFriends(loggedUser.getUserName());
+        this.listOfFriends = UserController.getInstanceUser().getFriends(loggedUser.getUserName());
         String[] output = new String[listOfFriends.size()];
         for (int i = 0; i < output.length; i++) {
             output[i] = listOfFriends.get(i).getUserId2();
@@ -315,10 +334,12 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
-    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton jButtonRemove;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -327,6 +348,9 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;

@@ -75,16 +75,14 @@ public class MenuInterface extends javax.swing.JFrame {
         jLabelListCharged = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 23, 260, 385));
-        setMaximumSize(new java.awt.Dimension(260, 385));
         setMinimumSize(new java.awt.Dimension(260, 385));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(260, 385));
         setResizable(false);
         setSize(new java.awt.Dimension(260, 385));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -234,8 +232,8 @@ public class MenuInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 80, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/preceleste (1).png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 420));
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 310, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -641,7 +639,6 @@ public class MenuInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelAddBill2;
     private javax.swing.JLabel jLabelAddFriend;
     private javax.swing.JLabel jLabelAddFriend2;
@@ -675,5 +672,6 @@ public class MenuInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRemoveMeeting;
     private javax.swing.JLabel jLabelService;
     private javax.swing.JLabel jLabelServiceImg;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

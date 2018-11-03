@@ -82,6 +82,6 @@ public class ServiceController {
         if (service == null) return false;
         User purchaseOwner = db.getUser(service.getUserId());
         if (purchaseOwner == null) return false;
-        return bc.createBill(service.getDescription(), amount, null, null, service.getServiceId(), purchaseOwner.getUserName(), null, false, true) != -1;
+        return bc.createBill(service.getDescription(), amount, service.getDate().toString(), null, service.getServiceId(), purchaseOwner.getUserName(), null, false, true) != -1;
     }
 }
