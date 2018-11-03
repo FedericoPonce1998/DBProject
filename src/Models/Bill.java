@@ -111,7 +111,7 @@ public class Bill {
         this.billReferenceId = billReferenceId;
     }
 
-    public boolean isIsPaid() {
+    public boolean isPaid() {
         return isPaid;
     }
 
@@ -119,7 +119,7 @@ public class Bill {
         this.isPaid = isPaid;
     }
 
-    public boolean isIsInput() {
+    public boolean isInput() {
         return isInput;
     }
 

@@ -5,6 +5,8 @@
  */
 package windows;
 
+import Models.Bill;
+
 /**
  *
  * @author federicoponcedeleon
@@ -33,28 +35,45 @@ public class BillInformationInterface extends javax.swing.JFrame {
         jLabelReference = new javax.swing.JLabel();
         jButtonPay = new javax.swing.JButton();
         jButtonPaid = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        setMinimumSize(new java.awt.Dimension(310, 79));
+        setMaximumSize(new java.awt.Dimension(300, 480));
+        setMinimumSize(new java.awt.Dimension(300, 480));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(310, 91));
+        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
-        setSize(new java.awt.Dimension(310, 79));
+        setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelName.setText("Motivo");
-        getContentPane().add(jLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 6, -1, -1));
+        jLabelName.setToolTipText("Motivo");
+        getContentPane().add(jLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 130, 25));
 
         jLabelAmount.setText("Monto");
-        getContentPane().add(jLabelAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 6, -1, -1));
+        jLabelAmount.setToolTipText("Monto");
+        getContentPane().add(jLabelAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 130, 25));
 
         jLabelDate.setText("Fecha");
-        getContentPane().add(jLabelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 28, -1, -1));
+        jLabelDate.setToolTipText("Fecha");
+        getContentPane().add(jLabelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 130, 25));
 
         jLabelReference.setText("Referencia");
-        getContentPane().add(jLabelReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 28, -1, -1));
+        jLabelReference.setToolTipText("Referencia");
+        getContentPane().add(jLabelReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 130, 25));
 
         jButtonPay.setText("Pagar");
         jButtonPay.addActionListener(new java.awt.event.ActionListener() {
@@ -62,10 +81,50 @@ public class BillInformationInterface extends javax.swing.JFrame {
                 jButtonPayActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 50, -1, -1));
+        getContentPane().add(jButtonPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, -1));
 
         jButtonPaid.setText("Pago");
-        getContentPane().add(jButtonPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 50, -1, -1));
+        getContentPane().add(jButtonPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -80, 200, 230));
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Gasto");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 70, -1));
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -30, 100, 100));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/description-icon.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 90, 100));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cash.png"))); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-180, 90, 280, 120));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 200, 120, 50));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ref.png"))); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 70, 50));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bill.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
+
+        jLabel11.setText("Esta Paga");
+        jLabel11.setToolTipText("Esta paga");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, 130, 25));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 460));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -73,7 +132,25 @@ public class BillInformationInterface extends javax.swing.JFrame {
     private void jButtonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonPayActionPerformed
-
+    
+    public void setBill(Bill bill) {
+        jLabelName.setText(bill.getName()); 
+        jLabelAmount.setText(bill.getPrice().toString()); 
+        jLabelDate.setText(bill.getDeadline().toString());
+        jLabelReference.setText(bill.getBillReferenceId());
+        if (bill.isInput() && !bill.isPaid()) {
+            jButtonPaid.setVisible(true);
+            jButtonPay.setVisible(false);
+        }
+        else if (!bill.isInput() && !bill.isPaid()) {
+            jButtonPaid.setVisible(false);
+            jButtonPay.setVisible(true);
+        }
+        else {
+            jButtonPaid.setVisible(false);
+            jButtonPay.setVisible(false);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -112,9 +189,21 @@ public class BillInformationInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPaid;
     private javax.swing.JButton jButtonPay;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAmount;
     private javax.swing.JLabel jLabelDate;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelReference;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

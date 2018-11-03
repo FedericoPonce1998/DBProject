@@ -35,7 +35,7 @@ public class ProjectBD {
         System.out.println("LineaCompra " + success); 
         success = db.createTable("CREATE TABLE IF NOT EXISTS ServicioPersonal(servicioid SERIAL NOT NULL PRIMARY KEY, empresa varchar(100), nombre varchar(100), fechaprogramada TIMESTAMP NOT NULL, descripcion varchar(255), usuid varchar(40) NOT NULL REFERENCES Usuarios (usuid))");
         System.out.println("ServicioPersonal " + success); 
-        success = db.createTable("CREATE TABLE IF NOT EXISTS ServicioReunion(servicioid SERIAL NOT NULL PRIMARY KEY, empresa varchar(100), nombre varchar(100), descripcion varchar(255), reunionid SERIAL NOT NULL REFERENCES Reunion (reunionid))");
+        success = db.createTable("CREATE TABLE IF NOT EXISTS ServicioReunion(servicioid SERIAL NOT NULL PRIMARY KEY, empresa varchar(100), nombre varchar(100), descripcion varchar(255), costo NUMERIC(5,3), reunionid SERIAL NOT NULL REFERENCES Reunion (reunionid))");
         System.out.println("ServicioReunion " + success);
         success = db.createTable("CREATE TABLE IF NOT EXISTS Gasto(gastoid SERIAL NOT NULL PRIMARY KEY, motivo varchar(100), montofinal NUMERIC(6,2) NOT NULL , estapago BOOLEAN NOT NULL, esingreso BOOLEAN NOT NULL, fecha DATE NOT NULL, compraid SERIAL, servicioid SERIAL, FOREIGN KEY (compraid) REFERENCES CompraPersonal(compraid), FOREIGN KEY (servicioid) REFERENCES ServicioPersonal(idservicio), usuid varchar(40) NOT NULL, FOREIGN KEY (usuid) REFERENCES Usuarios(usuid), gastoReferencia varchar(40), FOREIGN KEY (gastoReferencia) REFERENCES Gasto (gastoid))");
         System.out.println("Gasto " + success); 

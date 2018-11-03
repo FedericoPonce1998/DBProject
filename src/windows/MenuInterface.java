@@ -14,6 +14,7 @@ import Models.Bill;
 import Models.Meeting;
 import Models.PersonalPurchase;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -498,22 +499,13 @@ public class MenuInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        MainContainer mc = new MainContainer();
-        //MainController mc = MainController.instance();
-        ArrayList<JPanel> list = new ArrayList<>();
-        billinterface billInter = new billinterface();
-        list.add(billInter);
-        billInter = new billinterface();
-        list.add(billInter);
-        billInter = new billinterface();
-        list.add(billInter);
-        billInter = new billinterface();
-        list.add(billInter);
-        billInter = new billinterface();
-        list.add(billInter);
-        billInter = new billinterface();
-        list.add(billInter);
-        mc.listar(list);
+        
+        BillInterface billInter = new BillInterface();
+        ArrayList<Bill> list = new ArrayList<>();
+        Bill b = new Bill("'nada", "nombre", Double.NaN, "2018-11-05 18:30", "algo", "algo", "nada", "algo", rootPaneCheckingEnabled, rootPaneCheckingEnabled);
+        list.add(b);
+        billInter.list(list);
+        billInter.setVisible(true);
         this.setVisible(false);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
