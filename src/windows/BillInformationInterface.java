@@ -18,6 +18,7 @@ public class BillInformationInterface extends javax.swing.JFrame {
      */
     public BillInformationInterface() {
         initComponents();
+        jButtonPaid.setVisible(false);
     }
 
     /**
@@ -51,10 +52,8 @@ public class BillInformationInterface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -87,6 +86,7 @@ public class BillInformationInterface extends javax.swing.JFrame {
         getContentPane().add(jButtonPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        jLabel3.setToolTipText("Inicio");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -80, 200, 230));
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N

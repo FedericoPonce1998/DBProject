@@ -28,35 +28,63 @@ public class MessageContainer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelCurrentMessage = new javax.swing.JLabel();
+        jLabelDeadLine = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabelDescription = new javax.swing.JLabel();
+        jLabelDescriptionIcon = new javax.swing.JLabel();
+        jLabelDateIcon = new javax.swing.JLabel();
+        jLabelAmountIcon = new javax.swing.JLabel();
+        jLabelAmount = new javax.swing.JLabel();
+        jButtonOk = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(240, 280));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelCurrentMessage.setText("Message");
+        jLabelDeadLine.setText("4/11/2018");
+        jLabelDeadLine.setToolTipText("Fecha");
+        getContentPane().add(jLabelDeadLine, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 130, 40));
 
-        jLabel1.setText("Notifica vencimientos");
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabelCurrentMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelCurrentMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel3.setText("Bestellen informa");
+        jLabel3.setToolTipText("");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 140, 50));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/alert-icon.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 250, 60));
+
+        jLabelDescription.setText("Vence UTE");
+        getContentPane().add(jLabelDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 120, 40));
+
+        jLabelDescriptionIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/description-icon.png"))); // NOI18N
+        getContentPane().add(jLabelDescriptionIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 60, 90, 50));
+
+        jLabelDateIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
+        jLabelDateIcon.setToolTipText("Fecha");
+        getContentPane().add(jLabelDateIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 90, 120, 70));
+
+        jLabelAmountIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bill.png"))); // NOI18N
+        jLabelAmountIcon.setToolTipText("Monto");
+        getContentPane().add(jLabelAmountIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, 60));
+
+        jLabelAmount.setText("1200");
+        jLabelAmount.setToolTipText("Monto");
+        getContentPane().add(jLabelAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, 20));
+
+        jButtonOk.setText("Aceptar");
+        getContentPane().add(jButtonOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 80, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 250, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -97,11 +125,20 @@ public class MessageContainer extends javax.swing.JFrame {
     }
     
     public void setMessage(String message) {
-        jLabelCurrentMessage.setText(message);
+        jLabelDescription.setText(message);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonOk;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelCurrentMessage;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelAmount;
+    private javax.swing.JLabel jLabelAmountIcon;
+    private javax.swing.JLabel jLabelDateIcon;
+    private javax.swing.JLabel jLabelDeadLine;
+    private javax.swing.JLabel jLabelDescription;
+    private javax.swing.JLabel jLabelDescriptionIcon;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

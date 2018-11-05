@@ -77,12 +77,13 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel6.setText("jLabel6");
 
@@ -107,9 +108,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(288, 520));
         setMinimumSize(new java.awt.Dimension(288, 520));
-        setPreferredSize(new java.awt.Dimension(288, 520));
         setResizable(false);
         setSize(new java.awt.Dimension(288, 520));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -157,7 +156,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 150, 130, 190));
 
         listAmigos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Bestellen" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -202,6 +201,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 60, 25));
 
+        listSelectedFriends.setName(""); // NOI18N
         listSelectedFriends.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listSelectedFriendsActionPerformed(evt);
@@ -218,11 +218,13 @@ public class AddReunionInterface extends javax.swing.JFrame {
         getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 100, 25));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        jLabel11.setToolTipText("Inicio");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, -20, 160, 80));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 300, 470));
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Dividir gastos");
+        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 415, 270, -1));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/map-icon.png"))); // NOI18N
@@ -240,6 +242,10 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 130, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 50));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 300, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -335,6 +341,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JButton jButtonRemove;
+    private javax.swing.JCheckBox jCheckBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

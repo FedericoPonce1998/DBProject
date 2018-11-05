@@ -253,7 +253,6 @@ public class HomeInterface extends javax.swing.JFrame {
         getContentPane().add(agregarCompra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 270, 80));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -10, 160, 100));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N

@@ -44,9 +44,7 @@ public class AddPurchase extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -60,8 +58,6 @@ public class AddPurchase extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
                 {null, null},
                 {null, null}
             },
@@ -78,7 +74,7 @@ public class AddPurchase extends javax.swing.JFrame {
 
         jButton1.setText("+");
         jButton1.setToolTipText("Agregar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 40, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 40, 30));
 
         jButton2.setText("-");
         jButton2.setToolTipText("Quitar");
@@ -86,7 +82,7 @@ public class AddPurchase extends javax.swing.JFrame {
 
         jButton3.setText("Aceptar");
         jButton3.setToolTipText("Aceptar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cash.png"))); // NOI18N
         jLabel2.setToolTipText("Monto");

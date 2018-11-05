@@ -43,9 +43,7 @@ public class AddFriend extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,6 +86,7 @@ public class AddFriend extends javax.swing.JFrame {
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, 30));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        jLabel9.setToolTipText("Inicio");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, -20, 160, 90));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N

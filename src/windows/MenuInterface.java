@@ -74,9 +74,9 @@ public class MenuInterface extends javax.swing.JFrame {
         jLabelListDidntPayBills = new javax.swing.JLabel();
         jLabelListAllBills = new javax.swing.JLabel();
         jLabelListCharged = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
 
@@ -217,24 +217,21 @@ public class MenuInterface extends javax.swing.JFrame {
         jLabelListCharged.setText("Ver cobrados");
         getContentPane().add(jLabelListCharged, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -40, -1, -1));
 
-        jLabel2.setText("Cerrar");
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setText("Ocultar");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 60, 120, -1));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 80, -1));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/person-icon.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -20, 120, 90));
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 310, 410));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 320, 435));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -394,7 +391,7 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelAddPurchase2MouseClicked(java.awt.event.MouseEvent evt) {
-        AddPurchaseInterface interf = new AddPurchaseInterface();
+        AddBillInterface interf = new AddBillInterface();
         this.setVisible(false);
         interf.setVisible(true);
         dispose();
@@ -497,18 +494,6 @@ public class MenuInterface extends javax.swing.JFrame {
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        BillInterface billInter = new BillInterface();
-        ArrayList<Bill> list = new ArrayList<>();
-        Bill b = new Bill("'nada", "nombre", Double.NaN, "2018-11-05 18:30", "algo", "algo", "nada", "algo", rootPaneCheckingEnabled, rootPaneCheckingEnabled);
-        list.add(b);
-        billInter.list(list);
-        billInter.setVisible(true);
-        this.setVisible(false);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void openBill(){
         Animacion.bajar(-40, 280, 4, 2, jLabelAddBill2);
@@ -628,9 +613,9 @@ public class MenuInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelAddBill2;
     private javax.swing.JLabel jLabelAddFriend;
     private javax.swing.JLabel jLabelAddFriend2;

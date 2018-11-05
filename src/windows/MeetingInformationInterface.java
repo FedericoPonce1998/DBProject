@@ -30,57 +30,182 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jButtonAddPurchase = new javax.swing.JToggleButton();
+        jButtonAddService = new javax.swing.JToggleButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTablePurchase = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableService = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jButtonDeletePurchse = new javax.swing.JButton();
+        jButtonDeleteService = new javax.swing.JButton();
+        jButtonAddInvited = new javax.swing.JToggleButton();
+        jButtonDeleteInvited = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Fecha");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 60, 30));
 
         jLabel2.setText("Usu organizador");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
 
         jLabel3.setText("Lugar");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, -1, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, 30));
 
-        jLabel4.setText("Compra");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, 30));
-
-        jLabel5.setText("Servicio");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, 30));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/miniService.png"))); // NOI18N
+        jLabel5.setToolTipText("Servicios");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 80, 50));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        jLabel11.setToolTipText("Inicio");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 370, 350));
+        jButtonAddPurchase.setText("+");
+        jButtonAddPurchase.setToolTipText("Agregar compra");
+        getContentPane().add(jButtonAddPurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 40, 30));
 
-        jLabel6.setText("Invitados?");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, 30));
+        jButtonAddService.setText("+");
+        jButtonAddService.setToolTipText("Agregar servicio");
+        getContentPane().add(jButtonAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 40, 30));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people-icon.png"))); // NOI18N
+        jLabel6.setToolTipText("Invitados");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, 210, 130, 60));
 
         jLabel7.setText("Hora");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, 30));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, 30));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 90, 60));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 60));
+        jLabel15.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Reunion");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, 50));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+
+        jTablePurchase.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Descripcion"
+            }
+        ));
+        jScrollPane1.setViewportView(jTablePurchase);
+        if (jTablePurchase.getColumnModel().getColumnCount() > 0) {
+            jTablePurchase.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 100, 60));
+
+        jTableService.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null}
+            },
+            new String [] {
+                "Descripcion"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableService);
+        if (jTableService.getColumnModel().getColumnCount() > 0) {
+            jTableService.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 100, 60));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MiniPurchase.png"))); // NOI18N
+        jLabel8.setToolTipText("Compras");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 60, 40));
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Nombre"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 170, 70));
+
+        jButtonDeletePurchse.setText("-");
+        jButtonDeletePurchse.setToolTipText("Eliminar compra");
+        getContentPane().add(jButtonDeletePurchse, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 40, 30));
+
+        jButtonDeleteService.setText("-");
+        jButtonDeleteService.setToolTipText("Eliminar servicio");
+        getContentPane().add(jButtonDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 40, 30));
+
+        jButtonAddInvited.setText("+");
+        jButtonAddInvited.setToolTipText("Agregar invitado");
+        getContentPane().add(jButtonAddInvited, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 40, 30));
+
+        jButtonDeleteInvited.setText("-");
+        jButtonDeleteInvited.setToolTipText("Eliminar invitado");
+        getContentPane().add(jButtonDeleteInvited, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 40, 30));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
+        jLabel4.setToolTipText("Fecha");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 50, 120, 70));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/map-icon.png"))); // NOI18N
+        jLabel12.setToolTipText("Lugar");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, 80, 120, 80));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clock-icon.png"))); // NOI18N
+        jLabel13.setToolTipText("Hora");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 120, 70));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/person-icon.png"))); // NOI18N
+        jLabel14.setToolTipText("Organizador");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 140, 120, 70));
+
+        jButton1.setText("Aceptar");
+        jButton1.setToolTipText("Aceptar");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 80, -1));
+
+        jButton2.setText("Eliminar");
+        jButton2.setToolTipText("Eliminar Reunion");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 80, -1));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -121,16 +246,35 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JToggleButton jButtonAddInvited;
+    private javax.swing.JToggleButton jButtonAddPurchase;
+    private javax.swing.JToggleButton jButtonAddService;
+    private javax.swing.JButton jButtonDeleteInvited;
+    private javax.swing.JButton jButtonDeletePurchse;
+    private javax.swing.JButton jButtonDeleteService;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTablePurchase;
+    private javax.swing.JTable jTableService;
     // End of variables declaration//GEN-END:variables
 }
