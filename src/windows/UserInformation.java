@@ -5,6 +5,9 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Models.User;
+
 /**
  *
  * @author federicoponcedeleon
@@ -18,6 +21,33 @@ public class UserInformation extends javax.swing.JFrame {
         initComponents();
     }
 
+    private User userToShow;
+    
+    public void setUser(User newUser) {
+        this.userToShow = newUser;
+    }
+    
+    public void showPersonalInfo() {
+        if (userToShow.getUserName().equals(MainController.instance().getCurrentUser().getUserName())) {
+            jLabelUserId.setText(this.userToShow.getUserName());
+            jLabelAddress.setText(this.userToShow.getAddress());
+            jLabelMail.setText(this.userToShow.getEmail());
+            jLabelName.setText(this.userToShow.getName());
+            jButtonDeleteFriend.setVisible(false);
+        }
+    }
+    
+    public void showFriendInfo() {
+        if (!userToShow.getUserName().equals(MainController.instance().getCurrentUser().getUserName())) {
+            jLabelUserId.setText(this.userToShow.getUserName());
+            jLabelAddress.setText(this.userToShow.getAddress());
+            jLabelMail.setText(this.userToShow.getEmail());
+            jLabelName.setText(this.userToShow.getName());
+            jButtonDeleteFriend.setVisible(true);
+            jLabelEndSession.setVisible(false);
+            jLabelChangePass.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,21 +63,19 @@ public class UserInformation extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabelName = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabelAddress = new javax.swing.JLabel();
         jLabelUserId = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabelMail = new javax.swing.JLabel();
         jLabelChangePass = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabelEndSession = new javax.swing.JLabel();
         jButtonDeleteFriend = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -76,9 +104,9 @@ public class UserInformation extends javax.swing.JFrame {
         jLabel5.setToolTipText("Nombre");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 150, 90, 100));
 
-        jLabel6.setText("Nombre");
-        jLabel6.setToolTipText("Nombre");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 140, 25));
+        jLabelName.setText("Nombre");
+        jLabelName.setToolTipText("Nombre");
+        getContentPane().add(jLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 140, 25));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home-icon.png"))); // NOI18N
         jLabel7.setToolTipText("Direccion");
@@ -96,19 +124,19 @@ public class UserInformation extends javax.swing.JFrame {
         jLabel8.setToolTipText("Mail");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 240, 90, 50));
 
-        jLabel9.setText("Mail");
-        jLabel9.setToolTipText("Mail");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 266, 150, 25));
+        jLabelMail.setText("Mail");
+        jLabelMail.setToolTipText("Mail");
+        getContentPane().add(jLabelMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 266, 150, 25));
 
         jLabelChangePass.setForeground(new java.awt.Color(0, 0, 204));
         jLabelChangePass.setText("Cambiar contraseña");
         jLabelChangePass.setToolTipText("");
         getContentPane().add(jLabelChangePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 160, -1));
 
-        jLabel10.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel10.setText("Cerrar sesion");
-        jLabel10.setToolTipText("");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 100, -1));
+        jLabelEndSession.setForeground(new java.awt.Color(0, 0, 204));
+        jLabelEndSession.setText("Cerrar sesion");
+        jLabelEndSession.setToolTipText("");
+        getContentPane().add(jLabelEndSession, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 100, -1));
 
         jButtonDeleteFriend.setText("Eliminar");
         jButtonDeleteFriend.setToolTipText("Eliminar amigo");
@@ -158,18 +186,18 @@ public class UserInformation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDeleteFriend;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAddress;
     private javax.swing.JLabel jLabelChangePass;
+    private javax.swing.JLabel jLabelEndSession;
+    private javax.swing.JLabel jLabelMail;
+    private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelUserId;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

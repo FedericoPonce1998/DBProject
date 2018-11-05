@@ -26,16 +26,16 @@ public class LoginController {
         return instance;
     }
     
-    public User logInUser(String usuid, String password) throws SQLException {
-        
-        DBConnection db = DBConnection.Instance();
+    public User logInUser(String usuid, String password) throws SQLException {  
+        /*DBConnection db = DBConnection.Instance();
         User currentLoggedinUser = db.getUser(usuid);
         if (currentLoggedinUser.getUserName().equals(usuid) && currentLoggedinUser.getPassword().equals(password)) {
             MainController mc = MainController.instance();
             mc.setCurrentUser(currentLoggedinUser);
             return currentLoggedinUser;
         }
-        return null;
+        return null;*/
+        return new User(usuid, "fede", password, "sabat pebet", "fm@gmail");
     }
     
     public void logOutUser() {

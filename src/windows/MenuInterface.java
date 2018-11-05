@@ -13,6 +13,7 @@ import Controllers.PurchaseController;
 import Models.Bill;
 import Models.Meeting;
 import Models.PersonalPurchase;
+import Models.User;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
@@ -84,8 +85,9 @@ public class MenuInterface extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 23, 260, 385));
         setMinimumSize(new java.awt.Dimension(260, 385));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(300, 425));
         setResizable(false);
-        setSize(new java.awt.Dimension(260, 385));
+        setSize(new java.awt.Dimension(250, 385));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelPurchaseImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/purchase-icon.png"))); // NOI18N
@@ -226,12 +228,17 @@ public class MenuInterface extends javax.swing.JFrame {
                 jLabel2MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 60, 120, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 120, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/person-icon.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -20, 120, 90));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -10, 120, 90));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 320, 435));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 435));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -494,6 +501,16 @@ public class MenuInterface extends javax.swing.JFrame {
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        User currentUser = MainController.instance().getCurrentUser();
+        UserInformation userInterface = new UserInformation();
+        userInterface.setUser(currentUser);
+        userInterface.setVisible(true);
+        userInterface.showPersonalInfo();
+        this.setVisible(false);
+        dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     private void openBill(){
         Animacion.bajar(-40, 280, 4, 2, jLabelAddBill2);

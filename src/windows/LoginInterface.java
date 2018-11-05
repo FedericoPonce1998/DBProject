@@ -124,6 +124,11 @@ public class LoginInterface extends javax.swing.JFrame {
             if (user != null) {
                 MainController mc = MainController.instance();
                 mc.setCurrentUser(user);
+                jLabelErroneousData.setText("");
+                HomeInterface home = new HomeInterface();
+                home.setVisible(true);
+                this.setVisible(false);
+                dispose();
             } else {
                 jLabelErroneousData.setText("Datos erroneos. Por favor, intentelo nuevamente");
             }
