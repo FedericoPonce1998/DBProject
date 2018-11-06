@@ -5,6 +5,13 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.MeetingController;
+import Models.Meeting;
+import Models.MeetingService;
+import Models.PersonalService;
+import java.util.ArrayList;
+
 /**
  *
  * @author federicoponcedeleon
@@ -18,6 +25,54 @@ public class ServiceInterface extends javax.swing.JFrame {
         initComponents();
     }
 
+    private ArrayList<MeetingService> meeting;
+    private ArrayList<PersonalService> personal;
+
+    public ArrayList<MeetingService> getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(ArrayList<MeetingService> meeting) {
+        this.meeting = meeting;
+        this.personal = null;
+    }
+
+    public ArrayList<PersonalService> getPersonal() {
+        return personal;
+      
+    }
+
+    public void setPersonal(ArrayList<PersonalService> personal) {
+        this.personal = personal;
+        this.meeting = null;
+    }
+    
+    public void show() {
+        if (this.personal != null) {
+            int i = 0;
+            for (PersonalService service : this.personal) {
+                jTable1.setValueAt(service.getDate(), i, 0);
+                jTable1.setValueAt(service.getDescription(), i, 1);
+                jTable1.setValueAt(service.getCompany(), i, 2);
+                i++;
+            }
+        }
+        else if (this.meeting != null) {
+            int i = 0;
+            for (MeetingService service : this.meeting) {
+                Meeting meet = MeetingController.instance().getMeeting(service.getMeetingId());
+                if (meeting == null) {
+                    jTable1.setValueAt("not found", i, 0);
+                }
+                else {
+                    jTable1.setValueAt(meet.getDate(), i, 0);
+                }
+                jTable1.setValueAt(service.getDescription(), i, 1);
+                jTable1.setValueAt(service.getCompany(), i, 2);
+                i++;
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,10 +117,20 @@ public class ServiceInterface extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel11.setToolTipText("Inicio");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jButton1.setText("+");
         jButton1.setToolTipText("Nuevo servicio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 30));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
@@ -75,6 +140,11 @@ public class ServiceInterface extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -86,6 +156,26 @@ public class ServiceInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        MainController mc = MainController.instance();
+        mc.getMenu().setVisible(true);
+        mc.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AddServiceInterface service = new AddServiceInterface();
+        service.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

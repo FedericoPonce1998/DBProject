@@ -24,10 +24,19 @@ public class AddServiceInterface extends javax.swing.JFrame {
     }
     
     private String meetingId;
+    private String usuId;
     
     public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
+        this.usuId = null;
     }
+    
+    public void setUsuId(String usuId) {
+        this.usuId = usuId;
+        this.meetingId = null;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -5,18 +5,60 @@
  */
 package windows;
 
+import Models.MeetingPurchase;
+import Models.PersonalPurchase;
+import java.util.ArrayList;
+
 /**
  *
  * @author federicoponcedeleon
  */
 public class PurchaseInterface extends javax.swing.JFrame {
-
     /**
      * Creates new form PurchaseInterface
      */
     public PurchaseInterface() {
         initComponents();
     }
+    
+    private ArrayList<PersonalPurchase> personal;
+    private ArrayList<MeetingPurchase> meeting;
+
+    public ArrayList<PersonalPurchase> getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(ArrayList<PersonalPurchase> personal) {
+        this.personal = personal;
+        this.meeting = null;
+    }
+
+    public ArrayList<MeetingPurchase> getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(ArrayList<MeetingPurchase> meeting) {
+        this.meeting = meeting;
+        this.personal = null;
+    }
+    
+    public void showPurchase() {
+        if (this.personal != null) {
+            int i = 0;
+            for (PersonalPurchase purchase : this.personal) {
+                jTable1.setValueAt(purchase.getDescription(), i, 0);
+                i++;
+            }
+        }
+        else if (this.meeting != null) {
+            int i = 0;
+            for (MeetingPurchase purchase : this.meeting) {
+                jTable1.setValueAt(purchase.getDescription(), i, 0);
+                i++;
+            }
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +118,11 @@ public class PurchaseInterface extends javax.swing.JFrame {
 
         jButton1.setText("+");
         jButton1.setToolTipText("Nueva Compra");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 40, 30));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
@@ -83,6 +130,12 @@ public class PurchaseInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (this.personal != null) {
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

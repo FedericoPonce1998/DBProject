@@ -142,6 +142,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String usuNom = rs.getString("usunom"),
                        usuPass = rs.getString("usupass"),
                        usuAdd = rs.getString("usuDir"),
@@ -159,6 +160,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String place = rs.getString("lugar"),
                        desc = rs.getString("descripcion"),
                        org = rs.getString("organizador"),
@@ -176,6 +178,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String meeting = rs.getString("meetingid"),
                        desc = rs.getString("descripcion"),
                        amount = rs.getString("precio");
@@ -192,6 +195,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String meeting = rs.getString("reunionid"),
                        company = rs.getString("empresa"),
                        name = rs.getString("nombre"),
@@ -210,6 +214,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String desc = rs.getString("descripcion"),
                        user = rs.getString("usuid");
                 
@@ -244,6 +249,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String userId = rs.getString("usuid"),
                        company = rs.getString("empresa"),
                        name = rs.getString("nombre"),
@@ -263,6 +269,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String product = rs.getString("nombre"),
                        quantity = rs.getString("cantidad");
                        
@@ -303,6 +310,7 @@ public class DBConnection {
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
+                rs.next();
                 String name = rs.getString("nombre"),
                        price = rs.getString("precio"),
                        deadline = rs.getString("fecha"),

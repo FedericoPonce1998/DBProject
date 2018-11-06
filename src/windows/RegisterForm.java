@@ -8,6 +8,7 @@ package windows;
 import Controllers.LoginController;
 import Controllers.MainController;
 import Models.User;
+import java.awt.Color;
 
 /**
  *
@@ -113,7 +114,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
         txtError.setForeground(new java.awt.Color(255, 0, 0));
         txtError.setText("cambiar");
-        getContentPane().add(txtError, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 120, -1));
+        getContentPane().add(txtError, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 200, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key-icon.png"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 40, 40));
@@ -149,10 +150,13 @@ public class RegisterForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        System.exit(0);
+        MainController.instance().getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+
         String name = txtName.getText(),
                userName = txtUserId.getText(),
                mail = txtMail.getText(),
@@ -160,7 +164,8 @@ public class RegisterForm extends javax.swing.JFrame {
                firstPass = txtUserPass.getName(),
                secondPass = txtRepeatPass.getName();
         if (!firstPass.equals(secondPass)) {
-            //indicar
+            txtError.setText("Las contraseñas no coinciden");
+            txtError.setForeground(Color.red);
         }
         else {
             LoginController lc = LoginController.instance();
@@ -175,7 +180,8 @@ public class RegisterForm extends javax.swing.JFrame {
                 dispose();
             } 
             else {
-                //indicar
+                txtError.setText("No se ha logrado registrar");
+                txtError.setForeground(Color.red);
             }
         }
         

@@ -24,10 +24,13 @@ public class HomeInterface extends javax.swing.JFrame {
         
     public void setColor(JLabel label){
         label.setBackground(new Color(204,204,204));
+        label.setOpaque(true);
+        
     }
     
     public void resetColor(JLabel label){
         label.setBackground(Color.white);
+        label.setOpaque(false);
     }
     
     /**
@@ -93,8 +96,8 @@ public class HomeInterface extends javax.swing.JFrame {
         menuIcon = new javax.swing.JLabel();
         agregarGasto = new javax.swing.JLabel();
         agregarReunion = new javax.swing.JLabel();
+        labelCuentas = new javax.swing.JLabel();
         agregarCompra = new javax.swing.JLabel();
-        agregarCompra1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -208,6 +211,9 @@ public class HomeInterface extends javax.swing.JFrame {
         agregarGasto.setToolTipText("");
         agregarGasto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
         agregarGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                agregarGastoMouseExited(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 agregarGastoMouseEntered(evt);
             }
@@ -231,23 +237,39 @@ public class HomeInterface extends javax.swing.JFrame {
         });
         getContentPane().add(agregarReunion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, 80));
 
+        labelCuentas.setBackground(new java.awt.Color(51, 51, 51));
+        labelCuentas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelCuentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelCuentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/look-up-icon.png"))); // NOI18N
+        labelCuentas.setText("<html> \n<p> Cuentas por</p>\t\n<p> pagar</p>\t\n</html>");
+        labelCuentas.setToolTipText("");
+        labelCuentas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        labelCuentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelCuentasMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelCuentasMouseEntered(evt);
+            }
+        });
+        getContentPane().add(labelCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 270, 80));
+
         agregarCompra.setBackground(new java.awt.Color(51, 51, 51));
         agregarCompra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         agregarCompra.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        agregarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/look-up-icon.png"))); // NOI18N
-        agregarCompra.setText("<html> \n<p> Cuentas por</p>\t\n<p> pagar</p>\t\n</html>");
+        agregarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/purchase-icon.png"))); // NOI18N
+        agregarCompra.setText("Agregar compra");
         agregarCompra.setToolTipText("");
         agregarCompra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
-        getContentPane().add(agregarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 270, 80));
-
-        agregarCompra1.setBackground(new java.awt.Color(51, 51, 51));
-        agregarCompra1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        agregarCompra1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        agregarCompra1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/purchase-icon.png"))); // NOI18N
-        agregarCompra1.setText("Agregar compra");
-        agregarCompra1.setToolTipText("");
-        agregarCompra1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
-        getContentPane().add(agregarCompra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 270, 80));
+        agregarCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                agregarCompraMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                agregarCompraMouseEntered(evt);
+            }
+        });
+        getContentPane().add(agregarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 270, 80));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -10, 160, 100));
@@ -281,15 +303,28 @@ public class HomeInterface extends javax.swing.JFrame {
     private void agregarGastoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarGastoMouseEntered
         setColor(agregarGasto);
     }//GEN-LAST:event_agregarGastoMouseEntered
-    private void agregarGastoMouseExited(java.awt.event.MouseEvent evt) {                                           
+
+    private void labelCuentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCuentasMouseEntered
+        setColor(labelCuentas);
+    }//GEN-LAST:event_labelCuentasMouseEntered
+
+    private void labelCuentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCuentasMouseExited
+        resetColor(labelCuentas);
+    }//GEN-LAST:event_labelCuentasMouseExited
+
+    private void agregarGastoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarGastoMouseExited
         resetColor(agregarGasto);
-    }  
-    private void agregarCompraMouseEntered(java.awt.event.MouseEvent evt) {                                          
+    }//GEN-LAST:event_agregarGastoMouseExited
+
+    private void agregarCompraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarCompraMouseEntered
         setColor(agregarCompra);
-    }                                         
-    private void agregarCompraMouseExited(java.awt.event.MouseEvent evt) {                                           
+    }//GEN-LAST:event_agregarCompraMouseEntered
+
+    private void agregarCompraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarCompraMouseExited
         resetColor(agregarCompra);
-    }  
+    }//GEN-LAST:event_agregarCompraMouseExited
+     
+    
     /**
      * @param args the command line arguments
      */
@@ -327,7 +362,6 @@ public class HomeInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel agregarCompra;
-    private javax.swing.JLabel agregarCompra1;
     private javax.swing.JLabel agregarGasto;
     private javax.swing.JLabel agregarReunion;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
@@ -358,6 +392,7 @@ public class HomeInterface extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel labelCuentas;
     private java.awt.Menu menu1;
     private java.awt.Menu menu10;
     private java.awt.Menu menu11;

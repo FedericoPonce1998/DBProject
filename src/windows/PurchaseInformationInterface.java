@@ -265,14 +265,7 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableShowMouseClicked
 
     private void jButtonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPayActionPerformed
-        PayConfirmation pay = new PayConfirmation();
-        pay.setVisible(true);
-        if (this.personal != null) {
-            pay.setPersonalPurchase(this.personal);
-        }
-        else {
-            pay.setMeetingPurchase(this.meeting);
-        }
+        
     }//GEN-LAST:event_jButtonPayActionPerformed
 
     /**

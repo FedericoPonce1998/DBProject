@@ -37,11 +37,11 @@ public class UserController {
         if (user != null && user2 != null) {
             if (userId.compareTo(userIdFriend) < 0){
                 return db.insertData("amigos(usuiduno, usuiddos) " 
-                        + "VALUES(" + userIdFriend + "," + userId + ";");
+                        + "VALUES('" + userIdFriend + "', '" + userId + "');");
             }
             else {
                 return db.insertData("amigos(usuiduno, usuiddos) " 
-                        + "VALUES(" + userId + "," + userIdFriend + ";");
+                        + "VALUES('" + userId + "', '" + userIdFriend + "');");
             }
         }
         return -1;
@@ -54,15 +54,15 @@ public class UserController {
             sqlSentence = "where (usuiduno = '" + userIdFriend + "' and usuiddos =  '" + userId + ");";
         }
         else{ 
-            sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + ");";
+            sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + "');";
         }
         return db.deleteData("amigo", sqlSentence) != -1;
     }
      
      public boolean createUser(String userName, String password, String name, String dir, String mail) {
          DBConnection db = DBConnection.Instance();
-         return db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES (" + userName + ", " +
-                    name  + ", "+ dir + ", " + mail + ")") != -1;
+         return db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES('" + userName + "', '" +
+                    name  + "', '"+ dir + "', '" + mail + "', '" + password + "')") != -1;
      }
      
      public ArrayList<Friends> getFriends(String userId){
@@ -75,6 +75,8 @@ public class UserController {
          return null;
     }
      
-    
-    
+    public User getUser(String userName) {
+         DBConnection db = DBConnection.Instance();
+         return db.getUser(userName);
+     }
 }

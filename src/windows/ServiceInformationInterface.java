@@ -5,6 +5,12 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.ServiceController;
+import Models.MeetingService;
+import Models.PersonalService;
+import java.awt.Color;
+
 /**
  *
  * @author federicoponcedeleon
@@ -16,6 +22,49 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
      */
     public ServiceInformationInterface() {
         initComponents();
+    }
+    
+    private PersonalService personal;
+    private MeetingService meeting;
+
+    public PersonalService getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(PersonalService personal) {
+        this.personal = personal;
+        this.meeting = null;
+    }
+
+    public MeetingService getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(MeetingService meeting) {
+        this.meeting = meeting;
+        this.personal = null;
+    }
+    
+    public void show() {
+        if (this.personal != null) {
+            jLabelCompany.setText(this.personal.getCompany());
+            jLabelCompany.setVisible(true);
+            jLabelNameService.setText(this.personal.getName());
+            jLabelNameService.setVisible(true);
+            jLabelDate.setText(this.personal.getDate().toString());
+            jLabelDate.setVisible(true);
+            jLabelDescription.setText(this.personal.getDescription());
+            jLabelDescription.setVisible(true);
+        }
+        else if (this.meeting != null) {
+            jLabelCompany.setText(this.meeting.getCompany());
+            jLabelCompany.setVisible(true);
+            jLabelNameService.setText(this.meeting.getName());
+            jLabelNameService.setVisible(true);
+            jLabelDate.setVisible(false);
+            jLabelDescription.setText(this.meeting.getDescription());
+            jLabelDescription.setVisible(true);
+        }
     }
 
     /**
@@ -42,8 +91,9 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAccept = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
+        jLabelMessage = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
@@ -88,7 +138,7 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
         getContentPane().add(jLabelDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, 30));
 
         jLabelDate.setText("Fecha");
-        getContentPane().add(jLabelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
+        getContentPane().add(jLabelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/miniService.png"))); // NOI18N
         jLabel7.setToolTipText("Nombre");
@@ -106,13 +156,26 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
         jLabel13.setToolTipText("Fecha");
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 220, 140, 70));
 
-        jButton1.setText("Aceptar");
-        jButton1.setToolTipText("Aceptar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 80, -1));
+        jButtonAccept.setText("Aceptar");
+        jButtonAccept.setToolTipText("Aceptar");
+        jButtonAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAcceptActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 80, -1));
 
-        jButton2.setText("Eliminar");
-        jButton2.setToolTipText("Eliminar servicio");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 80, -1));
+        jButtonDelete.setText("Eliminar");
+        jButtonDelete.setToolTipText("Eliminar servicio");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 80, -1));
+
+        jLabelMessage.setText("Esto se cambiara");
+        getContentPane().add(jLabelMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -120,6 +183,33 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
+        MainController.instance().getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonAcceptActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        ServiceController serviceC = ServiceController.instance();
+        boolean success = false;
+        if (this.personal != null) {
+            success = serviceC.deletePersonalService(this.personal.getServiceId());
+            
+        }
+        else if (this.meeting != null) {
+            success = serviceC.deleteMeetingService(this.meeting.getServiceId());
+        }
+        
+        if (success) {
+            jLabelMessage.setText("Eliminado correctamente");
+            jLabelMessage.setForeground(Color.GREEN);
+        }
+        else {
+            jLabelMessage.setText("Ocurrio un error al eliminar el servicio");
+            jLabelMessage.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,8 +247,8 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAccept;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -172,6 +262,7 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCompany;
     private javax.swing.JLabel jLabelDate;
     private javax.swing.JLabel jLabelDescription;
+    private javax.swing.JLabel jLabelMessage;
     private javax.swing.JLabel jLabelNameService;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

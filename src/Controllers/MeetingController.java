@@ -14,6 +14,7 @@ import Models.Meeting;
 import Models.MeetingPurchase;
 import Models.MeetingService;
 import Models.User;
+import java.sql.Timestamp;
 
 /**
  *
@@ -31,17 +32,13 @@ public class MeetingController {
         return instance;
     }
     
-    public boolean createMeetingBD(Meeting toInsert) {
-        String newId = UUID.randomUUID().toString();
-        String SQL = "reunion(reunionid, fecha, lugar, descripcion, organizadorid) VALUES (" +
-                    newId + ", " + toInsert.getDate().toString() + ", " + toInsert.getPlace() + ", " + toInsert.getDescription() + 
-                ", "+ toInsert.getUsuOrgId() + ");";
-        DBConnection db = DBConnection.Instance();
-        return db.insertData(SQL) != -1;
-    }
     
-    public long createMeeting(String date, String place, String description, String organizerId) {
-        return -1;
+    //to create, date = new TimeStamp(currentmillis) o Timestamp value = Timestamp.valueOf("2014-07-02 06:14:00");
+    public long createMeeting(Timestamp date, String place, String description, String organizerId, boolean nopagan) {
+        DBConnection db = DBConnection.Instance();
+        String newId = "5";
+        return db.insertData("reuniones(reunionid, fecha, lugar, descripcion, organizadorid, nopagan) "
+        + "values('" + newId + "', TO_TIMESTAMP('" + date + "', 'YYYY-MM-DD HH24:MI:SS.FF'), '" + place + "', '" + description + "', '" + organizerId + "', " + nopagan + ")");
     }
     
     /**
@@ -93,5 +90,10 @@ public class MeetingController {
     public ArrayList<Meeting> getAllMeetings(String usuid) {
         DBConnection db = DBConnection.Instance();
         return db.getAllMeetings(usuid);
+    }
+    
+    public Meeting getMeeting(String meetingid) {
+        DBConnection db = DBConnection.Instance();
+        return db.getMeeting(meetingid);
     }
 }

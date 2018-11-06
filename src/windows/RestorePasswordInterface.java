@@ -5,6 +5,11 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.UserController;
+import Models.User;
+import java.awt.Color;
+
 /**
  *
  * @author federicoponcedeleon
@@ -41,6 +46,8 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
         txtUserPass = new javax.swing.JPasswordField();
         txtRepeatPass = new javax.swing.JPasswordField();
         jLabel10 = new javax.swing.JLabel();
+        jLabelMessage = new javax.swing.JLabel();
+        jButtonBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -86,6 +93,11 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
         jButton1.setText("Restablecer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key-icon.png"))); // NOI18N
@@ -102,6 +114,17 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key-icon.png"))); // NOI18N
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 40, 40));
 
+        jLabelMessage.setText("Esto se cambiara");
+        getContentPane().add(jLabelMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 210, -1));
+
+        jButtonBack.setText("Volver");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 120, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 430));
@@ -117,6 +140,44 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
     private void txtMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMailActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String userName = txtUserId.getText(),
+               pass = txtUserPass.getText(),
+               secondPass = txtRepeatPass.getText(),
+               email = txtMail.getText();
+        
+        if (!pass.equals(secondPass)) {
+            jLabelMessage.setText("Las contraseñas no coinciden");
+            jLabelMessage.setForeground(Color.red);
+        }
+        else {
+            UserController userC = UserController.getInstanceUser();
+            User user = userC.getUser(userName);
+            if (user == null) {
+                jLabelMessage.setText("No existe el usuario");
+                jLabelMessage.setForeground(Color.red);
+            }
+            else {
+                if (!user.getEmail().equals(email)) {
+                    jLabelMessage.setText("El email es incorrecto para el usuario");
+                    jLabelMessage.setForeground(Color.red);
+                }
+                else {
+                    user.setPassword(pass);
+                    jLabelMessage.setText("La contraseña ha sido actualizada");
+                    jLabelMessage.setForeground(Color.GREEN);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        LoginInterface login = new LoginInterface();
+        login.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,6 +216,7 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -165,6 +227,7 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelMessage;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtMail;
     private javax.swing.JPasswordField txtRepeatPass;
