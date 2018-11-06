@@ -30,6 +30,14 @@ public class MenuInterface extends javax.swing.JFrame {
      */
     public MenuInterface() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
+    }
+    
+    public JFrame previousInterface;
+    
+    public void setPreviousInterface(JFrame previous) {
+        this.previousInterface = previous;
     }
 
     /**
@@ -257,6 +265,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelFriendsMouseClicked
 
     private void jLabelAddFriend2MouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         AddFriendInterface interf = new AddFriendInterface();
         this.setVisible(false);
         interf.setVisible(true);
@@ -264,6 +274,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListOrDeleteFriendMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         ListFriendInterface interf = new ListFriendInterface();
         this.setVisible(false);
         interf.setVisible(true);
@@ -271,6 +283,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelAddMeeting2MouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         AddReunionInterface interf = new AddReunionInterface();
         this.setVisible(false);
         interf.setVisible(true);
@@ -278,6 +292,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListAllMeetingsMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         MeetingController meetingController = MeetingController.instance();
         MainController mainC = MainController.instance();
         ArrayList<Meeting> result = meetingController.
@@ -292,6 +308,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelAddBill2MouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         AddBillInterface interf = new AddBillInterface();
         this.setVisible(false);
         interf.setVisible(true);
@@ -299,6 +317,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListAllBillsMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         BillController billController = BillController.instance();
         MainController mainC = MainController.instance();
         ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 0);
@@ -313,6 +333,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListDidntAssistedMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         ListDidntAssisted interf = new ListDidntAssisted();
         this.setVisible(false);
         interf.setVisible(true);
@@ -320,6 +342,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListDidntChargedMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         BillController billController = BillController.instance();
         MainController mainC = MainController.instance();
         ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 4);
@@ -334,6 +358,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
    
     private void jLabelListDidntPayBillsMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         BillController billController = BillController.instance();
         MainController mainC = MainController.instance();
         ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 1);
@@ -348,6 +374,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListPaidBillsMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         BillController billController = BillController.instance();
         MainController mainC = MainController.instance();
         ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 2);
@@ -362,6 +390,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListCharged(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         /*BillController billController = BillController.instance();
         MainController mainC = MainController.instance();
         ArrayList<Bill> result = billController.getUsersBills(mainC.getCurrentUser().getUserName(), 3);
@@ -384,6 +414,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListOrDeletePurchaseMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         PurchaseController purchaseC = PurchaseController.instance();
         MainController mainC = MainController.instance();
         ArrayList<PersonalPurchase> purchases = purchaseC.getAllPersonalPurchase(mainC.getCurrentUser().getUserName());
@@ -398,6 +430,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelAddPurchase2MouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         AddBillInterface interf = new AddBillInterface();
         this.setVisible(false);
         interf.setVisible(true);
@@ -405,6 +439,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelListOrDeleteServiceMouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         ListOrDeleteService interf = new ListOrDeleteService();
         this.setVisible(false);
         interf.setVisible(true);
@@ -412,6 +448,8 @@ public class MenuInterface extends javax.swing.JFrame {
     }
     
     private void jLabelAddService2MouseClicked(java.awt.event.MouseEvent evt) {
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         AddServiceInterface interf = new AddServiceInterface();
         this.setVisible(false);
         interf.setVisible(true);
@@ -503,13 +541,15 @@ public class MenuInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        this.previousInterface.setVisible(false);
+        this.previousInterface.dispose();
         User currentUser = MainController.instance().getCurrentUser();
         UserInformation userInterface = new UserInformation();
         userInterface.setUser(currentUser);
-        userInterface.setVisible(true);
         userInterface.showPersonalInfo();
+        userInterface.setVisible(true);
         this.setVisible(false);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void openBill(){

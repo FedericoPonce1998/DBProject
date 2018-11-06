@@ -5,6 +5,10 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.ServiceController;
+import java.awt.Color;
+
 /**
  *
  * @author federicoponcedeleon
@@ -16,6 +20,13 @@ public class AddServiceInterface extends javax.swing.JFrame {
      */
     public AddServiceInterface() {
         initComponents();
+        jLabelShowMessage.setText("");
+    }
+    
+    private String meetingId;
+    
+    public void setMeetingId(String meetingId) {
+        this.meetingId = meetingId;
     }
 
     /**
@@ -43,8 +54,9 @@ public class AddServiceInterface extends javax.swing.JFrame {
         jTextCompany = new javax.swing.JTextField();
         jTextDescription = new javax.swing.JTextField();
         jDate = new com.toedter.calendar.JDateChooser();
-        jTextField3 = new javax.swing.JTextField();
+        jTextAmount = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabelShowMessage = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         jTextField2.setToolTipText("Monto");
@@ -57,12 +69,22 @@ public class AddServiceInterface extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel2.setToolTipText("Inicio");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -90,22 +112,35 @@ public class AddServiceInterface extends javax.swing.JFrame {
 
         jButtonAdd.setText("Agregar");
         jButtonAdd.setToolTipText("Aceptar");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 80, -1));
 
         jButtonCancel.setText("Cancelar");
         jButtonCancel.setToolTipText("Eliminar servicio");
+        jButtonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCancelMouseClicked(evt);
+            }
+        });
         getContentPane().add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 80, -1));
         getContentPane().add(jTextName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 160, -1));
         getContentPane().add(jTextCompany, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 160, -1));
         getContentPane().add(jTextDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 160, -1));
         getContentPane().add(jDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 160, -1));
 
-        jTextField3.setToolTipText("Monto");
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 180, 25));
+        jTextAmount.setToolTipText("Monto");
+        getContentPane().add(jTextAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 180, 25));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cash.png"))); // NOI18N
         jLabel6.setToolTipText("Monto");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-190, 210, 280, 120));
+
+        jLabelShowMessage.setText("Esto cambia en ejecucion");
+        getContentPane().add(jLabelShowMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel4.setText("jLabel1");
@@ -113,6 +148,52 @@ public class AddServiceInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelMouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelMouseClicked
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        
+        String name = jTextName.getText(),
+               company = jTextCompany.getText(),
+               description = jTextDescription.getText(),
+               date = jDate.getDateFormatString(),
+               userId = MainController.instance().getCurrentUser().getUserName();
+        Double amount = Double.parseDouble(jTextAmount.getText());
+        ServiceController serviceC = ServiceController.instance();
+        boolean success;
+        if (this.meetingId == null) {
+            success = serviceC.createMeetingService(name, company, description, amount, this.meetingId) != -1;
+        } 
+        else {
+            success = serviceC.createPersonalService(name, company, description, date, userId) != -1;
+        }
+        
+        if (success) {
+            jLabelShowMessage.setText("Servicio creado correctamente");
+            jLabelShowMessage.setForeground(Color.GREEN);
+        }
+        else {
+            jLabelShowMessage.setText("Ha ocurrido un error al crear el servicio");
+            jLabelShowMessage.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        MainController.instance().getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        MainController mc = MainController.instance();
+        mc.getMenu().setVisible(true);
+        mc.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,11 +244,12 @@ public class AddServiceInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelShowMessage;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextAmount;
     private javax.swing.JTextField jTextCompany;
     private javax.swing.JTextField jTextDescription;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextName;
     // End of variables declaration//GEN-END:variables
 }

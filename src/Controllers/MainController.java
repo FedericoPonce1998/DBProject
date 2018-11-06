@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.text.LayoutQueue;
+import windows.HomeInterface;
+import windows.MenuInterface;
 import windows.MessageContainer;
 
 
@@ -22,10 +24,15 @@ public class MainController {
     private static MainController instance;
     private User currentUser;
     private final MessageContainer messageContainer;
+    private final MenuInterface menu;
+    private final HomeInterface home;
     
     private MainController() {
         this.messageContainer = new MessageContainer();
         messageContainer.setVisible(false);
+        this.menu = new MenuInterface();
+        this.menu.setVisible(false);
+        this.home = new HomeInterface();
     }
     
     public static MainController instance() {
@@ -51,5 +58,13 @@ public class MainController {
     public void hideMessage() {
         this.messageContainer.setMessage("");
         this.messageContainer.setVisible(false);
+    }
+    
+    public MenuInterface getMenu() {
+        return this.menu;
+    }
+    
+    public HomeInterface getHome() {
+        return this.home;
     }
 }

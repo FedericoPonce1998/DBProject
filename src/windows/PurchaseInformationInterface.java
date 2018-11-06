@@ -5,6 +5,16 @@
  */
 package windows;
 
+import Controllers.BillController;
+import Controllers.MainController;
+import Controllers.PurchaseController;
+import Models.Bill;
+import Models.MeetingPurchase;
+import Models.PersonalPurchase;
+import Models.PurchaseLine;
+import java.awt.Color;
+import java.util.ArrayList;
+
 /**
  *
  * @author federicoponcedeleon
@@ -17,7 +27,79 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
     public PurchaseInformationInterface() {
         initComponents();
     }
+    
+    private MeetingPurchase meeting;
+    private PersonalPurchase personal;
+    
+    public void setPersonal(PersonalPurchase personal) {
+        this.personal = personal;
+        this.meeting = null;
+    }
 
+    public void setMeeting(MeetingPurchase meeting) {
+        this.meeting = meeting;
+        this.personal = null;
+    }
+    
+    public void showPurchase(boolean meeting) {
+        PurchaseController pc = PurchaseController.instance();
+        BillController billc = BillController.instance();
+        
+        ArrayList<PurchaseLine> list;
+        if (meeting) {
+            if (pc.getMeetingPurchase(this.meeting.getMeetingId()) == null) { //is not paid yet
+                jButtonPay.setVisible(true);
+                jButtonAdd.setVisible(true);
+                jButtonRemove.setVisible(true);
+                jButtonDeletePurchase.setVisible(true);
+            }
+            else {
+                jButtonPay.setVisible(false);
+                jButtonAdd.setVisible(false);
+                jButtonRemove.setVisible(false);
+                jButtonDeletePurchase.setVisible(false);
+            }
+            jLabelDescription.setText(this.meeting.getDescription());
+            MeetingPurchase purchase = pc.getMeetingPurchase(this.meeting.getIdCompra());
+            if (purchase == null) {
+                jLabelShowMessage.setText("No se pudieron obtener las lineas de compra");
+                jLabelShowMessage.setForeground(Color.red);
+                return;
+            }
+            list = pc.getAllLines(purchase.getIdCompra());
+            
+        }
+        else {
+            if (pc.getPersonalPurchase(this.personal.getIdCompra()) == null) { //is not paid yet
+                jButtonPay.setVisible(true);
+                jButtonAdd.setVisible(true);
+                jButtonRemove.setVisible(true);
+                jButtonDeletePurchase.setVisible(true);
+            }
+            else {
+                jButtonPay.setVisible(false);
+                jButtonAdd.setVisible(false);
+                jButtonRemove.setVisible(false);
+                jButtonDeletePurchase.setVisible(false);
+            }
+            jLabelDescription.setText(this.personal.getDescription());
+            PersonalPurchase purchase = pc.getPersonalPurchase(this.personal.getIdCompra());
+            if (purchase == null) {
+                jLabelShowMessage.setText("No se pudieron obtener las lineas de compra");
+                jLabelShowMessage.setForeground(Color.red);
+                return;
+            }
+            list = pc.getAllLines(purchase.getIdCompra());
+        }
+        int i = 0;
+            
+            for (PurchaseLine line : list) {
+                jTableShow.setValueAt(line.getProductName(), i, 0);
+                jTableShow.setValueAt(line.getQuantity(), i, 1);
+                i++;
+            }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,17 +116,18 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableShow = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jLabelDescription = new javax.swing.JLabel();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonRemove = new javax.swing.JButton();
+        jButtonAccept = new javax.swing.JButton();
+        jButtonDeletePurchase = new javax.swing.JButton();
+        jButtonPay = new javax.swing.JButton();
+        jLabelShowMessage = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -75,9 +158,9 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/description-icon.png"))); // NOI18N
         jLabel2.setToolTipText("Descripcion");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 70, 90, 70));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 60, 90, 70));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableShow.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null}
@@ -86,22 +169,37 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
                 "Nombre", "Cantidad"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jTableShow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableShowMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableShow);
+        if (jTableShow.getColumnModel().getColumnCount() > 0) {
+            jTableShow.getColumnModel().getColumn(0).setResizable(false);
+            jTableShow.getColumnModel().getColumn(1).setResizable(false);
         }
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 250, 210));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel12.setToolTipText("Inicio");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -111,35 +209,71 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
-        jLabel4.setText("Descripcion");
-        jLabel4.setToolTipText("Descripcion");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 170, 25));
+        jLabelDescription.setText("Descripcion");
+        jLabelDescription.setToolTipText("Descripcion");
+        getContentPane().add(jLabelDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 170, 25));
 
-        jButton1.setText("+");
-        jButton1.setToolTipText("Agregar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 40, 30));
+        jButtonAdd.setText("+");
+        jButtonAdd.setToolTipText("Agregar");
+        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 40, 30));
 
-        jButton2.setText("-");
-        jButton2.setToolTipText("Quitar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 40, 30));
+        jButtonRemove.setText("-");
+        jButtonRemove.setToolTipText("Quitar");
+        getContentPane().add(jButtonRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 40, 30));
 
-        jButton3.setText("Aceptar");
-        jButton3.setToolTipText("Aceptar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 80, -1));
+        jButtonAccept.setText("Aceptar");
+        jButtonAccept.setToolTipText("Aceptar");
+        getContentPane().add(jButtonAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 80, -1));
 
-        jButton4.setText("Eliminar");
-        jButton4.setToolTipText("Eliminar compra");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 80, -1));
+        jButtonDeletePurchase.setText("Eliminar");
+        jButtonDeletePurchase.setToolTipText("Eliminar compra");
+        getContentPane().add(jButtonDeletePurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 80, -1));
 
-        jButton5.setText("Pagar");
-        jButton5.setToolTipText("Pagar compra");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 70, 30));
+        jButtonPay.setText("Pagar");
+        jButtonPay.setToolTipText("Pagar compra");
+        jButtonPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPayActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 70, 30));
+
+        jLabelShowMessage.setText("Esto se cambia");
+        getContentPane().add(jLabelShowMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, -1, -1));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        MainController main = MainController.instance();
+        main.getMenu().setVisible(true);
+        main.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        MainController main = MainController.instance();
+        main.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jTableShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableShowMouseClicked
+        
+    }//GEN-LAST:event_jTableShowMouseClicked
+
+    private void jButtonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPayActionPerformed
+        PayConfirmation pay = new PayConfirmation();
+        pay.setVisible(true);
+        if (this.personal != null) {
+            pay.setPersonalPurchase(this.personal);
+        }
+        else {
+            pay.setMeetingPurchase(this.meeting);
+        }
+    }//GEN-LAST:event_jButtonPayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,24 +311,25 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonAccept;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonDeletePurchase;
+    private javax.swing.JButton jButtonPay;
+    private javax.swing.JButton jButtonRemove;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelDescription;
+    private javax.swing.JLabel jLabelShowMessage;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableShow;
     // End of variables declaration//GEN-END:variables
 }

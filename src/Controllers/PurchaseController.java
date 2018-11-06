@@ -115,5 +115,10 @@ public class PurchaseController {
         DBConnection db = DBConnection.Instance();
         return db.getAllPersonalPurchase(usuId);
     }
+    
+    public ArrayList<PurchaseLine> getAllLines(String purchaseId) {
+        DBConnection db = DBConnection.Instance();
+        return db.getPurchaseLines(purchaseId);
+    }
    
 }

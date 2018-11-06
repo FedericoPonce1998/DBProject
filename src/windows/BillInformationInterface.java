@@ -5,7 +5,10 @@
  */
 package windows;
 
+import Controllers.BillController;
+import Controllers.MainController;
 import Models.Bill;
+import java.awt.Color;
 
 /**
  *
@@ -18,9 +21,15 @@ public class BillInformationInterface extends javax.swing.JFrame {
      */
     public BillInformationInterface() {
         initComponents();
-        jButtonPaid.setVisible(false);
+        jLabelShowMessage.setText("");
     }
-
+    
+    private Bill bill;
+    
+    public Bill getBill() {
+        return this.bill;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +55,7 @@ public class BillInformationInterface extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabelShowMessage = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -83,10 +93,20 @@ public class BillInformationInterface extends javax.swing.JFrame {
         getContentPane().add(jButtonPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, -1));
 
         jButtonPaid.setText("Pago");
+        jButtonPaid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonPaidMouseClicked(evt);
+            }
+        });
         getContentPane().add(jButtonPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel3.setToolTipText("Inicio");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -80, 200, 230));
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -98,6 +118,11 @@ public class BillInformationInterface extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -30, 100, 100));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
@@ -121,6 +146,9 @@ public class BillInformationInterface extends javax.swing.JFrame {
         jLabel11.setToolTipText("Esta paga");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, 130, 25));
 
+        jLabelShowMessage.setText("Esto se cambia en ejecucion");
+        getContentPane().add(jLabelShowMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 460));
@@ -130,25 +158,76 @@ public class BillInformationInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonPayActionPerformed
-    
-    public void setBill(Bill bill) {
-        jLabelName.setText(bill.getName()); 
-        jLabelAmount.setText(bill.getPrice().toString()); 
-        jLabelDate.setText(bill.getDeadline().toString());
-        jLabelReference.setText(bill.getBillReferenceId());
-        if (bill.isInput() && !bill.isPaid()) {
-            jButtonPaid.setVisible(true);
-            jButtonPay.setVisible(false);
+        //the user pays the bill
+        BillController bc = BillController.instance();
+        boolean success = bc.payBill(this.bill.getBillId()),
+                successTwo = true;
+        
+        if (this.bill.getBillId() != null) {
+            successTwo = bc.payBill(this.bill.getBillReferenceId());
         }
-        else if (!bill.isInput() && !bill.isPaid()) {
-            jButtonPaid.setVisible(false);
-            jButtonPay.setVisible(true);
+        
+        if (success) {
+            jLabelShowMessage.setText("El gasto ha sido pago correctamente");
+            jLabelShowMessage.setForeground(Color.GREEN);
         }
         else {
-            jButtonPaid.setVisible(false);
-            jButtonPay.setVisible(false);
+            jLabelShowMessage.setText("Ha ocurrido un error al pagar el gasto");
+            jLabelShowMessage.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_jButtonPayActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        MainController mc = MainController.instance();
+        mc.getMenu().setLocationRelativeTo(this);
+        mc.getMenu().setVisible(true);
+        mc.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jButtonPaidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPaidMouseClicked
+        BillController bc = BillController.instance();
+        boolean success = bc.payBill(this.bill.getBillId());
+        if (success) {
+            jLabelShowMessage.setText("El gasto ha sido pago correctamente");
+            jLabelShowMessage.setForeground(Color.GREEN);
+        }
+        else {
+            jLabelShowMessage.setText("Ha ocurrido un error al pagar el gasto");
+            jLabelShowMessage.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_jButtonPaidMouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+    
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+    
+    public void showBill() {
+        jLabelName.setText(bill.getName());
+        jLabelDate.setText(bill.getDeadline().toString());
+        jLabelReference.setText(bill.getBillReferenceId());
+        Double amount = bill.getPrice();
+        if (bill.isInput()) {
+            jLabelAmount.setText(amount.toString());
+            jLabelAmount.setForeground(Color.GREEN);
+            if (!bill.isPaid()) {
+                jButtonPaid.setVisible(true);
+                jButtonPay.setVisible(false);
+            }
+        }
+        else if (!bill.isInput()) {
+            jLabelAmount.setText("-" + amount.toString());
+            jLabelAmount.setForeground(Color.GREEN);
+            if (!bill.isPaid()) {
+                jButtonPaid.setVisible(false);
+                jButtonPay.setVisible(true);
+            }
         }
     }
     /**
@@ -204,6 +283,7 @@ public class BillInformationInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDate;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelReference;
+    private javax.swing.JLabel jLabelShowMessage;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

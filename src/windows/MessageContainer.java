@@ -16,7 +16,6 @@ public class MessageContainer extends javax.swing.JFrame {
      */
     public MessageContainer() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**

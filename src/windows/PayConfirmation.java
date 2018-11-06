@@ -5,6 +5,14 @@
  */
 package windows;
 
+import Controllers.BillController;
+import Controllers.MainController;
+import Models.Bill;
+import Models.MeetingPurchase;
+import Models.PersonalPurchase;
+import java.util.Date;
+import javax.swing.JFrame;
+
 /**
  *
  * @author federicoponcedeleon
@@ -17,7 +25,20 @@ public class PayConfirmation extends javax.swing.JFrame {
     public PayConfirmation() {
         initComponents();
     }
+    
+    private MeetingPurchase meeting;
+    private PersonalPurchase personal;
 
+    public void setPersonalPurchase(PersonalPurchase personal) {
+        this.personal = personal;
+        this.meeting = null;
+    }
+
+    public void setMeetingPurchase(MeetingPurchase meeting) {
+        this.meeting = meeting;
+        this.personal = null;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,10 +87,20 @@ public class PayConfirmation extends javax.swing.JFrame {
 
         jButtonAcept.setText("Aceptar");
         jButtonAcept.setToolTipText("Aceptar");
+        jButtonAcept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceptActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAcept, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 80, 30));
 
         jButton2.setText("Cancelar");
         jButton2.setToolTipText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 80, 30));
 
         jLabel3.setText("Ingrese el monto: ");
@@ -85,6 +116,31 @@ public class PayConfirmation extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextAmauntActionPerformed
 
+    private void jButtonAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptActionPerformed
+        BillController bc = BillController.instance();
+        String usuid = MainController.instance().getCurrentUser().getUserName();
+        if (this.personal != null) {
+            String name = this.personal.getDescription();
+            Double price = Double.parseDouble(jTextAmaunt.getText());
+            bc.createBill(name, price, new Date().toString(), this.personal.getIdCompra(), null, usuid, null, false, true);
+        }
+        else if (this.meeting != null) {
+            String name = this.meeting.getDescription();
+            Double price = Double.parseDouble(jTextAmaunt.getText());
+            bc.createBill(name, price, new Date().toString(), this.meeting.getIdCompra(), null, usuid, this.meeting.getMeetingId(), false, true);
+        }
+    }//GEN-LAST:event_jButtonAceptActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    
+    private BillInformationInterface frame;
+    public void setPrevious(BillInformationInterface frame){
+        this.frame = frame;
+    }
     /**
      * @param args the command line arguments
      */

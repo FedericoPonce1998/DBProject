@@ -10,7 +10,9 @@ import Controllers.MeetingController;
 import Controllers.UserController;
 import javax.swing.JComboBox;
 import Models.Friends;
+import Models.Meeting;
 import Models.User;
+import java.awt.Color;
 import java.util.ArrayList;
 import projectbd.DBConnection;
 
@@ -211,7 +213,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
 
         txtError.setForeground(new java.awt.Color(255, 0, 7));
         txtError.setText("cambiar");
-        getContentPane().add(txtError, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 50, -1));
+        getContentPane().add(txtError, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 50, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -60, 90, 150));
@@ -255,18 +257,23 @@ public class AddReunionInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescriptionActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        //String date = jDate.getText(),
-               //description = jTextDescription.getText(),
-               //place = jTextPlace.getText();
-        //User org = (User) jComboBoxOrganizer.getSelectedItem();
-       
+        String description = txtDescription.getText(),
+               place = txtPlace.getText(),
+               date = jDateChooser1.getDateFormatString(),
+               time = txtTime.getText(),
+               userId = MainController.instance().getCurrentUser().getUserName();
         
-        //MeetingController mc = MeetingController.addMeeting(place, description, date, user);
-        //MainController main = MainController.instance();
-       //if (error) {
-         //  main.showMessage("Ocurrio un error al crear la reunion");
-       //}
-       
+        MeetingController mc = MeetingController.instance();
+        
+        boolean success = mc.createMeeting(date, place, description, userId) != -1;
+        if (success) {
+            txtError.setText("Reunion creada correctamente");
+            txtError.setForeground(Color.GREEN);
+        }
+        else {
+            txtError.setText("Ha ocurrido un error al crear la reunion");
+            txtError.setForeground(Color.red);
+        }
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     
@@ -282,7 +289,9 @@ public class AddReunionInterface extends javax.swing.JFrame {
     }
     
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        System.exit(0);
+        MainController.instance().getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnInviteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInviteActionPerformed
@@ -293,7 +302,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
     
     
     private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
-        // TODO add your handling code here:
+        selectedFriends.remove(listAmigos.getSelectedValue());
     }//GEN-LAST:event_jButtonRemoveActionPerformed
 
     /**

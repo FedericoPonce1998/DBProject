@@ -5,6 +5,10 @@
  */
 package windows;
 
+import Controllers.BillController;
+import Controllers.MainController;
+import java.awt.Color;
+
 /**
  *
  * @author federicoponcedeleon
@@ -34,15 +38,14 @@ public class AddBillInterface extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jTextDescription = new javax.swing.JTextField();
         jTextAmount = new javax.swing.JTextField();
-        jTextDescription4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jLabelShowMessage = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,12 +53,22 @@ public class AddBillInterface extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel2.setToolTipText("Inicio");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -74,24 +87,33 @@ public class AddBillInterface extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 160, 120, 50));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ref.png"))); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 70, 50));
-
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bill.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
         getContentPane().add(jTextDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 170, -1));
         getContentPane().add(jTextAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 170, -1));
-        getContentPane().add(jTextDescription4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 170, -1));
 
-        jButton1.setText("Agregar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
+        jButtonAdd.setText("Agregar");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, -1));
 
-        jButton2.setText("Cancelar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
+        jButtonCancel.setText("Cancelar");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, -1, -1));
         getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 188, 170, -1));
 
         jCheckBox1.setText("Esta pago");
-        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 170, -1));
+        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 170, -1));
+
+        jLabelShowMessage.setText("Esto cambia en ejecucion");
+        getContentPane().add(jLabelShowMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel4.setText("jLabel1");
@@ -99,6 +121,45 @@ public class AddBillInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        BillController billc = BillController.instance();
+        String description = jTextDescription.getText(),
+                deadline = jDateChooser1.getDateFormatString(),
+                usuId = MainController.instance().getCurrentUser().getUserName();
+        Double amount = Double.parseDouble(jTextAmount.getText());
+        boolean isInput = jTextAmount.getText().charAt('-') == 0,
+                isPaid = jCheckBox1.isSelected();
+        
+        boolean success = billc.createBill(description, amount, deadline, null, null, usuId, null, isInput, isPaid) != -1;
+        if (success) {
+            jLabelShowMessage.setText("Gasto creado correctamente");
+            jLabelShowMessage.setForeground(Color.GREEN);
+        }
+        else {
+            jLabelShowMessage.setText("Gasto creado correctamente");
+            jLabelShowMessage.setForeground(Color.GREEN);
+        }
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        MainController mc = MainController.instance();
+        mc.getMenu().setPreviousInterface(this);
+        mc.getMenu().setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        MainController.instance().getHome().setVisible(true);
+        this.dispose();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -137,12 +198,11 @@ public class AddBillInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JCheckBox jCheckBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -150,9 +210,9 @@ public class AddBillInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelShowMessage;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextAmount;
     private javax.swing.JTextField jTextDescription;
-    private javax.swing.JTextField jTextDescription4;
     // End of variables declaration//GEN-END:variables
 }

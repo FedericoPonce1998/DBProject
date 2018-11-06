@@ -3,23 +3,33 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddServiceInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/MeetingInformationInterface.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/BillInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddFriend.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/ServiceInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/MenuInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/PayConfirmation.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Models/MeetingService.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/BillInformationInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddFriendToMeetingInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/PurchaseInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/HomeInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/MeetingInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/projectbd/DBConnection.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/PurchaseController.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddBillInterface.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/RestorePasswordInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/ServiceInformationInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/RegisterForm.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddPurchase.java</file>
-            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/PurchaseInformationInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddReunionInterface.java</file>
             <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/UserInformation.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Controllers/MeetingController.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddServiceInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/BillInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/ServiceInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/BillInformationInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/LoginInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/Models/Meeting.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/RestorePasswordInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/AddPurchase.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/PurchaseInformationInterface.java</file>
+            <file>file:/Users/federicoponcedeleon/Desktop/DBProject/src/windows/MessageContainer.java</file>
         </group>
     </open-files>
 </project-private>

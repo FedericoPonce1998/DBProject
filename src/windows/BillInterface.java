@@ -6,6 +6,7 @@
 package windows;
 
 import Models.Bill;
+import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,9 +56,7 @@ public class BillInterface extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

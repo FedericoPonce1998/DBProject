@@ -5,6 +5,11 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Models.Bill;
+import Models.Meeting;
+import java.util.ArrayList;
+
 /**
  *
  * @author federicoponcedeleon
@@ -17,6 +22,24 @@ public class MeetingInterface extends javax.swing.JFrame {
     public MeetingInterface() {
         initComponents();
     }
+    
+    private ArrayList<Meeting> list;
+    
+    public void setList(ArrayList<Meeting> list) {
+        this.list = list;
+    }
+    
+    public void list() {
+        int i = 0;
+        for (Meeting meeting : this.list) {
+            jTableMeetings.setValueAt(meeting.getDate(), i, 0);
+            jTableMeetings.setValueAt(meeting.getPlace(), i, 0);
+            jTableMeetings.setValueAt(meeting.getDescription(), i, 0);
+            jTableMeetings.setValueAt(meeting.getUsuOrgId(), i, 0);
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,10 +51,10 @@ public class MeetingInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
+        jTableMeetings = new javax.swing.JTable();
+        jLabelHome = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabelMenu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -41,7 +64,7 @@ public class MeetingInterface extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMeetings.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null}
@@ -50,25 +73,40 @@ public class MeetingInterface extends javax.swing.JFrame {
                 "Fecha", "Lugar", "Descripcion", "Organizador"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jTableMeetings.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMeetingsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableMeetings);
+        if (jTableMeetings.getColumnModel().getColumnCount() > 0) {
+            jTableMeetings.getColumnModel().getColumn(0).setResizable(false);
+            jTableMeetings.getColumnModel().getColumn(1).setResizable(false);
+            jTableMeetings.getColumnModel().getColumn(2).setResizable(false);
+            jTableMeetings.getColumnModel().getColumn(3).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 260, 300));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
-        jLabel11.setToolTipText("Inicio");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
+        jLabelHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
+        jLabelHome.setToolTipText("Inicio");
+        jLabelHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelHomeMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
+        jLabelMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabelMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelMenuMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -79,6 +117,11 @@ public class MeetingInterface extends javax.swing.JFrame {
 
         jButton1.setText("+");
         jButton1.setToolTipText("Agregar reunion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 30));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
@@ -86,6 +129,38 @@ public class MeetingInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableMeetingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMeetingsMouseClicked
+        int row = jTableMeetings.rowAtPoint(evt.getPoint());
+            if (row >= 0) {
+                Meeting selectedMeeting = this.list.get(row);
+                MeetingInformationInterface interf = new MeetingInformationInterface();
+                interf.setMeeting(selectedMeeting);
+                interf.setVisible(true);
+                this.setVisible(false);
+                dispose();
+            }
+    }//GEN-LAST:event_jTableMeetingsMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AddReunionInterface meetingInterf = new AddReunionInterface();
+        meetingInterf.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabelMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMenuMouseClicked
+        MainController main = MainController.instance();
+        main.getMenu().setVisible(true);
+        main.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabelMenuMouseClicked
+
+    private void jLabelHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseClicked
+        MainController main = MainController.instance();
+        main.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabelHomeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -126,10 +201,10 @@ public class MeetingInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelHome;
+    private javax.swing.JLabel jLabelMenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableMeetings;
     // End of variables declaration//GEN-END:variables
 }

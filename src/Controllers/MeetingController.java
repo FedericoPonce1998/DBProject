@@ -40,6 +40,10 @@ public class MeetingController {
         return db.insertData(SQL) != -1;
     }
     
+    public long createMeeting(String date, String place, String description, String organizerId) {
+        return -1;
+    }
+    
     /**
      * El metodo se refiere a pagar los servicios y las compras de una reunionr
      * @param meetingid

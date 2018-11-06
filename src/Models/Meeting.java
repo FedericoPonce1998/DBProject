@@ -26,10 +26,12 @@ public class Meeting {
     private String purchaseId;
     private String serviceId;
     private String[] usuInvitedId;
+    private boolean invitedPay;
     
-    public Meeting(String meetingId, String place, String date, String description, String organizer) {
+    public Meeting(String meetingId, String place, String date, String description, boolean invitedPay, String organizer) {
         this.meetingId = meetingId;
         this. place = place;
+        this.invitedPay = invitedPay;
         try {
             this.date = this.parseToDate(date);
         }

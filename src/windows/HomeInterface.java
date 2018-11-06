@@ -5,6 +5,7 @@
  */
 package windows;
 import AppPackage.AnimationClass;
+import Controllers.MainController;
 import java.awt.Color;
 import javax.swing.JLabel;
 /**
@@ -13,16 +14,12 @@ import javax.swing.JLabel;
  */
 public class HomeInterface extends javax.swing.JFrame {
 
-    MenuInterface menu;
     /**
      * Creates new form HomeInterface
      */
     public HomeInterface() {
         initComponents();
         this.setLocationRelativeTo(null);
-        menu = new MenuInterface();
-        menu.setVisible(false);
-        menu.setLocationRelativeTo(this);
     }
         
     public void setColor(JLabel label){
@@ -267,7 +264,10 @@ public class HomeInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuIconMouseClicked
-        menu.setVisible(true);
+        MainController mc = MainController.instance();
+        mc.getMenu().setLocationRelativeTo(this);
+        mc.getMenu().setVisible(true);
+        
     }//GEN-LAST:event_menuIconMouseClicked
 
     private void agregarReunionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarReunionMouseEntered

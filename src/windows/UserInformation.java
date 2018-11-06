@@ -6,7 +6,9 @@
 package windows;
 
 import Controllers.MainController;
+import Controllers.UserController;
 import Models.User;
+import java.awt.Color;
 
 /**
  *
@@ -19,6 +21,8 @@ public class UserInformation extends javax.swing.JFrame {
      */
     public UserInformation() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        jLabelShowMessage.setText("");
     }
 
     private User userToShow;
@@ -72,21 +76,34 @@ public class UserInformation extends javax.swing.JFrame {
         jLabelChangePass = new javax.swing.JLabel();
         jLabelEndSession = new javax.swing.JLabel();
         jButtonDeleteFriend = new javax.swing.JButton();
+        jLabelShowMessage = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
+        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel1.setToolTipText("Inicio");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 150, 90));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -20, 90, 70));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -140,13 +157,54 @@ public class UserInformation extends javax.swing.JFrame {
 
         jButtonDeleteFriend.setText("Eliminar");
         jButtonDeleteFriend.setToolTipText("Eliminar amigo");
+        jButtonDeleteFriend.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonDeleteFriendMouseClicked(evt);
+            }
+        });
         getContentPane().add(jButtonDeleteFriend, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, -1, -1));
+
+        jLabelShowMessage.setText("Esto se cambia a nivel de ejecucion");
+        getContentPane().add(jLabelShowMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        MainController main = MainController.instance();
+        main.getMenu().setLocationRelativeTo(this);
+        main.getMenu().setVisible(true);
+        main.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jButtonDeleteFriendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeleteFriendMouseClicked
+        MainController mc = MainController.instance();
+        User currentUser = mc.getCurrentUser();
+        if (!currentUser.getUserName().equals(this.userToShow.getUserName())) {
+            UserController userC = UserController.getInstanceUser();
+            boolean success = userC.deleteFriend(currentUser.getUserName(), this.userToShow.getUserName());
+            if (success) {
+                jLabelShowMessage.setText(this.userToShow.getUserName() + " ha sido eliminado correctamente");
+                jLabelShowMessage.setForeground(Color.GREEN);
+            }
+            else {
+                jLabelShowMessage.setText("Ha ocurrido un error al eliminar " + this.userToShow.getUserName());
+                jLabelShowMessage.setForeground(Color.RED);
+            }
+        } else {
+            //error!
+        }
+    }//GEN-LAST:event_jButtonDeleteFriendMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -198,6 +256,7 @@ public class UserInformation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelEndSession;
     private javax.swing.JLabel jLabelMail;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelShowMessage;
     private javax.swing.JLabel jLabelUserId;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

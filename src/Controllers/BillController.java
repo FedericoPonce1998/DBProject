@@ -92,7 +92,7 @@ public class BillController {
     public boolean payBill(String billId) {
         DBConnection db = DBConnection.Instance();
         Bill bill = db.getBill(billId);
-        if (bill != null){
+        if (bill != null) {
             String data1 = "gasto set estapago = true where gastoId = " + billId;
             db.updateData(data1);
             return true;
