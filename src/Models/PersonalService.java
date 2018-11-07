@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author federicoponcedeleon
  */
-public class PersonalService implements IMeeting {
+public class PersonalService implements IService {
     
     private final String serviceId;
     private String name;
@@ -76,21 +76,36 @@ public class PersonalService implements IMeeting {
         this.description = description;
     }
 
+    @Override
     public Date getDate() {
         return this.date;
     }
 
+    @Override
     public void setDate(Date date) {
         this.date = date;
     }
 
    
     
-    public String getUserId() {
+    @Override
+    public String getReferenceId() {
         return this.userId;
     }
     
-    public void serUserId(String userId) {
+    @Override
+    public void setReferenceId(String userId) {
         this.userId = userId;
     }
+
+    @Override
+    public Double getPrice() {
+        return null;
+    }
+
+    @Override
+    public void setPrice(Double price) {
+        return;
+    }
+
 }

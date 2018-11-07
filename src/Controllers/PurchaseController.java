@@ -85,11 +85,10 @@ public class PurchaseController {
         return bc.createBill(purchase.getDescription(), amount, null, purchaseId, null, purchaseOwner.getUserName(), null, false, true) != -1;
     }
     
-    public boolean addPersonalPurchaseLine(String puchaseId, String name, Double quantity) {
+    public boolean addPersonalPurchaseLine(String newId, String puchaseId, String name, Double quantity) {
         DBConnection db = DBConnection.Instance();
         PersonalPurchase purchase = db.getPersonalPurchase(puchaseId);
         if (purchase == null) return false;
-        String newId = UUID.randomUUID().toString();
         return db.insertData("compralinea(lineaid, compraid, nombre, cantidad) values(" + newId + ", " + puchaseId + ", " + name+ ", " 
         + quantity + ");") != -1;
     }
@@ -102,11 +101,10 @@ public class PurchaseController {
     }
 
     
-    public boolean addMeetingPurchaseLine(String puchaseId, String name, Double quantity) {
+    public boolean addMeetingPurchaseLine(String newId, String puchaseId, String name, Double quantity) {
         DBConnection db = DBConnection.Instance();
         MeetingPurchase purchase = db.getMeetingPurchase(puchaseId);
         if (purchase == null) return false;
-        String newId = UUID.randomUUID().toString();
         return db.insertData("compralinea(lineaid, compraid, nombre, cantidad) values(" + newId + ", " + puchaseId + ", " + name+ ", " 
         + quantity + ");") != -1;
     }
@@ -120,5 +118,6 @@ public class PurchaseController {
         DBConnection db = DBConnection.Instance();
         return db.getPurchaseLines(purchaseId);
     }
+    
    
 }

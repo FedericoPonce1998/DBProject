@@ -524,5 +524,66 @@ public class DBConnection {
         return null;
     }
     
+    public ArrayList<Invited> getInvitesMeeting(String meetingId) throws SQLException{
+        String sqlSentence = "select * from invitados where reunionid = '"+ meetingId+"';" ;
+        try (
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlSentence)){
+                ArrayList<Invited> output = new ArrayList<>();
+                while (rs.next()){
+                    String usuiId = rs.getString("usuid");
+                    String assist = rs.getString("asistio");
+                    Invited inv = new Invited(usuiId, meetingId, assist.equals("true"));
+                    output.add(inv);
+                }
+                return output;
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }    
+    
+    public ArrayList<MeetingPurchase> getMeetingPurchases(String meetingId) throws SQLException{
+        String sqlSentence = "select * from comprareunion where reunionid = '"+ meetingId+"';" ;
+        try (
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlSentence)){
+                ArrayList<MeetingPurchase> output = new ArrayList<>();
+                while (rs.next()){
+                    String purchaseid = rs.getString("compraid");
+                    String description = rs.getString("descripcion");
+                    String cost = rs.getString("costo");
+                    MeetingPurchase purchase = new MeetingPurchase(purchaseid, meetingId, description, Double.parseDouble(cost));
+                    output.add(purchase);
+                }
+                return output;
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }    
+    
+    public ArrayList<MeetingService> getMeetingServices(String meetingId) throws SQLException{
+        String sqlSentence = "select * from servicioreunion where reunionid = '"+ meetingId+"';" ;
+        try (
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlSentence)){
+                ArrayList<MeetingService> output = new ArrayList<>();
+                while (rs.next()){
+                    String serviceId = rs.getString("servicioid");
+                    String company = rs.getString("empresa");
+                    String name = rs.getString("nombre");
+                    String description = rs.getString("descripcion");
+                    String cost = rs.getString("costo");
+                    MeetingService service = new MeetingService(serviceId, name, company, description, Double.parseDouble(cost), meetingId);
+                    output.add(service);
+                }
+                return output;
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
 }
     

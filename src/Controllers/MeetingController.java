@@ -14,6 +14,7 @@ import Models.Meeting;
 import Models.MeetingPurchase;
 import Models.MeetingService;
 import Models.User;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /**
@@ -95,5 +96,42 @@ public class MeetingController {
     public Meeting getMeeting(String meetingid) {
         DBConnection db = DBConnection.Instance();
         return db.getMeeting(meetingid);
+    }
+    
+    public boolean deleteMeeting(String meetingId){
+        DBConnection db = DBConnection.Instance();
+        Meeting meeting = db.getMeeting(meetingId);
+        if (meeting == null) return false;
+        return db.deleteData("reunion","where reunionid = '" + meetingId + "');") != -1;
+    }
+    
+    public ArrayList<Invited> getInvitedMeeting(String meetingId){
+        DBConnection db = DBConnection.Instance();
+        try {
+            return db.getInvitesMeeting(meetingId);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList<MeetingPurchase> getMeetingPurchases(String meetingId){
+        DBConnection db = DBConnection.Instance();
+        try {
+            return db.getMeetingPurchases(meetingId);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList<MeetingService> getMeetingServices(String meetingId){
+        DBConnection db = DBConnection.Instance();
+        try {
+            return db.getMeetingServices(meetingId);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

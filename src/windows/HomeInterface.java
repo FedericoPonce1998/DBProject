@@ -211,6 +211,9 @@ public class HomeInterface extends javax.swing.JFrame {
         agregarGasto.setToolTipText("");
         agregarGasto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
         agregarGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agregarGastoMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 agregarGastoMouseExited(evt);
             }
@@ -228,11 +231,14 @@ public class HomeInterface extends javax.swing.JFrame {
         agregarReunion.setToolTipText("");
         agregarReunion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
         agregarReunion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                agregarReunionMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agregarReunionMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 agregarReunionMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                agregarReunionMouseEntered(evt);
             }
         });
         getContentPane().add(agregarReunion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, 80));
@@ -245,6 +251,9 @@ public class HomeInterface extends javax.swing.JFrame {
         labelCuentas.setToolTipText("");
         labelCuentas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
         labelCuentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelCuentasMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 labelCuentasMouseExited(evt);
             }
@@ -262,6 +271,9 @@ public class HomeInterface extends javax.swing.JFrame {
         agregarCompra.setToolTipText("");
         agregarCompra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(243, 238, 238), java.awt.Color.white, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
         agregarCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agregarCompraMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 agregarCompraMouseExited(evt);
             }
@@ -323,6 +335,36 @@ public class HomeInterface extends javax.swing.JFrame {
     private void agregarCompraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarCompraMouseExited
         resetColor(agregarCompra);
     }//GEN-LAST:event_agregarCompraMouseExited
+
+    private void agregarReunionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarReunionMouseClicked
+        AddReunionInterface addMeeting = new AddReunionInterface();
+        addMeeting.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_agregarReunionMouseClicked
+
+    private void agregarGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarGastoMouseClicked
+        AddBillInterface addBill = new AddBillInterface();
+        addBill.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_agregarGastoMouseClicked
+
+    private void agregarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarCompraMouseClicked
+        AddPurchase addPurchase = new AddPurchase();
+        addPurchase.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_agregarCompraMouseClicked
+
+    private void labelCuentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCuentasMouseClicked
+        BillInterface bills = new BillInterface();
+        bills.setVisible(true);
+        bills.getComboBox().setSelectedIndex(1);
+        bills.showTable(1);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_labelCuentasMouseClicked
      
     
     /**

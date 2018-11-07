@@ -5,10 +5,17 @@
  */
 package windows;
 
+import Controllers.BillController;
+import Controllers.MainController;
 import Models.Bill;
+import Models.User;
+import java.awt.Event;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import projectbd.DBConnection;
 
 /**
  *
@@ -53,6 +60,7 @@ public class BillInterface extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButtonAddBill = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,7 +91,7 @@ public class BillInterface extends javax.swing.JFrame {
             jTableBills.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 260, 270));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 260, 270));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel2.setToolTipText("Inicio");
@@ -106,6 +114,14 @@ public class BillInterface extends javax.swing.JFrame {
         jButtonAddBill.setToolTipText("Agregar gasto");
         getContentPane().add(jButtonAddBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 30));
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "A pagar", "Pagas", "A cobrar", "Cobradas" }));
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 410));
 
@@ -127,7 +143,45 @@ public class BillInterface extends javax.swing.JFrame {
             }
         
     }//GEN-LAST:event_jTableBillsMouseClicked
-
+    public void showTable(int selectedIndex){
+        BillController billController = BillController.instance();
+        MainController main = MainController.instance();
+        User user = main.getCurrentUser();
+        ArrayList<Bill> billsList = new ArrayList<>();
+        int tableRow, column;
+        tableRow = 0;
+        billsList = billController.getUsersBills(user.getUserName(), selectedIndex);
+        for (int i = 0; i< billsList.size(); i++){
+            column = 0;
+            Bill aBill = billsList.get(i);
+            jTableBills.setValueAt(aBill.getName(), tableRow , column);
+            column ++;
+            jTableBills.setValueAt(aBill.getDeadline(), tableRow, column);
+            column ++;
+            jTableBills.setValueAt(aBill.getPrice(), tableRow, column);
+            column ++;
+            jTableBills.setValueAt(aBill.getBillReferenceId(), tableRow, column);
+            tableRow ++;
+        }
+    }
+    
+    
+    
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        BillController billController = BillController.instance();
+        MainController main = MainController.instance();
+        User user = main.getCurrentUser();
+        ArrayList<Bill> billsList = new ArrayList<>();
+        int tableRow, column;
+        int row = jComboBox1.getSelectedIndex();
+        if (row >= 0){
+            showTable(row);
+        }
+    }//GEN-LAST:event_jComboBox1MouseClicked
+    
+    public JComboBox getComboBox(){
+        return jComboBox1;
+    }
     /**
      * @param args the command line arguments
      */
@@ -165,6 +219,7 @@ public class BillInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddBill;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

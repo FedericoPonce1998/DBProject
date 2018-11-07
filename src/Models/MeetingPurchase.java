@@ -37,18 +37,22 @@ public class MeetingPurchase implements IPurchase{
         this.description = description;
     }
     
-    public String getMeetingId() {
+    @Override
+    public String getReferenceId() {
         return this.meetingId;
     }
     
-    public void setMeetingId(String meetingId) {
+    @Override
+    public void setReferenceId(String meetingId) {
         this.meetingId = meetingId;
     }
 
+    @Override
     public Double getAmount() {
         return amount;
     }
 
+    @Override
     public void setAmount(Double amount) {
         this.amount = amount;
     }

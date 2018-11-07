@@ -37,12 +37,24 @@ public class PersonalPurchase implements IPurchase {
         this.description = description;
     }
     
-    public String getUserId() {
+    @Override
+    public String getReferenceId() {
         return this.userId;
     }
     
-    public void setUserId(String userId) {
+    @Override
+    public void setReferenceId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public Double getAmount() {
+        return null;
+    }
+
+    @Override
+    public void setAmount(Double amount) {
+        return;
     }
     
     

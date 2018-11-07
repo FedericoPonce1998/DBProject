@@ -77,22 +77,6 @@ public class Meeting {
         return this.usuOrgId;
     }
 
-    public String getPurchaseId() {
-        return purchaseId;
-    }
-
-    public void setPurchaseId(String purchaseId) {
-        this.purchaseId = purchaseId;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
     public String[] getUsuInvitedId() {
         return usuInvitedId;
     }

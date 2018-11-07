@@ -5,17 +5,89 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.MeetingController;
+import Models.Invited;
+import Models.Meeting;
+import Models.MeetingPurchase;
+import Models.MeetingService;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author federicoponcedeleon
  */
 public class MeetingInformationInterface extends javax.swing.JFrame {
-
+    private Meeting meeting;
+    private String friendId;                    
     /**
      * Creates new form MeetingInformationInterface
      */
     public MeetingInformationInterface() {
         initComponents();
+        lblDate.setText(meeting.getDate().toString()); //CAMBIAR A DD/MM/YYYY
+        lblOrganizer.setText(meeting.getUsuOrgId());
+        lblPlace.setText(meeting.getPlace());
+        lblTime.setText(meeting.getDate().toString()); //CAMBIAR A HH:MM
+        fillInvitedTable();
+        fillServiceTable();
+        fillPurchaseTable();
+        friendId = null;
+    }
+    
+    public void setMeeting(Meeting meeting){
+        this.meeting = meeting;
+    }
+    
+    public void setFriendId(String friendId){
+        this.friendId = friendId;        
+    }
+    
+    public void fillServiceTable(){
+        MeetingController mc = MeetingController.instance();
+        ArrayList<MeetingService> serv = (mc.getMeetingServices(meeting.getMeetingId()));
+        DefaultTableModel table = (DefaultTableModel) tblService.getModel();
+        int i = 0;
+        for (MeetingService service : serv) {
+            tblService.setValueAt(service.getDescription(), i, 0);
+            tblService.setValueAt(service.getServiceId(), i, 1);
+            table.addRow(new Object[]{null});
+            i++;
+        }
+    }
+    
+    public void isOrganizer(){
+        MainController mainc = MainController.instance();
+        if(!mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
+            btnDelete.setText("Rechazar");
+        }
+    }
+    
+    public void fillPurchaseTable(){
+        MeetingController mc = MeetingController.instance();
+        ArrayList<MeetingPurchase> purch = (mc.getMeetingPurchases(meeting.getMeetingId()));
+        DefaultTableModel table = (DefaultTableModel) tblPurchase.getModel();
+        int i = 0;
+        for (MeetingPurchase purchase : purch) {
+            tblPurchase.setValueAt(purchase.getDescription(), i, 0);
+            tblPurchase.setValueAt(purchase.getIdCompra(), i, 1);
+            table.addRow(new Object[]{null});
+            i++;
+        }
+    }
+    
+    public void fillInvitedTable(){
+        MeetingController mc = MeetingController.instance();
+        ArrayList<Invited> inv = (mc.getInvitedMeeting(meeting.getMeetingId()));
+        DefaultTableModel table = (DefaultTableModel) tblInvites.getModel();
+        int i = 0;
+        for (Invited invited : inv) {
+            tblInvites.setValueAt(invited.getUserId(), i, 0);
+            table.addRow(new Object[]{null});
+            i++;
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,35 +98,35 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        lblOrganizer = new javax.swing.JLabel();
+        lblPlace = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButtonAddPurchase = new javax.swing.JToggleButton();
-        jButtonAddService = new javax.swing.JToggleButton();
+        btnAddPurchase = new javax.swing.JToggleButton();
+        btnAddService = new javax.swing.JToggleButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTablePurchase = new javax.swing.JTable();
+        tblPurchase = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableService = new javax.swing.JTable();
+        tblService = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jButtonDeletePurchse = new javax.swing.JButton();
-        jButtonDeleteService = new javax.swing.JButton();
-        jButtonAddInvited = new javax.swing.JToggleButton();
-        jButtonDeleteInvited = new javax.swing.JButton();
+        tblInvites = new javax.swing.JTable();
+        btnDeletePurchase = new javax.swing.JButton();
+        btnDeleteService = new javax.swing.JButton();
+        btnAddInvited = new javax.swing.JToggleButton();
+        btnDeleteInvited = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAccept = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,14 +135,14 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(300, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Fecha");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 60, 30));
+        lblDate.setText("Fecha");
+        getContentPane().add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 60, 30));
 
-        jLabel2.setText("Usu organizador");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
+        lblOrganizer.setText("Usu organizador");
+        getContentPane().add(lblOrganizer, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
 
-        jLabel3.setText("Lugar");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, 30));
+        lblPlace.setText("Lugar");
+        getContentPane().add(lblPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/miniService.png"))); // NOI18N
         jLabel5.setToolTipText("Servicios");
@@ -78,22 +150,37 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel11.setToolTipText("Inicio");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
-        jButtonAddPurchase.setText("+");
-        jButtonAddPurchase.setToolTipText("Agregar compra");
-        getContentPane().add(jButtonAddPurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 40, 30));
+        btnAddPurchase.setText("+");
+        btnAddPurchase.setToolTipText("Agregar compra");
+        btnAddPurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPurchaseActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAddPurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 40, 30));
 
-        jButtonAddService.setText("+");
-        jButtonAddService.setToolTipText("Agregar servicio");
-        getContentPane().add(jButtonAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 40, 30));
+        btnAddService.setText("+");
+        btnAddService.setToolTipText("Agregar servicio");
+        btnAddService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddServiceActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 40, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people-icon.png"))); // NOI18N
         jLabel6.setToolTipText("Invitados");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, 210, 130, 60));
 
-        jLabel7.setText("Hora");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, 30));
+        lblTime.setText("Hora");
+        getContentPane().add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, 30));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,7 +195,7 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
-        jTablePurchase.setModel(new javax.swing.table.DefaultTableModel(
+        tblPurchase.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -118,14 +205,14 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
                 "Descripcion"
             }
         ));
-        jScrollPane1.setViewportView(jTablePurchase);
-        if (jTablePurchase.getColumnModel().getColumnCount() > 0) {
-            jTablePurchase.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane1.setViewportView(tblPurchase);
+        if (tblPurchase.getColumnModel().getColumnCount() > 0) {
+            tblPurchase.getColumnModel().getColumn(0).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 100, 60));
 
-        jTableService.setModel(new javax.swing.table.DefaultTableModel(
+        tblService.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null}
@@ -134,9 +221,9 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
                 "Descripcion"
             }
         ));
-        jScrollPane2.setViewportView(jTableService);
-        if (jTableService.getColumnModel().getColumnCount() > 0) {
-            jTableService.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane2.setViewportView(tblService);
+        if (tblService.getColumnModel().getColumnCount() > 0) {
+            tblService.getColumnModel().getColumn(0).setResizable(false);
         }
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 100, 60));
@@ -145,7 +232,7 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
         jLabel8.setToolTipText("Compras");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 60, 40));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblInvites.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -156,28 +243,48 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
                 "Nombre"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane3.setViewportView(tblInvites);
+        if (tblInvites.getColumnModel().getColumnCount() > 0) {
+            tblInvites.getColumnModel().getColumn(0).setResizable(false);
         }
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 170, 70));
 
-        jButtonDeletePurchse.setText("-");
-        jButtonDeletePurchse.setToolTipText("Eliminar compra");
-        getContentPane().add(jButtonDeletePurchse, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 40, 30));
+        btnDeletePurchase.setText("-");
+        btnDeletePurchase.setToolTipText("Eliminar compra");
+        btnDeletePurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePurchaseActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeletePurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 40, 30));
 
-        jButtonDeleteService.setText("-");
-        jButtonDeleteService.setToolTipText("Eliminar servicio");
-        getContentPane().add(jButtonDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 40, 30));
+        btnDeleteService.setText("-");
+        btnDeleteService.setToolTipText("Eliminar servicio");
+        btnDeleteService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteServiceActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 40, 30));
 
-        jButtonAddInvited.setText("+");
-        jButtonAddInvited.setToolTipText("Agregar invitado");
-        getContentPane().add(jButtonAddInvited, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 40, 30));
+        btnAddInvited.setText("+");
+        btnAddInvited.setToolTipText("Agregar invitado");
+        btnAddInvited.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddInvitedActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAddInvited, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 40, 30));
 
-        jButtonDeleteInvited.setText("-");
-        jButtonDeleteInvited.setToolTipText("Eliminar invitado");
-        getContentPane().add(jButtonDeleteInvited, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 40, 30));
+        btnDeleteInvited.setText("-");
+        btnDeleteInvited.setToolTipText("Eliminar invitado");
+        btnDeleteInvited.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteInvitedActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeleteInvited, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 40, 30));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
         jLabel4.setToolTipText("Fecha");
@@ -195,19 +302,138 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
         jLabel14.setToolTipText("Organizador");
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 140, 120, 70));
 
-        jButton1.setText("Aceptar");
-        jButton1.setToolTipText("Aceptar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 80, -1));
+        btnAccept.setText("Aceptar");
+        btnAccept.setToolTipText("Aceptar");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 80, -1));
 
-        jButton2.setText("Eliminar");
-        jButton2.setToolTipText("Eliminar Reunion");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 80, -1));
+        btnDelete.setText("Eliminar");
+        btnDelete.setToolTipText("Eliminar Reunion");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 80, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddInvitedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInvitedActionPerformed
+        MainController mainc = MainController.instance();
+        boolean bool = false;
+        if (mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
+            do{
+                friendId = JOptionPane.showInputDialog("Ingrese el nombre de usuario de su amigo");
+                MeetingController mc = MeetingController.instance();
+                bool = mc.addInvitedToMeeting(friendId, meeting.getMeetingId());
+            } while (!bool);
+        }
+    }//GEN-LAST:event_btnAddInvitedActionPerformed
+
+    private void btnDeleteInvitedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteInvitedActionPerformed
+        MainController mainc = MainController.instance();
+        if (mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
+            DefaultTableModel table = (DefaultTableModel) tblInvites.getModel();
+            MeetingController mc = MeetingController.instance();
+            int selectedRow = tblInvites.getSelectedRow();
+            mc.deleteInvitedToMeeting(table.getValueAt(selectedRow, 0).toString(), meeting.getMeetingId());
+            table.removeRow(selectedRow);
+        }
+    }//GEN-LAST:event_btnDeleteInvitedActionPerformed
+
+    private void btnAddPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPurchaseActionPerformed
+        MainController mainc = MainController.instance();
+        if (mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
+            AddPurchase purchInterface = new AddPurchase();
+            purchInterface.setMeetingId(meeting.getMeetingId());
+            purchInterface.show();
+            purchInterface.setVisible(true);
+            purchInterface.setLocationRelativeTo(this);
+            dispose();
+        }
+    }//GEN-LAST:event_btnAddPurchaseActionPerformed
+
+    private void btnDeletePurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePurchaseActionPerformed
+        MainController mainc = MainController.instance();
+        if (mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
+            PurchaseController pc = PurchaseController.instance();
+            DefaultTableModel table = (DefaultTableModel) tblPurchase.getModel();
+            int selectedRow = tblPurchase.getSelectedRow();
+            pc.deleteMeetingPurchase(table.getValueAt(selectedRow, 1).toString());
+            table.removeRow(selectedRow);
+        }
+    }//GEN-LAST:event_btnDeletePurchaseActionPerformed
+
+    private void btnAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddServiceActionPerformed
+        MainController mainc = MainController.instance();
+        if (mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){    
+            AddServiceInterface servInterface = new AddServiceInterface();
+            servInterface.setMeetingId(meeting.getMeetingId()); //service interface should get an id
+            servInterface.setVisible(true);
+            servInterface.setLocationRelativeTo(this);
+            dispose();
+        }
+    }//GEN-LAST:event_btnAddServiceActionPerformed
+
+    private void btnDeleteServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteServiceActionPerformed
+        MainController mainc = MainController.instance();
+        if (mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
+            ServiceController pc = ServiceController.instance();
+            DefaultTableModel table = (DefaultTableModel) tblService.getModel();
+            int selectedRow = tblService.getSelectedRow();
+            pc.deleteMeetingService(table.getValueAt(selectedRow, 1).toString());
+            table.removeRow(selectedRow);
+        }
+    }//GEN-LAST:event_btnDeleteServiceActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        MainController mainc = MainController.instance();
+        if (mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
+            int option = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar la reunion?");
+            if (option == 0){
+                MeetingController mc = MeetingController.instance();
+                mc.deleteMeeting(meeting.getMeetingId());
+                MeetingInterface meetings = new MeetingInterface();
+                ArrayList<Meeting> meetingArray = mc.getAllMeetings(mainc.getCurrentUser().getUserName());
+                meetings.setList(meetingArray);
+                meetings.setVisible(true);
+                meetings.setLocationRelativeTo(this);
+                dispose();
+            }
+        }
+        else{
+            int option = JOptionPane.showConfirmDialog(null, "Seguro que desea rechazar la invitacion a la reunion?");
+            if (option == 0){
+                MeetingController mc = MeetingController.instance();
+                mc.rejectInivitation(mainc.getCurrentUser().getUserName(),meeting.getMeetingId());
+                MeetingInterface meetings = new MeetingInterface();
+                ArrayList<Meeting> meetingArray = mc.getAllMeetings(mainc.getCurrentUser().getUserName());
+                meetings.setList(meetingArray);
+                meetings.setVisible(true);
+                meetings.setLocationRelativeTo(this);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        
+    }//GEN-LAST:event_jLabel11MouseClicked
 
     /**
      * @param args the command line arguments
@@ -245,35 +471,35 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JToggleButton jButtonAddInvited;
-    private javax.swing.JToggleButton jButtonAddPurchase;
-    private javax.swing.JToggleButton jButtonAddService;
-    private javax.swing.JButton jButtonDeleteInvited;
-    private javax.swing.JButton jButtonDeletePurchse;
-    private javax.swing.JButton jButtonDeleteService;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnAccept;
+    private javax.swing.JToggleButton btnAddInvited;
+    private javax.swing.JToggleButton btnAddPurchase;
+    private javax.swing.JToggleButton btnAddService;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteInvited;
+    private javax.swing.JButton btnDeletePurchase;
+    private javax.swing.JButton btnDeleteService;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTablePurchase;
-    private javax.swing.JTable jTableService;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblOrganizer;
+    private javax.swing.JLabel lblPlace;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JTable tblInvites;
+    private javax.swing.JTable tblPurchase;
+    private javax.swing.JTable tblService;
     // End of variables declaration//GEN-END:variables
 }

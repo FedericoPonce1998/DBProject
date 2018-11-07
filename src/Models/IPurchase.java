@@ -14,8 +14,17 @@ import java.util.UUID;
 public interface IPurchase {
     
     public String getIdCompra();
-
+    
     public String getDescription();
-
+    
     public void setDescription(String description);
+    
+    public String getReferenceId();
+    
+    public void setReferenceId(String meetingId);
+    
+    public Double getAmount();
+    
+    public void setAmount(Double amount);
+   
 }

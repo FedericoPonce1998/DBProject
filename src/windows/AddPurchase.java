@@ -5,19 +5,44 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.MeetingController;
+import Controllers.PurchaseController;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Mayra
  */
 public class AddPurchase extends javax.swing.JFrame {
 
+    private String usuId;
+    private String meetingId;
     /**
      * Creates new form AddPurchase
      */
     public AddPurchase() {
         initComponents();
+        this.usuId = null;
+        this.meetingId = null;
     }
 
+    public void setUsuId(String refId){
+        this.usuId = refId;
+        this.meetingId = null;
+    }
+    public void setMeetingId(String refId){
+        this.meetingId = refId;
+        this.usuId = null;
+    }
+    
+    public void show(){
+        if (usuId != null){
+            jLabel2.setVisible(false);
+            txtCost.setVisible(false);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,15 +53,15 @@ public class AddPurchase extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtDescription = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tableLines = new javax.swing.JTable();
+        btnAddLine = new javax.swing.JButton();
+        btnDeleteLine = new javax.swing.JButton();
+        btnAccept = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        btnCancel = new javax.swing.JButton();
+        txtCost = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -53,10 +78,10 @@ public class AddPurchase extends javax.swing.JFrame {
         jLabel1.setToolTipText("Descripcion");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 80, 90, 40));
 
-        jTextField1.setToolTipText("Descripcion");
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 180, 25));
+        txtDescription.setToolTipText("Descripcion");
+        getContentPane().add(txtDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 180, 25));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableLines.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null}
@@ -65,38 +90,63 @@ public class AddPurchase extends javax.swing.JFrame {
                 "Nombre", "Cantidad"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane1.setViewportView(tableLines);
+        if (tableLines.getColumnModel().getColumnCount() > 0) {
+            tableLines.getColumnModel().getColumn(1).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 220, 130));
 
-        jButton1.setText("+");
-        jButton1.setToolTipText("Agregar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 40, 30));
+        btnAddLine.setText("+");
+        btnAddLine.setToolTipText("Agregar");
+        btnAddLine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddLineActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAddLine, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 40, 30));
 
-        jButton2.setText("-");
-        jButton2.setToolTipText("Quitar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 40, 30));
+        btnDeleteLine.setText("-");
+        btnDeleteLine.setToolTipText("Quitar");
+        btnDeleteLine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteLineActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeleteLine, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 40, 30));
 
-        jButton3.setText("Aceptar");
-        jButton3.setToolTipText("Aceptar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
+        btnAccept.setText("Aceptar");
+        btnAccept.setToolTipText("Aceptar");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cash.png"))); // NOI18N
         jLabel2.setToolTipText("Monto");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 40, 280, 120));
 
-        jButton4.setText("Cancelar");
-        jButton4.setToolTipText("Cancelar");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, -1, -1));
+        btnCancel.setText("Cancelar");
+        btnCancel.setToolTipText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, -1, -1));
 
-        jTextField2.setToolTipText("Monto");
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 180, 25));
+        txtCost.setToolTipText("Monto");
+        getContentPane().add(txtCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 180, 25));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel3.setToolTipText("Inicio");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -20, 160, 100));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
@@ -106,6 +156,11 @@ public class AddPurchase extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -10, 100, 60));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -117,6 +172,74 @@ public class AddPurchase extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLineActionPerformed
+        DefaultTableModel table = (DefaultTableModel) tableLines.getModel();
+        table.addRow(new Object[]{"",""});
+    }//GEN-LAST:event_btnAddLineActionPerformed
+
+    private void btnDeleteLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLineActionPerformed
+        DefaultTableModel table = (DefaultTableModel) tableLines.getModel();
+        if(table.getRowCount()>0){
+            table.removeRow(table.getRowCount()-1);
+        }
+    }//GEN-LAST:event_btnDeleteLineActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        mc.getHome().setLocationRelativeTo(this);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        PurchaseController pc = PurchaseController.instance();
+        if (tableLines.getRowCount() > 0){
+            long id;
+            if (meetingId!=null){
+                id = pc.createMeetingPurchase(meetingId, txtDescription.toString(), Double.parseDouble(txtCost.toString()));
+                for (int i = 0; i < tableLines.getRowCount(); i++){
+                    String prod = tableLines.getValueAt(i, 0).toString();
+                    String cant = tableLines.getValueAt(i, 1).toString();
+                    String purchaseId = Long.toString(id);
+                    pc.addMeetingPurchaseLine(Integer.toString(i), purchaseId, prod, Double.parseDouble(cant));
+                }
+                MeetingController mc = MeetingController.instance();
+                MeetingInformationInterface meetingInfo = new MeetingInformationInterface();
+                meetingInfo.setMeeting(mc.getMeeting(meetingId));
+                meetingInfo.setVisible(true);
+                meetingInfo.setLocationRelativeTo(this);
+                dispose();
+            }
+            else{
+                id = pc.createPersonalPurchase(txtDescription.toString(), usuId);
+                for (int i = 0; i < tableLines.getRowCount(); i++){
+                    String prod = tableLines.getValueAt(i, 0).toString();
+                    String cant = tableLines.getValueAt(i, 1).toString();
+                    String purchaseId = Long.toString(id);
+                    pc.addPersonalPurchaseLine(Integer.toString(i), purchaseId, prod, Double.parseDouble(cant));
+                }
+                MainController mc = MainController.instance();
+                mc.getHome().setVisible(true);
+                mc.getHome().setLocationRelativeTo(this);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        mc.getHome().setLocationRelativeTo(this);
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        MainController mc = MainController.instance();
+        mc.getMenu().setVisible(true);
+        mc.getMenu().setLocationRelativeTo(this);
+        mc.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -154,10 +277,10 @@ public class AddPurchase extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnAccept;
+    private javax.swing.JButton btnAddLine;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnDeleteLine;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -166,8 +289,8 @@ public class AddPurchase extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tableLines;
+    private javax.swing.JTextField txtCost;
+    private javax.swing.JTextField txtDescription;
     // End of variables declaration//GEN-END:variables
 }

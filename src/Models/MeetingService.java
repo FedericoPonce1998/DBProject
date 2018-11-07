@@ -12,7 +12,7 @@ import java.util.UUID;
  *
  * @author federicoponcedeleon
  */
-public class MeetingService implements IMeeting{
+public class MeetingService implements IService{
     
     private final String serviceId;
     private String name;
@@ -65,20 +65,33 @@ public class MeetingService implements IMeeting{
         this.description = description;
     }
 
+    @Override
     public Double getPrice() {
         return this.price;
     }
 
+    @Override
     public void setPrice(Double price) {
         this.price = price;
     }
     
-    public String getMeetingId() {
+    @Override
+    public String getReferenceId() {
         return this.meetingId;
     }
     
-    public void setMeetingId(String meetingId) {
+    @Override
+    public void setReferenceId(String meetingId) {
         this.meetingId = meetingId;
+    }
+    
+    @Override
+    public Date getDate() {
+        return null;
+    }
+    
+    public void setDate(Date date) {
+        return;
     }
 
 }

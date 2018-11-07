@@ -27,6 +27,7 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
     public PurchaseInformationInterface() {
         initComponents();
     }
+    private IPurchase purchaseToShow;
     
     private MeetingPurchase meeting;
     private PersonalPurchase personal;

@@ -7,6 +7,7 @@ package windows;
 
 import Controllers.MainController;
 import Controllers.UserController;
+import java.awt.Color;
 import projectbd.DBConnection;
 
 /**
@@ -78,6 +79,11 @@ public class AddFriend extends javax.swing.JFrame {
         getContentPane().add(txtError, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 180, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -50, 90, 140));
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -87,6 +93,11 @@ public class AddFriend extends javax.swing.JFrame {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel9.setToolTipText("Inicio");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, -20, 160, 90));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
@@ -100,14 +111,38 @@ public class AddFriend extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-         System.exit(0);
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        mc.getHome().setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         UserController user = UserController.getInstanceUser();
         MainController mc = MainController.instance();
-        user.addFriend(mc.getCurrentUser().getUserName(), txtUserfriend.toString());
+        if(user.addFriend(mc.getCurrentUser().getUserName(), txtUserfriend.toString()) != -1){
+            txtError.setText("Amigo agregado correctamente!");
+            txtError.setForeground(Color.GREEN);
+        }
+        else {
+            txtError.setText("Nombre de usuario incorrecto.");
+            txtError.setForeground(Color.red);
+        }
     }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        MainController mc = MainController.instance();
+        mc.getMenu().setVisible(true);
+        mc.getMenu().setLocationRelativeTo(this);
+        mc.getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        mc.getHome().setLocationRelativeTo(this);
+        this.dispose();
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments
