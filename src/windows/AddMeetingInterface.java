@@ -13,26 +13,28 @@ import Models.Friends;
 import Models.Meeting;
 import Models.User;
 import java.awt.Color;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import projectbd.DBConnection;
+
 
 /**
  *
  * @author federicoponcedeleon
  */
-public class AddReunionInterface extends javax.swing.JFrame {
+public class AddMeetingInterface extends javax.swing.JFrame {
 
     private ArrayList<Friends> listOfFriends;
     private ArrayList<String> selectedFriends;
     /**
      * Creates new form AddReunionInterface
      */
-    public AddReunionInterface() {
+    public AddMeetingInterface() {
         initComponents();
         listAmigos.setListData(getFriendsList());
         listOfFriends = new ArrayList<>();
         selectedFriends = new ArrayList<>();
-         
+        txtError.setText("");
     }
 
     /**
@@ -74,7 +76,6 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnInvite = new javax.swing.JButton();
         jButtonRemove = new javax.swing.JButton();
-        listSelectedFriends = new java.awt.List();
         txtError = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -85,6 +86,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        listFriends = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel6.setText("jLabel6");
@@ -143,7 +145,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-icon.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 100, 120, 160));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 150, 120, 60));
 
         btnCancel.setText("Cancelar");
         btnCancel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -155,7 +157,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         getContentPane().add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, 60, 25));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people-icon.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 150, 130, 190));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 210, 130, 50));
 
         listAmigos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Bestellen" };
@@ -180,7 +182,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
         getContentPane().add(txtTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 50, 25));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/description-icon.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 20, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 60, 90, 50));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clock-icon.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, 180));
@@ -203,24 +205,26 @@ public class AddReunionInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 60, 25));
 
-        listSelectedFriends.setName(""); // NOI18N
-        listSelectedFriends.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listSelectedFriendsActionPerformed(evt);
-            }
-        });
-        getContentPane().add(listSelectedFriends, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 200, 90));
-
         txtError.setForeground(new java.awt.Color(255, 0, 7));
         txtError.setText("cambiar");
         getContentPane().add(txtError, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 50, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -60, 90, 150));
         getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 100, 25));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel11.setToolTipText("Inicio");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, -20, 160, 80));
 
         jCheckBox1.setSelected(true);
@@ -245,6 +249,13 @@ public class AddReunionInterface extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 50));
 
+        listFriends.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listFriendsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(listFriends, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 200, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 300, 470));
@@ -259,20 +270,33 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         String description = txtDescription.getText(),
                place = txtPlace.getText(),
-               date = jDateChooser1.getDateFormatString(),
                time = txtTime.getText(),
                userId = MainController.instance().getCurrentUser().getUserName();
+        Timestamp date = Timestamp.valueOf(jDateChooser1.getDateFormatString());
         
         MeetingController mc = MeetingController.instance();
         
-        boolean success = mc.createMeeting(date, place, description, userId) != -1;
-        if (success) {
-            txtError.setText("Reunion creada correctamente");
-            txtError.setForeground(Color.GREEN);
-        }
-        else {
+        
+        Meeting createdMeeting = mc.createMeeting(date, place, description, userId, true );
+        if (createdMeeting == null) {
             txtError.setText("Ha ocurrido un error al crear la reunion");
             txtError.setForeground(Color.red);
+            return;
+        }
+        else {
+            int i = 0;
+            for (String invited : listFriends.getItems()) {
+                boolean success = mc.addInvitedToMeeting(invited, createdMeeting.getMeetingId());
+                if (!success) i++;
+            }
+            if (i != 0) {
+                txtError.setText(i + " amigos no se pudieron invitar");
+                txtError.setForeground(Color.red);
+            }
+            else {
+                txtError.setText("Reunion creada correctamente");
+                txtError.setForeground(Color.GREEN);
+            }
         }
     }//GEN-LAST:event_btnAcceptActionPerformed
 
@@ -296,7 +320,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
 
     private void btnInviteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInviteActionPerformed
         String selectedFriend = listAmigos.getSelectedValue();
-        selectedFriends.add(selectedFriend);
+        listFriends.add(selectedFriend);
     }//GEN-LAST:event_btnInviteActionPerformed
 
     
@@ -304,6 +328,25 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
         selectedFriends.remove(listAmigos.getSelectedValue());
     }//GEN-LAST:event_jButtonRemoveActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        MainController.instance().getMenu().setVisible(true);
+        MainController.instance().getMenu().setLocationRelativeTo(this);
+        MainController.instance().getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+        mc.getHome().setLocationRelativeTo(this);
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void listFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFriendsActionPerformed
+        String selectedItem = listFriends.getSelectedItem();
+        listFriends.remove(selectedItem);
+    }//GEN-LAST:event_listFriendsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,20 +365,21 @@ public class AddReunionInterface extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddReunionInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMeetingInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddReunionInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMeetingInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddReunionInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMeetingInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddReunionInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMeetingInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddReunionInterface().setVisible(true);
+                new AddMeetingInterface().setVisible(true);
             }
         });
     }
@@ -377,7 +421,7 @@ public class AddReunionInterface extends javax.swing.JFrame {
     private java.util.List list1;
     private java.util.List list2;
     private javax.swing.JList<String> listAmigos;
-    private java.awt.List listSelectedFriends;
+    private java.awt.List listFriends;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTextField txtDescription;
     private javax.swing.JLabel txtError;

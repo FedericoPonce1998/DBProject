@@ -7,6 +7,7 @@ package windows;
 
 import Controllers.MainController;
 import Controllers.ServiceController;
+import Models.IService;
 import Models.MeetingService;
 import Models.PersonalService;
 import java.awt.Color;
@@ -22,47 +23,33 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
      */
     public ServiceInformationInterface() {
         initComponents();
+        jLabelMessage.setText("");
     }
     
-    private PersonalService personal;
-    private MeetingService meeting;
+    private IService service;
 
-    public PersonalService getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(PersonalService personal) {
-        this.personal = personal;
-        this.meeting = null;
-    }
-
-    public MeetingService getMeeting() {
-        return meeting;
-    }
-
-    public void setMeeting(MeetingService meeting) {
-        this.meeting = meeting;
-        this.personal = null;
+    public void setService(IService service) {
+        this.service = service;
     }
     
-    public void show() {
-        if (this.personal != null) {
-            jLabelCompany.setText(this.personal.getCompany());
+    public void showService() {
+        if (this.service.isPersonalService()) {
+            jLabelCompany.setText(this.service.getCompany());
             jLabelCompany.setVisible(true);
-            jLabelNameService.setText(this.personal.getName());
+            jLabelNameService.setText(this.service.getName());
             jLabelNameService.setVisible(true);
-            jLabelDate.setText(this.personal.getDate().toString());
+            jLabelDate.setText(this.service.getDate().toString());
             jLabelDate.setVisible(true);
-            jLabelDescription.setText(this.personal.getDescription());
+            jLabelDescription.setText(this.service.getDescription());
             jLabelDescription.setVisible(true);
         }
-        else if (this.meeting != null) {
-            jLabelCompany.setText(this.meeting.getCompany());
+        else {
+            jLabelCompany.setText(this.service.getCompany());
             jLabelCompany.setVisible(true);
-            jLabelNameService.setText(this.meeting.getName());
+            jLabelNameService.setText(this.service.getName());
             jLabelNameService.setVisible(true);
             jLabelDate.setVisible(false);
-            jLabelDescription.setText(this.meeting.getDescription());
+            jLabelDescription.setText(this.service.getDescription());
             jLabelDescription.setVisible(true);
         }
     }
@@ -112,12 +99,22 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel12.setToolTipText("Inicio");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -192,15 +189,13 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         ServiceController serviceC = ServiceController.instance();
-        boolean success = false;
-        if (this.personal != null) {
-            success = serviceC.deletePersonalService(this.personal.getServiceId());
-            
+        boolean success;
+        if (this.service.isPersonalService()) {
+            success = serviceC.deletePersonalService(this.service.getServiceId());
         }
-        else if (this.meeting != null) {
-            success = serviceC.deleteMeetingService(this.meeting.getServiceId());
+        else {
+            success = serviceC.deleteMeetingService(this.service.getServiceId());
         }
-        
         if (success) {
             jLabelMessage.setText("Eliminado correctamente");
             jLabelMessage.setForeground(Color.GREEN);
@@ -210,6 +205,20 @@ public class ServiceInformationInterface extends javax.swing.JFrame {
             jLabelMessage.setForeground(Color.red);
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        MainController.instance().getMenu().setVisible(true);
+        MainController.instance().getMenu().setLocationRelativeTo(this);
+        MainController.instance().getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+        mc.getHome().setLocationRelativeTo(this);
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments

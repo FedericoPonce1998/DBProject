@@ -57,5 +57,8 @@ public class PersonalPurchase implements IPurchase {
         return;
     }
     
-    
+    @Override
+    public boolean isPersonalPurchase() {
+        return true;
+    }
 }

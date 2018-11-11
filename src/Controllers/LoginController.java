@@ -63,12 +63,12 @@ public class LoginController {
     public boolean updatePassword(String userName, String oldPassword, String newPassword) {
         DBConnection db= DBConnection.Instance();
         User user = db.getUser(userName);
-        long result = -1;
+        String result = "";
         String data1 = "usuarios set usupass = " + newPassword + " where usuid = " + userName;
         if (user.getPassword().equals(oldPassword)) {
             result = db.updateData(data1);
         }
-        return result != -1;
+        return result != "";
     }
 }
 

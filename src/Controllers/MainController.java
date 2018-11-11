@@ -6,6 +6,9 @@
 package Controllers;
 
 import Models.User;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import windows.HomeInterface;
 import windows.MenuInterface;
 import windows.MessageContainer;
@@ -61,5 +64,18 @@ public class MainController {
     
     public HomeInterface getHome() {
         return this.home;
+    }
+    
+    public static String getHash(String text) throws NoSuchAlgorithmException {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.reset();
+        m.update(text.getBytes());
+        byte[] digest = m.digest();
+        BigInteger bigInt = new BigInteger(1,digest);
+        String hashtext = bigInt.toString(16);
+        while(hashtext.length() < 32 ){
+          hashtext = "0"+hashtext;
+        }
+        return hashtext;
     }
 }

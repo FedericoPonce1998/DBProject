@@ -21,6 +21,7 @@ public class AddFriend extends javax.swing.JFrame {
      */
     public AddFriend() {
         initComponents();
+        txtError.setText("");
     }
 
     /**
@@ -114,13 +115,14 @@ public class AddFriend extends javax.swing.JFrame {
         MainController mc = MainController.instance();
         mc.getHome().setVisible(true);
         mc.getHome().setLocationRelativeTo(this);
+        this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         UserController user = UserController.getInstanceUser();
         MainController mc = MainController.instance();
-        if(user.addFriend(mc.getCurrentUser().getUserName(), txtUserfriend.toString()) != -1){
+        if(user.addFriend(mc.getCurrentUser().getUserName(), txtUserfriend.toString()) != ""){
             txtError.setText("Amigo agregado correctamente!");
             txtError.setForeground(Color.GREEN);
         }

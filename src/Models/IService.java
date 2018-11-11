@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -34,7 +35,9 @@ public interface IService {
     
     public void setReferenceId(String meetingId);
     
-    public Date getDate();
+    public Timestamp getDate();
     
-    public void setDate(Date date);
+    public void setDate(Timestamp date);
+    
+    public boolean isPersonalService();
 }

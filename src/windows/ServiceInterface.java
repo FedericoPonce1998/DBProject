@@ -7,6 +7,7 @@ package windows;
 
 import Controllers.MainController;
 import Controllers.MeetingController;
+import Models.IService;
 import Models.Meeting;
 import Models.MeetingService;
 import Models.PersonalService;
@@ -24,52 +25,41 @@ public class ServiceInterface extends javax.swing.JFrame {
     public ServiceInterface() {
         initComponents();
     }
+    private ArrayList<IService> list;
 
-    private ArrayList<MeetingService> meeting;
-    private ArrayList<PersonalService> personal;
 
-    public ArrayList<MeetingService> getMeeting() {
-        return meeting;
+    public ArrayList<IService> getList() {
+        return list;
     }
 
-    public void setMeeting(ArrayList<MeetingService> meeting) {
-        this.meeting = meeting;
-        this.personal = null;
+    public void setList(ArrayList<IService> list) {
+        this.list = list;
     }
 
-    public ArrayList<PersonalService> getPersonal() {
-        return personal;
-      
-    }
-
-    public void setPersonal(ArrayList<PersonalService> personal) {
-        this.personal = personal;
-        this.meeting = null;
-    }
-    
-    public void show() {
-        if (this.personal != null) {
+    public void showServices() {
+        if (this.list != null) {
             int i = 0;
-            for (PersonalService service : this.personal) {
-                jTable1.setValueAt(service.getDate(), i, 0);
-                jTable1.setValueAt(service.getDescription(), i, 1);
-                jTable1.setValueAt(service.getCompany(), i, 2);
-                i++;
+            if (this.list.get(0).isPersonalService()) {
+                for (IService service : this.list) {
+                    jTable1.setValueAt(service.getDate(), i, 0);
+                    jTable1.setValueAt(service.getDescription(), i, 1);
+                    jTable1.setValueAt(service.getCompany(), i, 2);
+                    i++;
+                }                
             }
-        }
-        else if (this.meeting != null) {
-            int i = 0;
-            for (MeetingService service : this.meeting) {
-                Meeting meet = MeetingController.instance().getMeeting(service.getMeetingId());
-                if (meeting == null) {
-                    jTable1.setValueAt("not found", i, 0);
+            else {
+                for (IService service : this.list) {
+                    Meeting meet = MeetingController.instance().getMeeting(service.getReferenceId());
+                    if (meet == null) {
+                        jTable1.setValueAt("not found", i, 0);
+                    }
+                    else {
+                        jTable1.setValueAt(meet.getDate(), i, 0);
+                    }
+                    jTable1.setValueAt(service.getDescription(), i, 1);
+                    jTable1.setValueAt(service.getCompany(), i, 2);
+                    i++;
                 }
-                else {
-                    jTable1.setValueAt(meet.getDate(), i, 0);
-                }
-                jTable1.setValueAt(service.getDescription(), i, 1);
-                jTable1.setValueAt(service.getCompany(), i, 2);
-                i++;
             }
         }
     }

@@ -5,6 +5,12 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.UserController;
+import Models.Friends;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author federicoponcedeleon
@@ -17,7 +23,16 @@ public class FriendsInterface extends javax.swing.JFrame {
     public FriendsInterface() {
         initComponents();
     }
-
+    
+    ArrayList<Friends> list;
+    
+    public void list(ArrayList<Friends> list) {
+        this.list = list;
+        for (Friends friend : list) {
+            DefaultTableModel model = (DefaultTableModel) jTableFriends.getModel();
+            model.addRow(new Object[]{friend.getUserId2()});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +67,11 @@ public class FriendsInterface extends javax.swing.JFrame {
                 "Usuario", "Nombre"
             }
         ));
+        jTableFriends.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFriendsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableFriends);
         if (jTableFriends.getColumnModel().getColumnCount() > 0) {
             jTableFriends.getColumnModel().getColumn(0).setResizable(false);
@@ -66,6 +86,11 @@ public class FriendsInterface extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel3.setToolTipText("Inicio");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
@@ -73,6 +98,11 @@ public class FriendsInterface extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
         jLabel2.setToolTipText("");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -88,6 +118,51 @@ public class FriendsInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        MainController.instance().getMenu().setVisible(true);
+        MainController.instance().getMenu().setLocationRelativeTo(this);
+        MainController.instance().getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+        mc.getHome().setLocationRelativeTo(this);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jTableFriendsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFriendsMouseClicked
+        int row = jTableFriends.rowAtPoint(evt.getPoint());
+        if (row >= 0) {
+            Friends sFriend = this.list.get(row);
+            UserController selectedFriend = UserController.getInstanceUser();
+            UserInformation userFriend = new UserInformation();
+            userFriend.setUser(selectedFriend.getUser(sFriend.getUserId2()));
+            userFriend.setVisible(true);
+            userFriend.showFriendInfo();
+            this.setVisible(false);
+            dispose();
+        }
+    }//GEN-LAST:event_jTableFriendsMouseClicked
+
+    public void friendsList(){
+        int row = 1;
+        MainController main = MainController.instance();
+        UserController user = UserController.getInstanceUser();
+        ArrayList<Friends> friends = user.getFriends(main.getCurrentUser().getUserName());
+        for(int i=0; i<friends.size(); i++){
+            Friends f = friends.get(i);
+            if (f.getUserId1().equals(main.getCurrentUser().getUserName())){
+                jTableFriends.setValueAt(f.getUserId2(), row, 1);
+            }
+            else{
+                jTableFriends.setValueAt(f.getUserId2(), row, 1); 
+            }
+            row++;
+        }
+    }
 
     /**
      * @param args the command line arguments

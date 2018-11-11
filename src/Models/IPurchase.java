@@ -27,4 +27,5 @@ public interface IPurchase {
     
     public void setAmount(Double amount);
    
+    public boolean isPersonalPurchase();
 }

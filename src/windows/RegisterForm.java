@@ -22,6 +22,7 @@ public class RegisterForm extends javax.swing.JFrame {
     public RegisterForm() {
         initComponents();
         this.setLocationRelativeTo(null);
+        txtError.setText("");
     }
 
     /**
@@ -52,7 +53,6 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(300, 480));
@@ -140,23 +140,19 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel10.setText("Registrarse");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, -20, 90, 120));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
-        jLabel3.setText("z");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -80, 120, 210));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        MainController.instance().getHome().setVisible(true);
+        LoginInterface login = new LoginInterface();
+        login.setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-
         String name = txtName.getText(),
                userName = txtUserId.getText(),
                mail = txtMail.getText(),
@@ -232,7 +228,6 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

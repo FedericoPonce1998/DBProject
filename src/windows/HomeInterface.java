@@ -298,10 +298,9 @@ public class HomeInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuIconMouseClicked
-        MainController mc = MainController.instance();
-        mc.getMenu().setLocationRelativeTo(this);
-        mc.getMenu().setVisible(true);
-        
+        MainController.instance().getMenu().setVisible(true);
+        MainController.instance().getMenu().setLocationRelativeTo(this);
+        MainController.instance().getMenu().setPreviousInterface(this);
     }//GEN-LAST:event_menuIconMouseClicked
 
     private void agregarReunionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarReunionMouseEntered
@@ -337,7 +336,7 @@ public class HomeInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarCompraMouseExited
 
     private void agregarReunionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarReunionMouseClicked
-        AddReunionInterface addMeeting = new AddReunionInterface();
+        AddMeetingInterface addMeeting = new AddMeetingInterface();
         addMeeting.setVisible(true);
         this.setVisible(false);
         this.dispose();

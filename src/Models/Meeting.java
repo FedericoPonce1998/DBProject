@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +20,7 @@ import java.util.UUID;
  */
 public class Meeting {
     private final String meetingId;
-    private Date date;
+    private Timestamp date;
     private String place,
             description;
     private String usuOrgId;
@@ -28,23 +29,15 @@ public class Meeting {
     private String[] usuInvitedId;
     private boolean invitedDontPay;
     
-    public Meeting(String meetingId, String place, String date, String description, boolean invitedDontPay, String organizer) {
+    public Meeting(String meetingId, String place, Timestamp date, String description, boolean invitedDontPay, String organizer) {
         this.meetingId = meetingId;
         this. place = place;
         this.invitedDontPay = invitedDontPay;
-        try {
-            this.date = this.parseToDate(date);
-        }
-        catch (Exception e) {
-            
-        }
+        this.date = date;
         this.description = description;
         this.usuOrgId = organizer;
     }
 
-    private Date parseToDate(String toParse) throws ParseException {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toParse);
-    }
     public String getMeetingId() {
         return meetingId;
     }
@@ -53,7 +46,7 @@ public class Meeting {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

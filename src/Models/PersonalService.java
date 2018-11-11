@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,19 +22,15 @@ public class PersonalService implements IService {
     private String name;
     private String company;
     private String description;
-    private Date date;
+    private Timestamp date;
     private String userId;
     
-    public PersonalService(String serviceId, String name, String company, String description, String date, String userId) {
+    public PersonalService(String serviceId, String name, String company, String description, Timestamp date, String userId) {
         this.serviceId = serviceId;
         this.name = name;
         this.company = company;
         this.description = description;
-        try {
-            this.date = parseToDate(date);
-        } catch (ParseException ex) {
-            Logger.getLogger(PersonalService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.date = date;
         this.userId = userId;
         
     }
@@ -77,16 +74,14 @@ public class PersonalService implements IService {
     }
 
     @Override
-    public Date getDate() {
+    public Timestamp getDate() {
         return this.date;
     }
 
     @Override
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
-
-   
     
     @Override
     public String getReferenceId() {
@@ -106,6 +101,11 @@ public class PersonalService implements IService {
     @Override
     public void setPrice(Double price) {
         return;
+    }
+    
+    @Override
+    public boolean isPersonalService() {
+        return true;
     }
 
 }

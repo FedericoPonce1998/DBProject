@@ -57,5 +57,9 @@ public class MeetingPurchase implements IPurchase{
         this.amount = amount;
     }
     
+    @Override
+    public boolean isPersonalPurchase() {
+        return false;
+    }
     
 }

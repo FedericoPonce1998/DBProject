@@ -16,28 +16,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AddPurchase extends javax.swing.JFrame {
 
-    private String usuId;
-    private String meetingId;
+    public String meetingId;
     /**
      * Creates new form AddPurchase
      */
     public AddPurchase() {
         initComponents();
-        this.usuId = null;
         this.meetingId = null;
     }
 
-    public void setUsuId(String refId){
-        this.usuId = refId;
-        this.meetingId = null;
-    }
     public void setMeetingId(String refId){
         this.meetingId = refId;
-        this.usuId = null;
     }
     
-    public void show(){
-        if (usuId != null){
+    public void showTable(){
+        if (this.meetingId == null){
             jLabel2.setVisible(false);
             txtCost.setVisible(false);
         }
@@ -69,6 +62,7 @@ public class AddPurchase extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
@@ -189,20 +183,20 @@ public class AddPurchase extends javax.swing.JFrame {
         MainController mc = MainController.instance();
         mc.getHome().setVisible(true);
         mc.getHome().setLocationRelativeTo(this);
+        this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         PurchaseController pc = PurchaseController.instance();
         if (tableLines.getRowCount() > 0){
-            long id;
-            if (meetingId!=null){
+            String id;
+            if (meetingId != null){
                 id = pc.createMeetingPurchase(meetingId, txtDescription.toString(), Double.parseDouble(txtCost.toString()));
                 for (int i = 0; i < tableLines.getRowCount(); i++){
                     String prod = tableLines.getValueAt(i, 0).toString();
                     String cant = tableLines.getValueAt(i, 1).toString();
-                    String purchaseId = Long.toString(id);
-                    pc.addMeetingPurchaseLine(Integer.toString(i), purchaseId, prod, Double.parseDouble(cant));
+                    pc.addMeetingPurchaseLine(Integer.toString(i), id, prod, Double.parseDouble(cant));
                 }
                 MeetingController mc = MeetingController.instance();
                 MeetingInformationInterface meetingInfo = new MeetingInformationInterface();
@@ -212,18 +206,18 @@ public class AddPurchase extends javax.swing.JFrame {
                 dispose();
             }
             else{
-                id = pc.createPersonalPurchase(txtDescription.toString(), usuId);
+                id = pc.createPersonalPurchase(txtDescription.toString(), MainController.instance().getCurrentUser().getUserName());
                 for (int i = 0; i < tableLines.getRowCount(); i++){
                     String prod = tableLines.getValueAt(i, 0).toString();
                     String cant = tableLines.getValueAt(i, 1).toString();
-                    String purchaseId = Long.toString(id);
-                    pc.addPersonalPurchaseLine(Integer.toString(i), purchaseId, prod, Double.parseDouble(cant));
+                    pc.addPersonalPurchaseLine(Integer.toString(i), id, prod, Double.parseDouble(cant));
                 }
                 MainController mc = MainController.instance();
                 mc.getHome().setVisible(true);
                 mc.getHome().setLocationRelativeTo(this);
                 dispose();
             }
+            this.meetingId = null;
         }
     }//GEN-LAST:event_btnAcceptActionPerformed
 

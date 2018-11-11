@@ -21,6 +21,7 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
      */
     public RestorePasswordInterface() {
         initComponents();
+        jLabelMessage.setText("");
     }
 
     /**
@@ -39,7 +40,6 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
         txtUserId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -81,9 +81,6 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,7 +223,6 @@ public class RestorePasswordInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelMessage;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtMail;

@@ -7,12 +7,20 @@ package windows;
 
 import Controllers.MainController;
 import Controllers.MeetingController;
+import Controllers.PurchaseController;
+import Controllers.ServiceController;
+import Controllers.UserController;
+import Models.Bill;
+import Models.IPurchase;
+import Models.IService;
 import Models.Invited;
 import Models.Meeting;
 import Models.MeetingPurchase;
 import Models.MeetingService;
+import Models.User;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static javax.swing.UIManager.get;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +45,10 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
         friendId = null;
     }
     
+    private ArrayList<IService> services;// same
+    private ArrayList<Invited> invites;// same
+    private ArrayList<IPurchase> purchase; //no seteable, es para poder agarrar la compra que fue seteada en fillPurchase
+    
     public void setMeeting(Meeting meeting){
         this.meeting = meeting;
     }
@@ -47,10 +59,11 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
     
     public void fillServiceTable(){
         MeetingController mc = MeetingController.instance();
-        ArrayList<MeetingService> serv = (mc.getMeetingServices(meeting.getMeetingId()));
+        ArrayList<IService> serv = mc.getMeetingServices(meeting.getMeetingId());
+        this.services = serv;
         DefaultTableModel table = (DefaultTableModel) tblService.getModel();
         int i = 0;
-        for (MeetingService service : serv) {
+        for (IService service : serv) {
             tblService.setValueAt(service.getDescription(), i, 0);
             tblService.setValueAt(service.getServiceId(), i, 1);
             table.addRow(new Object[]{null});
@@ -62,15 +75,22 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
         MainController mainc = MainController.instance();
         if(!mainc.getCurrentUser().getUserName().equals(meeting.getUsuOrgId())){
             btnDelete.setText("Rechazar");
+            btnAddInvited.setVisible(false);
+            btnDeleteInvited.setVisible(false);
+            btnAddPurchase.setVisible(false);
+            btnAddService.setVisible(false);
+            btnDeletePurchase.setVisible(false);
+            btnDeleteService.setVisible(false);
         }
     }
     
     public void fillPurchaseTable(){
         MeetingController mc = MeetingController.instance();
-        ArrayList<MeetingPurchase> purch = (mc.getMeetingPurchases(meeting.getMeetingId()));
+        ArrayList<IPurchase> purch = (mc.getMeetingPurchases(meeting.getMeetingId()));
+        this.purchase = purch; 
         DefaultTableModel table = (DefaultTableModel) tblPurchase.getModel();
         int i = 0;
-        for (MeetingPurchase purchase : purch) {
+        for (IPurchase purchase : purch) {
             tblPurchase.setValueAt(purchase.getDescription(), i, 0);
             tblPurchase.setValueAt(purchase.getIdCompra(), i, 1);
             table.addRow(new Object[]{null});
@@ -81,6 +101,7 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
     public void fillInvitedTable(){
         MeetingController mc = MeetingController.instance();
         ArrayList<Invited> inv = (mc.getInvitedMeeting(meeting.getMeetingId()));
+        this.invites = inv;
         DefaultTableModel table = (DefaultTableModel) tblInvites.getModel();
         int i = 0;
         for (Invited invited : inv) {
@@ -186,6 +207,11 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel15.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -205,6 +231,11 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
                 "Descripcion"
             }
         ));
+        tblPurchase.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPurchaseMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPurchase);
         if (tblPurchase.getColumnModel().getColumnCount() > 0) {
             tblPurchase.getColumnModel().getColumn(0).setResizable(false);
@@ -221,6 +252,11 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
                 "Descripcion"
             }
         ));
+        tblService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblServiceMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblService);
         if (tblService.getColumnModel().getColumnCount() > 0) {
             tblService.getColumnModel().getColumn(0).setResizable(false);
@@ -243,6 +279,11 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
                 "Nombre"
             }
         ));
+        tblInvites.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblInvitesMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblInvites);
         if (tblInvites.getColumnModel().getColumnCount() > 0) {
             tblInvites.getColumnModel().getColumn(0).setResizable(false);
@@ -404,6 +445,7 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
                 MeetingInterface meetings = new MeetingInterface();
                 ArrayList<Meeting> meetingArray = mc.getAllMeetings(mainc.getCurrentUser().getUserName());
                 meetings.setList(meetingArray);
+                meetings.showMeetings();
                 meetings.setVisible(true);
                 meetings.setLocationRelativeTo(this);
                 dispose();
@@ -432,8 +474,60 @@ public class MeetingInformationInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+        mc.getHome().setLocationRelativeTo(this);
     }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        MainController.instance().getMenu().setVisible(true);
+        MainController.instance().getMenu().setLocationRelativeTo(this);
+        MainController.instance().getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void tblPurchaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPurchaseMouseClicked
+        int row = tblPurchase.rowAtPoint(evt.getPoint());
+        if (row >= 0) {
+            PurchaseInformationInterface interf = new PurchaseInformationInterface();
+            IPurchase p = this.purchase.get(row);
+            interf.setPurchase(p);
+            interf.showPurchase();
+            interf.setVisible(true);
+            this.setVisible(false);
+            dispose();
+        }
+    }//GEN-LAST:event_tblPurchaseMouseClicked
+
+    private void tblServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblServiceMouseClicked
+        int row = tblService.rowAtPoint(evt.getPoint());
+        if (row >= 0) {
+            ServiceInformationInterface interf = new ServiceInformationInterface();
+            IService s = this.services.get(row);
+            interf.setService(s);
+            interf.showService();
+            interf.setVisible(true);
+            this.setVisible(false);
+            dispose();
+        }
+    }//GEN-LAST:event_tblServiceMouseClicked
+
+    private void tblInvitesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInvitesMouseClicked
+        int row = tblInvites.rowAtPoint(evt.getPoint());
+        if (row >= 0) {
+            UserInformation interf = new UserInformation();
+            Invited inv = this.invites.get(row);
+            User user = UserController.getInstanceUser().getUser(inv.getUserId());
+            if (user != null) {
+                interf.setUser(user);
+                interf.showFriendInfo();
+                interf.setVisible(true);
+                this.setVisible(false);
+                dispose();   
+            }
+        }
+    }//GEN-LAST:event_tblInvitesMouseClicked
 
     /**
      * @param args the command line arguments

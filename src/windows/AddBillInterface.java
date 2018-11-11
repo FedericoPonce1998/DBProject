@@ -8,6 +8,7 @@ package windows;
 import Controllers.BillController;
 import Controllers.MainController;
 import java.awt.Color;
+import java.sql.Timestamp;
 
 /**
  *
@@ -20,6 +21,7 @@ public class AddBillInterface extends javax.swing.JFrame {
      */
     public AddBillInterface() {
         initComponents();
+        jLabelShowMessage.setText("");
     }
 
     /**
@@ -125,13 +127,12 @@ public class AddBillInterface extends javax.swing.JFrame {
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         BillController billc = BillController.instance();
         String description = jTextDescription.getText(),
-                deadline = jDateChooser1.getDateFormatString(),
                 usuId = MainController.instance().getCurrentUser().getUserName();
         Double amount = Double.parseDouble(jTextAmount.getText());
         boolean isInput = jTextAmount.getText().charAt('-') == 0,
                 isPaid = jCheckBox1.isSelected();
-        
-        boolean success = billc.createBill(description, amount, deadline, null, null, usuId, null, isInput, isPaid) != -1;
+        Timestamp date = Timestamp.valueOf(jDateChooser1.getDateFormatString());
+        boolean success = billc.createBill(description, amount, date, null, null, usuId, null, isInput, isPaid) != "";
         if (success) {
             jLabelShowMessage.setText("Gasto creado correctamente");
             jLabelShowMessage.setForeground(Color.GREEN);
@@ -146,12 +147,14 @@ public class AddBillInterface extends javax.swing.JFrame {
         MainController mc = MainController.instance();
         mc.getMenu().setPreviousInterface(this);
         mc.getMenu().setVisible(true);
+        mc.getMenu().setLocationRelativeTo(this);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         MainController.instance().getHome().setVisible(true);
-        this.dispose();
+        MainController.instance().getHome().setLocationRelativeTo(this);
         this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -159,6 +162,8 @@ public class AddBillInterface extends javax.swing.JFrame {
         mc.getHome().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        mc.getHome().setLocationRelativeTo(this);
+                
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**

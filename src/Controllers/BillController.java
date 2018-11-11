@@ -9,7 +9,12 @@ import Models.Bill;
 import java.util.UUID;
 import projectbd.DBConnection;
 import Models.User;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import windows.HomeInterface;
 
 /**
@@ -41,33 +46,40 @@ public class BillController {
      * @param isPaid
      * @return 
      */
-    public long createBill(String name, Double price, String deadline, String purchaseId, String serviceId, String usuId, String referenceId, boolean isInput, boolean isPaid) {
+    public String createBill(String name, Double price, Date deadline, String purchaseId, String serviceId, String usuId, String referenceId, boolean isInput, boolean isPaid) {
         DBConnection db = DBConnection.Instance();
         //firts I have to check if the meeting exists
         
         User user = db.getUser(usuId);
         if (user != null) {
-            String newId = UUID.randomUUID().toString();
-            String data = "Gasto(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioidvicio, "
-                            + "usuid, usuidReferencia) VALUES (" + newId + ", " + name + ", " + price + ", " + isPaid + ", " + isInput + ", " + 
-                            deadline + ", " + purchaseId + ", " + serviceId + ", " + usuId;
-            if (!referenceId.isEmpty()) {
-                User usuref = db.getUser(referenceId);
-                
-                if (usuref != null) {
-                    //crear con usuref
-                    return db.insertData(data + ", " + usuref + ");");
-                }
-                else {
-                    return -1;
-                }
+            String newId;
+            
+            String data = "Gasto2(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, "
+                            + "usuid, gastoReferencia) VALUES ('" + newId + "', '" + name + "', " + price + ", " + isPaid + ", " + isInput + ", "
+                    + "TO_DATE('" + deadline.toString().split(" ")[0] + "', 'YYYY-MM-DD')";
+            if (purchaseId == null) {
+                data += ", NULL";
             }
             else {
-                //crear usu sin usuref
-                return db.insertData(data + ");");
+                data += ", '" + purchaseId + "'";
             }
+            if (serviceId == null) {
+                data += ", NULL";
+            }
+            else {
+                data += "', '" + serviceId;
+            }
+            data += ", '" + usuId + "'";
+            if (referenceId == null) {
+                data += ", NULL";
+            }
+            else {
+                data += ", '" + referenceId + "'";
+            }
+            data += ");";
+            return db.insertData(data);
         }
-        return -1;
+        return "";
     }
     
     public Bill getBill(String billId) {
@@ -119,4 +131,32 @@ public class BillController {
         DBConnection db = DBConnection.Instance();
         return db.getByExpDate(usuid);
     }
+    
+    public ArrayList<Bill> getChargedBills(String usuid){
+        DBConnection db = DBConnection.Instance();
+        return db.getUsersBills(usuid, 4);
+    }
+    
+    public ArrayList<Bill> getDidntChargedBills(String usuid){
+        DBConnection db = DBConnection.Instance();
+        return db.getUsersBills(usuid, 3);
+    }
+    
+    public ArrayList<Bill> getPaidBills(String usuid){
+        DBConnection db = DBConnection.Instance();
+        return db.getUsersBills(usuid, 2);
+    }
+    
+    public ArrayList<Bill> getDidntPayBills(String usuid){
+        DBConnection db = DBConnection.Instance();
+        return db.getUsersBills(usuid, 1);
+    }
+    
+    public ArrayList<Bill> getAllBills(String usuid){
+        DBConnection db = DBConnection.Instance();
+        return db.getUsersBills(usuid, 0);
+    }
+    
+    
+    
 }

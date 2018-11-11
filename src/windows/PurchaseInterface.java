@@ -5,9 +5,16 @@
  */
 package windows;
 
+import Controllers.MainController;
+import Controllers.PurchaseController;
+import Models.IPurchase;
 import Models.MeetingPurchase;
 import Models.PersonalPurchase;
+import Models.User;
+import java.awt.Color;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,43 +26,33 @@ public class PurchaseInterface extends javax.swing.JFrame {
      */
     public PurchaseInterface() {
         initComponents();
+        jLabelMessage.setText("");
+        this.meetingId = null;
     }
-    
-    private ArrayList<PersonalPurchase> personal;
-    private ArrayList<MeetingPurchase> meeting;
+    private String meetingId;
+    private ArrayList<IPurchase> toShow;
 
-    public ArrayList<PersonalPurchase> getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(ArrayList<PersonalPurchase> personal) {
-        this.personal = personal;
-        this.meeting = null;
-    }
-
-    public ArrayList<MeetingPurchase> getMeeting() {
-        return meeting;
-    }
-
-    public void setMeeting(ArrayList<MeetingPurchase> meeting) {
-        this.meeting = meeting;
-        this.personal = null;
-    }
-    
-    public void showPurchase() {
-        if (this.personal != null) {
-            int i = 0;
-            for (PersonalPurchase purchase : this.personal) {
-                jTable1.setValueAt(purchase.getDescription(), i, 0);
-                i++;
-            }
+    public void showPurchases() throws SQLException {
+        PurchaseController pc = PurchaseController.instance();
+        ArrayList<IPurchase> list;
+        if (this.meetingId == null) { //need to list personal purchases
+            
+            list = pc.getAllPersonalPurchase(MainController.instance().getCurrentUser().getUserName());
+            
         }
-        else if (this.meeting != null) {
-            int i = 0;
-            for (MeetingPurchase purchase : this.meeting) {
-                jTable1.setValueAt(purchase.getDescription(), i, 0);
-                i++;
+        else {
+            list = pc.getAllMeetingPurchase(this.meetingId);
+            
+        }
+        if (list == null) {
+                jLabelMessage.setText("Ha ocurrido un error al obtener las compras");
+                jLabelMessage.setForeground(Color.red);
+                return;
             }
+        int i = 0;
+        for (IPurchase purchase : this.toShow) {
+            jTablePurchases.setValueAt(purchase.getDescription(), i, 0);
+            i++;
         }
     }
     
@@ -70,12 +67,13 @@ public class PurchaseInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablePurchases = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
+        jLabelMessage = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,7 +81,7 @@ public class PurchaseInterface extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePurchases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null}
@@ -92,21 +90,31 @@ public class PurchaseInterface extends javax.swing.JFrame {
                 "Descripcion"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane1.setViewportView(jTablePurchases);
+        if (jTablePurchases.getColumnModel().getColumnCount() > 0) {
+            jTablePurchases.getColumnModel().getColumn(0).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 270, 300));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel12.setToolTipText("Inicio");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, -10, 90, 60));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -116,14 +124,17 @@ public class PurchaseInterface extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 60));
 
-        jButton1.setText("+");
-        jButton1.setToolTipText("Nueva Compra");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAdd.setText("+");
+        jButtonAdd.setToolTipText("Nueva Compra");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAddActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 40, 30));
+        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 40, 30));
+
+        jLabelMessage.setText("jLabel2");
+        getContentPane().add(jLabelMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 310, 430));
@@ -131,11 +142,46 @@ public class PurchaseInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (this.personal != null) {
-            
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        if (this.toShow.get(0).isPersonalPurchase()) {
+            AddPurchase interf = new AddPurchase();
+            interf.setVisible(true);
+            interf.setLocationRelativeTo(this);
+            this.setVisible(false);
+            this.dispose();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        else { //tengo que validar que el que va a agregar la compra sea el organizador de la reunion
+            User currentUser = MainController.instance().getCurrentUser();
+            if (currentUser == null) {
+                jLabelMessage.setText("Ha ocurrido un error");
+                jLabelMessage.setForeground(Color.red);
+                return;
+            }
+            else {
+                if (this.toShow.get(0).getReferenceId().equals(currentUser.getUserName())) {
+                    AddPurchase interf = new AddPurchase();
+                    interf.setMeetingId(this.toShow.get(0).getReferenceId());
+                    interf.setVisible(true);
+                    interf.setLocationRelativeTo(this);
+                    this.setVisible(false);
+                    this.dispose();
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        MainController.instance().getMenu().setVisible(true);
+        MainController.instance().getMenu().setLocationRelativeTo(this);
+        MainController.instance().getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments
@@ -173,13 +219,14 @@ public class PurchaseInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAdd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabelMessage;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablePurchases;
     // End of variables declaration//GEN-END:variables
 }

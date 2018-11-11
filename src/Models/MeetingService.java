@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 
@@ -86,12 +87,17 @@ public class MeetingService implements IService{
     }
     
     @Override
-    public Date getDate() {
+    public Timestamp getDate() {
         return null;
     }
     
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         return;
+    }
+    
+    @Override
+    public boolean isPersonalService() {
+        return false;
     }
 
 }

@@ -9,11 +9,16 @@ import Controllers.BillController;
 import Controllers.MainController;
 import Controllers.PurchaseController;
 import Models.Bill;
+import Models.IPurchase;
 import Models.MeetingPurchase;
 import Models.PersonalPurchase;
 import Models.PurchaseLine;
 import java.awt.Color;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,29 +31,21 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
      */
     public PurchaseInformationInterface() {
         initComponents();
+        jLabelShowMessage.setText("");
     }
     private IPurchase purchaseToShow;
     
-    private MeetingPurchase meeting;
-    private PersonalPurchase personal;
-    
-    public void setPersonal(PersonalPurchase personal) {
-        this.personal = personal;
-        this.meeting = null;
+    public void setPurchase(IPurchase purchase) {
+        this.purchaseToShow = purchase;
     }
 
-    public void setMeeting(MeetingPurchase meeting) {
-        this.meeting = meeting;
-        this.personal = null;
-    }
-    
-    public void showPurchase(boolean meeting) {
+    public void showPurchase() {
         PurchaseController pc = PurchaseController.instance();
         BillController billc = BillController.instance();
         
         ArrayList<PurchaseLine> list;
-        if (meeting) {
-            if (pc.getMeetingPurchase(this.meeting.getMeetingId()) == null) { //is not paid yet
+        if (!this.purchaseToShow.isPersonalPurchase()) {
+            if (pc.getMeetingPurchase(this.purchaseToShow.getReferenceId()) == null) { //is not paid yet
                 jButtonPay.setVisible(true);
                 jButtonAdd.setVisible(true);
                 jButtonRemove.setVisible(true);
@@ -60,8 +57,8 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
                 jButtonRemove.setVisible(false);
                 jButtonDeletePurchase.setVisible(false);
             }
-            jLabelDescription.setText(this.meeting.getDescription());
-            MeetingPurchase purchase = pc.getMeetingPurchase(this.meeting.getIdCompra());
+            jLabelDescription.setText(this.purchaseToShow.getDescription());
+            IPurchase purchase = pc.getMeetingPurchase(this.purchaseToShow.getIdCompra());
             if (purchase == null) {
                 jLabelShowMessage.setText("No se pudieron obtener las lineas de compra");
                 jLabelShowMessage.setForeground(Color.red);
@@ -71,7 +68,7 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
             
         }
         else {
-            if (pc.getPersonalPurchase(this.personal.getIdCompra()) == null) { //is not paid yet
+            if (pc.getPersonalPurchase(this.purchaseToShow.getIdCompra()) == null) { //is not paid yet
                 jButtonPay.setVisible(true);
                 jButtonAdd.setVisible(true);
                 jButtonRemove.setVisible(true);
@@ -83,8 +80,8 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
                 jButtonRemove.setVisible(false);
                 jButtonDeletePurchase.setVisible(false);
             }
-            jLabelDescription.setText(this.personal.getDescription());
-            PersonalPurchase purchase = pc.getPersonalPurchase(this.personal.getIdCompra());
+            jLabelDescription.setText(this.purchaseToShow.getDescription());
+            PersonalPurchase purchase = pc.getPersonalPurchase(this.purchaseToShow.getIdCompra());
             if (purchase == null) {
                 jLabelShowMessage.setText("No se pudieron obtener las lineas de compra");
                 jLabelShowMessage.setForeground(Color.red);
@@ -216,18 +213,38 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
 
         jButtonAdd.setText("+");
         jButtonAdd.setToolTipText("Agregar");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 40, 30));
 
         jButtonRemove.setText("-");
         jButtonRemove.setToolTipText("Quitar");
+        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 40, 30));
 
         jButtonAccept.setText("Aceptar");
         jButtonAccept.setToolTipText("Aceptar");
+        jButtonAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAcceptActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 80, -1));
 
         jButtonDeletePurchase.setText("Eliminar");
         jButtonDeletePurchase.setToolTipText("Eliminar compra");
+        jButtonDeletePurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeletePurchaseActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonDeletePurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 80, -1));
 
         jButtonPay.setText("Pagar");
@@ -262,12 +279,68 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jTableShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableShowMouseClicked
-        
+        //esto es una linea, no hay nada que hacer
     }//GEN-LAST:event_jTableShowMouseClicked
 
     private void jButtonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPayActionPerformed
+        String price = JOptionPane.showInputDialog("Ingrese el monto");
+        BillController bc = BillController.instance();
         
+        if (this.purchaseToShow.isPersonalPurchase()) {
+            String name = jLabelDescription.getText(),
+                   usuId = MainController.instance().getCurrentUser().getUserName();
+            Double amount =Double.parseDouble(price);
+            Timestamp date = Timestamp.valueOf(new Date().toString());
+            boolean success = bc.createBill(name, amount, date, this.purchaseToShow.getIdCompra(), null, usuId, null, false, true) != "";
+            if (success) {
+                jLabelShowMessage.setText("Se ha pagado correctamente");
+                jLabelShowMessage.setForeground(Color.GREEN);
+            }
+            else {
+                jLabelShowMessage.setText("Ha ocurrido un error al pagar");
+                jLabelShowMessage.setForeground(Color.red);
+            }
+        }
     }//GEN-LAST:event_jButtonPayActionPerformed
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        DefaultTableModel table = (DefaultTableModel) jTableShow.getModel();
+        table.addRow(new Object[]{"",""});
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRemoveActionPerformed
+
+    private void jButtonDeletePurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletePurchaseActionPerformed
+        PurchaseController pc = PurchaseController.instance();
+        boolean success;
+        if (this.purchaseToShow.isPersonalPurchase()) {
+            success = pc.deletePersonalPurchase(this.purchaseToShow.getIdCompra());
+        }
+        else {
+            success = pc.deleteMeetingPurchase(this.purchaseToShow.getIdCompra());
+        }
+        if (success) {
+            jLabelShowMessage.setText("Se ha eliminado correctamente");
+            jLabelShowMessage.setForeground(Color.GREEN);
+            jButtonDeletePurchase.setVisible(false);
+            jButtonAdd.setVisible(false);
+            jButtonRemove.setVisible(false);
+            jButtonPay.setVisible(false);
+        }
+        else {
+            jLabelShowMessage.setText("No se ha eliminado correctamente");
+            jLabelShowMessage.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_jButtonDeletePurchaseActionPerformed
+
+    private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
+        
+        MainController.instance().getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonAcceptActionPerformed
 
     /**
      * @param args the command line arguments

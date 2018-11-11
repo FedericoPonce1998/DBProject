@@ -30,12 +30,12 @@ public class UserController {
         return instance;
     }
     
-    public long addFriend(String userId, String userIdFriend){
+    public String addFriend(String userId, String userIdFriend){
         DBConnection db = DBConnection.Instance();
         User user = db.getUser(userId);
         User user2 = db.getUser(userIdFriend);
         if (user != null && user2 != null) {
-            if (userId.compareTo(userIdFriend) < 0){
+            if (userId.compareTo(userIdFriend) > 0){
                 return db.insertData("amigos(usuiduno, usuiddos) " 
                         + "VALUES('" + userIdFriend + "', '" + userId + "');");
             }
@@ -44,25 +44,25 @@ public class UserController {
                         + "VALUES('" + userId + "', '" + userIdFriend + "');");
             }
         }
-        return -1;
+        return "";
     }
     
      public boolean deleteFriend(String userId, String userIdFriend) {
         DBConnection db = DBConnection.Instance();
         String sqlSentence;
-        if (userId.compareTo(userIdFriend) < 0) {
-            sqlSentence = "where (usuiduno = '" + userIdFriend + "' and usuiddos =  '" + userId + ");";
+        if (userId.compareTo(userIdFriend) > 0) {
+            sqlSentence = "where (usuiduno = '" + userIdFriend + "' and usuiddos =  '" + userId + "');";
         }
         else{ 
             sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + "');";
         }
-        return db.deleteData("amigo", sqlSentence) != -1;
+        return db.deleteData("amigo", sqlSentence) != "";
     }
      
      public boolean createUser(String userName, String password, String name, String dir, String mail) {
          DBConnection db = DBConnection.Instance();
          return db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES('" + userName + "', '" +
-                    name  + "', '"+ dir + "', '" + mail + "', '" + password + "')") != -1;
+                    name  + "', '"+ dir + "', '" + mail + "', '" + password + "')") != "";
      }
      
      public ArrayList<Friends> getFriends(String userId){

@@ -21,7 +21,6 @@ public class UserInformation extends javax.swing.JFrame {
      */
     public UserInformation() {
         initComponents();
-        this.setLocationRelativeTo(null);
         jLabelShowMessage.setText("");
     }
 
@@ -32,6 +31,7 @@ public class UserInformation extends javax.swing.JFrame {
     }
     
     public void showPersonalInfo() {
+        if (this.userToShow == null) return;
         if (userToShow.getUserName().equals(MainController.instance().getCurrentUser().getUserName())) {
             jLabelUserId.setText(this.userToShow.getUserName());
             jLabelAddress.setText(this.userToShow.getAddress());

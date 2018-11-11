@@ -33,15 +33,39 @@ public class BillInterface extends javax.swing.JFrame {
     
     ArrayList<Bill> list;
     
-    public void list(ArrayList<Bill> list) {
-        this.list = list;
-        for (Bill bill : list) {
-            DefaultTableModel model = (DefaultTableModel) jTableBills.getModel();
-            model.addRow(new Object[]{bill.getName(), bill.getDeadline(), bill.getPrice(), bill.getBillReferenceId()});
-            
+    /*
+    public void list(int type) {
+        BillController bc = BillController.instance();
+        String usuId = MainController.instance().getCurrentUser().getUserName();
+        switch (type) {
+            case 0:
+                this.list = bc.getAllBills(usuId);
+                jComboBox1.setSelectedIndex(0);
+                break;
+            case 1:
+                this.list = bc.getDidntPayBills(usuId);
+                jComboBox1.setSelectedIndex(1);
+                break;
+            case 2: 
+                this.list = bc.getPaidBills(usuId);
+                jComboBox1.setSelectedIndex(2);
+                break;
+            case 3: 
+                this.list = bc.getDidntChargedBills(usuId);
+                jComboBox1.setSelectedIndex(3);
+                break;
+            case 4: 
+                this.list = bc.getChargedBills(usuId);
+                jComboBox1.setSelectedIndex(4);
+                break;
         }
+        this.showTable(type);
+        //for (Bill bill : this.list) {
+          //  DefaultTableModel model = (DefaultTableModel) jTableBills.getModel();
+            //model.addRow(new Object[]{bill.getName(), bill.getDeadline(), bill.getPrice(), bill.getBillReferenceId()});
+        //}
     }
-    
+    */
         
 
     /**
@@ -95,12 +119,22 @@ public class BillInterface extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel2.setToolTipText("Inicio");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, -10, 160, 90));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-icon.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -10, 90, 60));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -112,6 +146,11 @@ public class BillInterface extends javax.swing.JFrame {
 
         jButtonAddBill.setText("+");
         jButtonAddBill.setToolTipText("Agregar gasto");
+        jButtonAddBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddBillActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAddBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "A pagar", "Pagas", "A cobrar", "Cobradas" }));
@@ -129,18 +168,17 @@ public class BillInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBillsMouseClicked
-        
-        
-            int row = jTableBills.rowAtPoint(evt.getPoint());
-            if (row >= 0) {
-                Bill selectedBill = this.list.get(row);
-                System.out.println(selectedBill.getBillId());
-                BillInformationInterface interf = new BillInformationInterface();
-                interf.setBill(selectedBill);
-                interf.setVisible(true);
-                this.setVisible(false);
-                dispose();
-            }
+        int row = jTableBills.rowAtPoint(evt.getPoint());
+        if (row >= 0) {
+            Bill selectedBill = this.list.get(row);
+            System.out.println(selectedBill.getBillId());
+            BillInformationInterface interf = new BillInformationInterface();
+            interf.setBill(selectedBill);
+            interf.showBill();
+            interf.setVisible(true);
+            this.setVisible(false);
+            dispose();
+        }
         
     }//GEN-LAST:event_jTableBillsMouseClicked
     public void showTable(int selectedIndex){
@@ -178,6 +216,25 @@ public class BillInterface extends javax.swing.JFrame {
             showTable(row);
         }
     }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        MainController.instance().getMenu().setVisible(true);
+        MainController.instance().getMenu().setLocationRelativeTo(this);
+        MainController.instance().getMenu().setPreviousInterface(this);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButtonAddBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddBillActionPerformed
+        AddBillInterface interf = new AddBillInterface();
+        interf.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonAddBillActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        MainController.instance().getMenu().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
     
     public JComboBox getComboBox(){
         return jComboBox1;

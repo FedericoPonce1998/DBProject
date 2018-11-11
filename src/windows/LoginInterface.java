@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Models.User;
+import java.time.Clock;
 
 /**
  *
@@ -98,7 +99,7 @@ public class LoginInterface extends javax.swing.JFrame {
         getContentPane().add(jLabelErroneousData, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, -20, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, -20, 190, 210));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
@@ -108,6 +109,11 @@ public class LoginInterface extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close-icon.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 3, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 120));
@@ -128,6 +134,7 @@ public class LoginInterface extends javax.swing.JFrame {
                 MainController mainC = MainController.instance();
                 mainC.getHome().setVisible(true);
                 mainC.getMenu().setPreviousInterface(mainC.getHome());
+                mainC.getHome().setLocationRelativeTo(this);
                 this.setVisible(false);
                 this.dispose();
             } else {
@@ -141,9 +148,14 @@ public class LoginInterface extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         RegisterForm rf = new RegisterForm();
         rf.setVisible(true);
+        rf.setLocationRelativeTo(this);
         this.setVisible(false);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel8MouseClicked
 
     /**
      * @param args the command line arguments

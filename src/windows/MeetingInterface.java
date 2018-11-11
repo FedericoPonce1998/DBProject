@@ -6,8 +6,11 @@
 package windows;
 
 import Controllers.MainController;
+import Controllers.MeetingController;
 import Models.Bill;
 import Models.Meeting;
+import Models.User;
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -21,15 +24,51 @@ public class MeetingInterface extends javax.swing.JFrame {
      */
     public MeetingInterface() {
         initComponents();
+        jLabelMessage.setText("");
     }
     
     private ArrayList<Meeting> list;
     
+    
     public void setList(ArrayList<Meeting> list) {
         this.list = list;
     }
+
+    public void listMeetings(int filter) {
+        MainController mainC = MainController.instance();
+        User currentUser = mainC.getCurrentUser();
+        if (currentUser == null) {
+            jLabelMessage.setText("Ha ocurrido un error");
+            jLabelMessage.setForeground(Color.red);
+            return;
+        }
+        MeetingController mc = MeetingController.instance();
+        switch (filter) {
+            case 0:
+                this.list = mc.getAssisted(currentUser.getUserName());
+                break;
+            
+            case 1: 
+                this.list = mc.getDidntAssisted(currentUser.getUserName());
+                break;
+            
+            case 2: 
+                this.list = mc.getAllOrganizedBy(currentUser.getUserName());
+                break;
+                
+            case 3: 
+                this.list = mc.getAllMeetings(currentUser.getUserName());
+                break;
+        } 
+        if (this.list == null) {
+            jLabelMessage.setText("Ha ocurrido un error");
+            jLabelMessage.setForeground(Color.red);
+            return;
+        }
+        this.showMeetings();
+    }
     
-    public void list() {
+    public void showMeetings() {
         int i = 0;
         for (Meeting meeting : this.list) {
             jTableMeetings.setValueAt(meeting.getDate(), i, 0);
@@ -38,8 +77,6 @@ public class MeetingInterface extends javax.swing.JFrame {
             jTableMeetings.setValueAt(meeting.getUsuOrgId(), i, 0);
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,6 +94,7 @@ public class MeetingInterface extends javax.swing.JFrame {
         jLabelMenu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabelMessage = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -124,6 +162,9 @@ public class MeetingInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 30));
 
+        jLabelMessage.setText("jLabel2");
+        getContentPane().add(jLabelMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
+
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 300, 430));
 
@@ -138,12 +179,12 @@ public class MeetingInterface extends javax.swing.JFrame {
                 interf.setMeeting(selectedMeeting);
                 interf.setVisible(true);
                 this.setVisible(false);
-                dispose();
+                this.dispose();
             }
     }//GEN-LAST:event_jTableMeetingsMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AddReunionInterface meetingInterf = new AddReunionInterface();
+        AddMeetingInterface meetingInterf = new AddMeetingInterface();
         meetingInterf.setVisible(true);
         this.setVisible(false);
         this.dispose();
@@ -203,6 +244,7 @@ public class MeetingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabelHome;
     private javax.swing.JLabel jLabelMenu;
+    private javax.swing.JLabel jLabelMessage;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableMeetings;

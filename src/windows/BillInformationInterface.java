@@ -7,6 +7,7 @@ package windows;
 
 import Controllers.BillController;
 import Controllers.MainController;
+import Controllers.ServiceController;
 import Models.Bill;
 import java.awt.Color;
 
@@ -160,20 +161,23 @@ public class BillInformationInterface extends javax.swing.JFrame {
     private void jButtonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPayActionPerformed
         //the user pays the bill
         BillController bc = BillController.instance();
-        boolean success = bc.payBill(this.bill.getBillId()),
-                successTwo = true;
         
         if (this.bill.getBillId() != null) {
-            successTwo = bc.payBill(this.bill.getBillReferenceId());
-        }
-        
-        if (success) {
-            jLabelShowMessage.setText("El gasto ha sido pago correctamente");
-            jLabelShowMessage.setForeground(Color.GREEN);
-        }
-        else {
-            jLabelShowMessage.setText("Ha ocurrido un error al pagar el gasto");
-            jLabelShowMessage.setForeground(Color.red);
+            boolean success = bc.payBill(this.bill.getBillId());
+            if (!success) {
+                jLabelShowMessage.setText("Ha ocurrido un error al pagar el gasto");
+                jLabelShowMessage.setForeground(Color.red);
+            }
+            else {
+                if (this.bill.getBillReferenceId() != null || !this.bill.getBillReferenceId().isEmpty()) { //si tiene gasto de 
+                                                                                                           //referencia, se paga tambien
+                    boolean successTwo = bc.payBill(this.bill.getBillReferenceId());
+                    if (!successTwo) {
+                        jLabelShowMessage.setText("Ha ocurrido un error al pagar el gasto referencia");
+                        jLabelShowMessage.setForeground(Color.red);
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jButtonPayActionPerformed
 
@@ -223,7 +227,7 @@ public class BillInformationInterface extends javax.swing.JFrame {
         }
         else if (!bill.isInput()) {
             jLabelAmount.setText("-" + amount.toString());
-            jLabelAmount.setForeground(Color.GREEN);
+            jLabelAmount.setForeground(Color.red);
             if (!bill.isPaid()) {
                 jButtonPaid.setVisible(false);
                 jButtonPay.setVisible(true);

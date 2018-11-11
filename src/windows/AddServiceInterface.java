@@ -8,6 +8,7 @@ package windows;
 import Controllers.MainController;
 import Controllers.ServiceController;
 import java.awt.Color;
+import java.sql.Timestamp;
 
 /**
  *
@@ -24,16 +25,9 @@ public class AddServiceInterface extends javax.swing.JFrame {
     }
     
     private String meetingId;
-    private String usuId;
     
     public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
-        this.usuId = null;
-    }
-    
-    public void setUsuId(String usuId) {
-        this.usuId = usuId;
-        this.meetingId = null;
     }
     
     
@@ -66,6 +60,7 @@ public class AddServiceInterface extends javax.swing.JFrame {
         jTextAmount = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabelShowMessage = new javax.swing.JLabel();
+        jTextFieldTime = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
         jTextField2.setToolTipText("Monto");
@@ -135,11 +130,16 @@ public class AddServiceInterface extends javax.swing.JFrame {
                 jButtonCancelMouseClicked(evt);
             }
         });
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 80, -1));
         getContentPane().add(jTextName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 160, -1));
         getContentPane().add(jTextCompany, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 160, -1));
         getContentPane().add(jTextDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 160, -1));
-        getContentPane().add(jDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 160, -1));
+        getContentPane().add(jDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, -1));
 
         jTextAmount.setToolTipText("Monto");
         getContentPane().add(jTextAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 180, 25));
@@ -150,6 +150,9 @@ public class AddServiceInterface extends javax.swing.JFrame {
 
         jLabelShowMessage.setText("Esto cambia en ejecucion");
         getContentPane().add(jLabelShowMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, -1));
+
+        jTextFieldTime.setText("00:00");
+        getContentPane().add(jTextFieldTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 50, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/white-wallpaper.jpg"))); // NOI18N
         jLabel4.setText("jLabel1");
@@ -171,15 +174,17 @@ public class AddServiceInterface extends javax.swing.JFrame {
                company = jTextCompany.getText(),
                description = jTextDescription.getText(),
                date = jDate.getDateFormatString(),
+               time = jTextFieldTime.getText(),
                userId = MainController.instance().getCurrentUser().getUserName();
         Double amount = Double.parseDouble(jTextAmount.getText());
         ServiceController serviceC = ServiceController.instance();
         boolean success;
         if (this.meetingId == null) {
-            success = serviceC.createMeetingService(name, company, description, amount, this.meetingId) != -1;
+            success = serviceC.createMeetingService(name, company, description, amount, this.meetingId) != "";
         } 
         else {
-            success = serviceC.createPersonalService(name, company, description, date, userId) != -1;
+            Timestamp newDate = Timestamp.valueOf(date + " " + time);
+            success = serviceC.createPersonalService(name, company, description, newDate, userId) != "";
         }
         
         if (success) {
@@ -203,6 +208,13 @@ public class AddServiceInterface extends javax.swing.JFrame {
         mc.getMenu().setVisible(true);
         mc.getMenu().setPreviousInterface(this);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        MainController mc = MainController.instance();
+        mc.getHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,6 +271,7 @@ public class AddServiceInterface extends javax.swing.JFrame {
     private javax.swing.JTextField jTextCompany;
     private javax.swing.JTextField jTextDescription;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextFieldTime;
     private javax.swing.JTextField jTextName;
     // End of variables declaration//GEN-END:variables
 }
