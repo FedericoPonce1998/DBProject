@@ -80,9 +80,7 @@ public class UserInformation extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
-        setPreferredSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -153,6 +151,11 @@ public class UserInformation extends javax.swing.JFrame {
         jLabelEndSession.setForeground(new java.awt.Color(0, 0, 204));
         jLabelEndSession.setText("Cerrar sesion");
         jLabelEndSession.setToolTipText("");
+        jLabelEndSession.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelEndSessionMouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabelEndSession, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 100, -1));
 
         jButtonDeleteFriend.setText("Eliminar");
@@ -205,6 +208,15 @@ public class UserInformation extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabelEndSessionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEndSessionMouseClicked
+        MainController mc = MainController.instance();
+        LoginInterface login = new LoginInterface();
+        login.setVisible(true);
+        mc.setCurrentUser(null);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jLabelEndSessionMouseClicked
 
     /**
      * @param args the command line arguments

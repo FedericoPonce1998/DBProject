@@ -56,13 +56,13 @@ public class UserController {
         else{ 
             sqlSentence = "where (usuiduno = '" + userId + "' and usuiddos =  '" + userIdFriend + "');";
         }
-        return db.deleteData("amigo", sqlSentence) != "";
+        return !db.deleteData("amigos", sqlSentence).isEmpty();
     }
      
      public boolean createUser(String userName, String password, String name, String dir, String mail) {
          DBConnection db = DBConnection.Instance();
-         return db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES('" + userName + "', '" +
-                    name  + "', '"+ dir + "', '" + mail + "', '" + password + "')") != "";
+         return !db.insertData("Usuarios(usuid, usunom, usudir, usumail, usupass) VALUES('" + userName + "', '" +
+                    name  + "', '"+ dir + "', '" + mail + "', '" + password + "')").isEmpty();
      }
      
      public ArrayList<Friends> getFriends(String userId){

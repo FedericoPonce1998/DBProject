@@ -9,6 +9,9 @@ import Controllers.MainController;
 import Controllers.ServiceController;
 import java.awt.Color;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -179,12 +182,16 @@ public class AddServiceInterface extends javax.swing.JFrame {
         Double amount = Double.parseDouble(jTextAmount.getText());
         ServiceController serviceC = ServiceController.instance();
         boolean success;
-        if (this.meetingId == null) {
+        if (this.meetingId != null) {
             success = serviceC.createMeetingService(name, company, description, amount, this.meetingId) != "";
         } 
         else {
-            Timestamp newDate = Timestamp.valueOf(date + " " + time);
-            success = serviceC.createPersonalService(name, company, description, newDate, userId) != "";
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            Date newDate = jDate.getCalendar().getTime();
+            String d = dateFormat.format(newDate);
+            Timestamp newDate2 = Timestamp.valueOf(d + " " + time);
+            success = serviceC.createPersonalService(name, company, description, newDate2, userId) != "";
         }
         
         if (success) {

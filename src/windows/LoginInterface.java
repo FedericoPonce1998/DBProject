@@ -124,7 +124,7 @@ public class LoginInterface extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         LoginController lc = LoginController.instance();
         String enteredUserName = jTextUserName.getText();
-        String eteredPassword = jPassword.getName();
+        String eteredPassword = jPassword.getText();
         try {
             User user = lc.logInUser(enteredUserName, eteredPassword);
             if (user != null) {

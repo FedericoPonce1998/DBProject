@@ -10,12 +10,10 @@ import java.util.UUID;
 import projectbd.DBConnection;
 import Models.User;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import windows.HomeInterface;
 
 /**
  *
@@ -49,34 +47,37 @@ public class BillController {
     public String createBill(String name, Double price, Date deadline, String purchaseId, String serviceId, String usuId, String referenceId, boolean isInput, boolean isPaid) {
         DBConnection db = DBConnection.Instance();
         //firts I have to check if the meeting exists
-        
+        String purchaseValue, serviceValue, refValue, newId;
         User user = db.getUser(usuId);
         if (user != null) {
-            String newId;
-            
-            String data = "Gasto2(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, "
-                            + "usuid, gastoReferencia) VALUES ('" + newId + "', '" + name + "', " + price + ", " + isPaid + ", " + isInput + ", "
-                    + "TO_DATE('" + deadline.toString().split(" ")[0] + "', 'YYYY-MM-DD')";
             if (purchaseId == null) {
-                data += ", NULL";
+                purchaseValue = ", NULL";
             }
             else {
-                data += ", '" + purchaseId + "'";
+                purchaseValue = ", '" + purchaseId + "'";
             }
             if (serviceId == null) {
-                data += ", NULL";
+                serviceValue = ", NULL";
             }
             else {
-                data += "', '" + serviceId;
+                serviceValue = "', '" + serviceId;
             }
-            data += ", '" + usuId + "'";
             if (referenceId == null) {
-                data += ", NULL";
+                refValue = ", NULL";
             }
             else {
-                data += ", '" + referenceId + "'";
+                refValue = ", '" + referenceId + "'";
             }
-            data += ");";
+            try {
+                newId = MainController.getHash(name+price.toString()+deadline.toString()+purchaseId+serviceId+usuId+referenceId+isInput+isPaid);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+                newId = UUID.randomUUID().toString();
+            }
+
+            String data = "Gastos(gastoid, motivo, montofinal, estapago, esingreso, fecha, compraid, servicioid, "
+                            + "usuid, gastoReferencia) VALUES ('" + newId + "', '" + name + "', " + price + ", " + isPaid + ", " + isInput + ", "
+                    + "TO_DATE('" + deadline.toString().split(" ")[0] + "', 'YYYY-MM-DD')";
             return db.insertData(data);
         }
         return "";
@@ -92,8 +93,8 @@ public class BillController {
         Bill bill = db.getBill(billId);
         if (bill != null){
             String billRefId = bill.getBillReferenceId();
-            String data1 = "gasto set estapago = true where gastoId = " + billId;
-            String data2 = "gasto set estapago = true where gastoId = " + billRefId;
+            String data1 = "gastos set estapago = true where gastoId = '" + billId + "';";
+            String data2 = "gastos set estapago = true where gastoId = '" + billRefId + "';";
             db.updateData(data1);
             db.updateData(data2);
             return true;
@@ -105,7 +106,7 @@ public class BillController {
         DBConnection db = DBConnection.Instance();
         Bill bill = db.getBill(billId);
         if (bill != null) {
-            String data1 = "gasto set estapago = true where gastoId = " + billId;
+            String data1 = "gastos set estapago = true where gastoId = '" + billId + "';";
             db.updateData(data1);
             return true;
         }

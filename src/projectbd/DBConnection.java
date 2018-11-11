@@ -52,6 +52,10 @@ public class DBConnection {
         return connection;
     }
     
+    public void Disconnect() throws SQLException {
+        this.connection.close();
+    }
+    
     
     private DBConnection() { }
     
@@ -65,7 +69,7 @@ public class DBConnection {
     public void createDataBase () {
         try {
             //conectDB();
-            String createDBase = "CREATE DATABASE project";
+            String createDBase = "CREATE DATABASE projectDBTest";
             PreparedStatement ps = connection.prepareStatement(createDBase);
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -79,6 +83,7 @@ public class DBConnection {
     
     //example of params: CREATE TABLE IF NOT EXISTS user(user_id SERIAL NOT NULL PRIMARY KEY,username varchar(225) NOT NULL UNIQUE,password varchar(225)";
     public String writeDB(String params) {
+        this.conectDB();
         try (Connection conn = connection;
                 PreparedStatement pstmt = conn.prepareStatement(params,
                 Statement.RETURN_GENERATED_KEYS)) {
@@ -160,7 +165,7 @@ public class DBConnection {
     }
     
     public Meeting getMeeting (String reuId) {
-        String SQL = "select * from reunion where reunionid = '" + reuId + "'";
+        String SQL = "select * from reuniones2 where reunionid = '" + reuId + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -184,7 +189,7 @@ public class DBConnection {
     }
     
     public MeetingPurchase getMeetingPurchase (String purchaseid) {
-        String SQL = "select * from comprareunion where compraid = '" + purchaseid + "'";
+        String SQL = "select * from comprasreuniones where compraid = '" + purchaseid + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -205,7 +210,7 @@ public class DBConnection {
     }
     
     public MeetingService getMeetingService (String serviceid) {
-        String SQL = "select * from servicioreunion where compraid = '" + serviceid + "'";
+        String SQL = "select * from serviciosreuniones where compraid = '" + serviceid + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -228,7 +233,7 @@ public class DBConnection {
     }
     
     public PersonalPurchase getPersonalPurchase (String purchaseid) {
-        String SQL = "select * from comprapersonal where compraid = '" + purchaseid + "'";
+        String SQL = "select * from compraspersonales where compraid = '" + purchaseid + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -248,7 +253,7 @@ public class DBConnection {
     }
     
     public ArrayList<IPurchase> getAllPersonalPurchase(String usuid) {
-        String SQL = "select * from comprapersonal where usuid = '" + usuid + "'";
+        String SQL = "select * from compraspersonales where usuid = '" + usuid + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -271,7 +276,7 @@ public class DBConnection {
     }
     
     public PersonalService getPersonalService (String serviceid) {
-        String SQL = "select * from serviciopersonal where servicioid = '" + serviceid + "'";
+        String SQL = "select * from serviciospersonales where servicioid = '" + serviceid + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -295,7 +300,7 @@ public class DBConnection {
     }
     
     public PurchaseLine getPurchaseLine (String lineId, String purchaseId) {
-        String SQL = "select * from comprapersonal where lineaid = '" + lineId + "' and compraid = '" + purchaseId + "'";
+        String SQL = "select * from compraspersonales where lineaid = '" + lineId + "' and compraid = '" + purchaseId + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -316,7 +321,7 @@ public class DBConnection {
     }
     
     public ArrayList<PurchaseLine> getPurchaseLines (String purchaseId) {
-        String SQL = "select * from lineacompra where compraid = '" + purchaseId + "'";
+        String SQL = "select * from lineascompra where compraid = '" + purchaseId + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -342,7 +347,7 @@ public class DBConnection {
     }
     
     public Bill getBill(String billId) {
-        String SQL = "select * from gasto where gastoid = '" + billId + "'";
+        String SQL = "select * from gastos where gastoid = '" + billId + "'";
         try (
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -437,19 +442,19 @@ public class DBConnection {
         String SQL = "";
         switch(opcion){
             case 0:
-                SQL = "select * from gasto where usuid = '" + usuid + "'";
+                SQL = "select * from gastos where usuid = '" + usuid + "'";
                 break;
             case 1: 
-                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = " + false +" and esingreso = " +false;
+                SQL = "select * from gastos where usuid = '" + usuid + "' and estapago = " + false +" and esingreso = " +false;
                 break;
             case 2:
-                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ true + " and esingreso = " + false;
+                SQL = "select * from gastos where usuid = '" + usuid + "' and estapago = "+ true + " and esingreso = " + false;
                 break;
             case 3:
-                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ false + " and esingreso = " + true;
+                SQL = "select * from gastos where usuid = '" + usuid + "' and estapago = "+ false + " and esingreso = " + true;
                 break;
             case 4:
-                SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ true + " and esingreso = " + true;
+                SQL = "select * from gastos where usuid = '" + usuid + "' and estapago = "+ true + " and esingreso = " + true;
                 break;
         }
         try (
@@ -484,7 +489,7 @@ public class DBConnection {
         Date d = new Date();
         long difference = d.getTime() + 60000*1440*3; // tres dias en milisegundos
         Timestamp newDate = new Timestamp(difference);
-        String SQL = "select * from gasto where usuid = '" + usuid + "' and estapago = "+ false+" and esingreso = "+false+ " and fecha < " + newDate + ";"; //Si falla este metodo, revisar el <newDate
+        String SQL = "select * from gastos where usuid = '" + usuid + "' and estapago = "+ false+" and esingreso = "+false+ " and fecha < " + newDate + ";"; //Si falla este metodo, revisar el <newDate
         
         try (
             Statement stmt = connection.createStatement();
@@ -539,7 +544,7 @@ public class DBConnection {
     }
     
     public ArrayList<Meeting> getAllOrganizedBy(String usuid) {
-        String SQL = "select * from reunion where organizadorid = '" + usuid + "';";
+        String SQL = "select * from reuniones where organizadorid = '" + usuid + "';";
         try (
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(SQL)) {
@@ -615,7 +620,7 @@ public class DBConnection {
     }    
     
     public ArrayList<IPurchase> getMeetingPurchases(String meetingId) throws SQLException{
-        String sqlSentence = "select * from comprareunion where reunionid = '"+ meetingId+"';" ;
+        String sqlSentence = "select * from comprasreuniones where reunionid = '"+ meetingId+"';" ;
         try (
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sqlSentence)){
@@ -639,7 +644,7 @@ public class DBConnection {
     }    
     
     public ArrayList<IService> getMeetingServices(String meetingId) throws SQLException{
-        String sqlSentence = "select * from servicioreunion where reunionid = '"+ meetingId+"';" ;
+        String sqlSentence = "select * from serviciosreuniones where reunionid = '"+ meetingId+"';" ;
         try (
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sqlSentence)){
@@ -665,7 +670,7 @@ public class DBConnection {
     }
     
     public ArrayList<IService> getPersonalServices(String usuId) throws SQLException{
-        String sqlSentence = "select * from serviciopersonal where usuid = '"+ usuId+"';" ;
+        String sqlSentence = "select * from serviciospersonales where usuid = '"+ usuId+"';" ;
         try (
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sqlSentence)){

@@ -351,6 +351,7 @@ public class HomeInterface extends javax.swing.JFrame {
 
     private void agregarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarCompraMouseClicked
         AddPurchase addPurchase = new AddPurchase();
+        addPurchase.showTable();
         addPurchase.setVisible(true);
         this.setVisible(false);
         this.dispose();

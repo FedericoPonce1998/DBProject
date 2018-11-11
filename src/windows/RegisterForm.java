@@ -157,8 +157,8 @@ public class RegisterForm extends javax.swing.JFrame {
                userName = txtUserId.getText(),
                mail = txtMail.getText(),
                address = txtAddress.getText(),
-               firstPass = txtUserPass.getName(),
-               secondPass = txtRepeatPass.getName();
+               firstPass = txtUserPass.getText(),
+               secondPass = txtRepeatPass.getText();
         if (!firstPass.equals(secondPass)) {
             txtError.setText("Las contraseñas no coinciden");
             txtError.setForeground(Color.red);

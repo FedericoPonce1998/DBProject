@@ -13,9 +13,8 @@ import java.util.UUID;
 import projectbd.DBConnection;
 import Models.Invited;
 import Models.Meeting;
-import Models.MeetingPurchase;
-import Models.MeetingService;
 import Models.User;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
@@ -41,10 +40,16 @@ public class MeetingController {
     //to create, date = new TimeStamp(currentmillis) o Timestamp value = Timestamp.valueOf("2014-07-02 06:14:00");
     public Meeting createMeeting(Timestamp date, String place, String description, String organizerId, boolean nopagan) {
         DBConnection db = DBConnection.Instance();
-        String newId = UUID.randomUUID().toString();
-        String result = db.insertData("reuniones(reunionid, fecha, lugar, descripcion, organizadorid, nopagan) "
-        + "values('" + newId + "', TO_TIMESTAMP('" + date + "', 'YYYY-MM-DD HH24:MI:SS.FF'), '" + place + "', '" + description + "', '" + organizerId + "', " + nopagan + ")");
-        if (result != "") {
+        String newId;
+        try {
+            newId = MainController.getHash(date.toString()+place+description+organizerId+nopagan);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(MeetingController.class.getName()).log(Level.SEVERE, null, ex);
+            newId = UUID.randomUUID().toString();
+        }
+        String result = db.insertData("reuniones2(reunionid, fecha, lugar, descripcion, organizadorid, nopagan) "
+        + "values('" + newId + "', TO_TIMESTAMP('" + date + "', 'YYYY-MM-DD HH24:MI:SS.FF'), '" + place + "', '" + description + "', '" + organizerId + "', " + nopagan + ");");
+        if (result.isEmpty()) {
             return new Meeting(newId, place, date, description, nopagan, organizerId);
         }
         return null;
@@ -76,8 +81,8 @@ public class MeetingController {
                 String idUno = bc.createBill(meetingid, toPayPerEach, null, purchase.getIdCompra(), null, organizer.getUserName(), null, true, true);//account for the organizer
                 String idDos = bc.createBill(meetingid, toPayPerEach, null, purchase.getIdCompra(), null, inv.getUserId(), null, false, false);//account for the invited
                 if (!idUno.isEmpty() && !idDos.isEmpty()) {
-                    db.updateData("gasto set gastoreferencia = " + idDos + " where gastoid = " + idUno + ");");
-                    db.updateData("gasto set gastoreferencia = " + idUno + " where gastoid = " + idDos + ");");
+                    db.updateData("gastos set gastoreferencia = '" + idDos + "' where gastoid = '" + idUno + "');");
+                    db.updateData("gastos set gastoreferencia = '" + idUno + "' where gastoid = '" + idDos + "');");
                 }
             }
             for (IService service : meetingServices) {
@@ -95,7 +100,7 @@ public class MeetingController {
         if (meeting == null) return false;
         User invited = db.getUser(invitedId);
         if (invited == null) return false;
-        return db.insertData("invitados(reunionid, usuid, asistio) values(" + meetingId + ", " + invitedId + ", true);") != "";
+        return !db.insertData("invitados(reunionid, usuid, asistio) values('" + meetingId + "', '" + invitedId + "', true);").isEmpty();
     }
     
     public boolean rejectInivitation(String invitedId, String meetingId) {
@@ -104,7 +109,7 @@ public class MeetingController {
         if (meeting == null || meeting.getDate().after(new Date())) return false; //checks if the meeting is up to date
         User invited = db.getUser(invitedId);
         if (invited == null) return false;
-        return db.updateData("invitados set asistio = false where reunionid = " + meetingId + " and usuid + " + invitedId + ");") != "";
+        return !db.updateData("invitados set asistio = false where reunionid = '" + meetingId + "' and usuid = '" + invitedId + "');").isEmpty();
     }
     
     public ArrayList<Meeting> getAllMeetings(String usuid) {
@@ -121,7 +126,7 @@ public class MeetingController {
         DBConnection db = DBConnection.Instance();
         Meeting meeting = db.getMeeting(meetingId);
         if (meeting == null) return false;
-        return db.deleteData("reunion","where reunionid = '" + meetingId + "');") != "";
+        return !db.deleteData("reuniones2","where reunionid = '" + meetingId + "');").isEmpty();
     }
     
     public ArrayList<Invited> getInvitedMeeting(String meetingId){
@@ -160,7 +165,7 @@ public class MeetingController {
         if (meeting == null || meeting.getDate().after(new Date())) return false; //checks if the meeting is up to date
         User invited = db.getUser(invitedId);
         if (invited == null) return false;
-        return db.deleteData("invitados","where reunionid = '" + meetingId + "' and usuid = '" + invitedId + "');") != "";
+        return !db.deleteData("invitados","where reunionid = '" + meetingId + "' and usuid = '" + invitedId + "');").isEmpty();
     }
     
     public ArrayList<Meeting> getAssisted(String meetingId) {

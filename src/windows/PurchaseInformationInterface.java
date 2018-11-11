@@ -41,7 +41,6 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
 
     public void showPurchase() {
         PurchaseController pc = PurchaseController.instance();
-        BillController billc = BillController.instance();
         
         ArrayList<PurchaseLine> list;
         if (!this.purchaseToShow.isPersonalPurchase()) {
@@ -89,13 +88,11 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
             }
             list = pc.getAllLines(purchase.getIdCompra());
         }
-        int i = 0;
             
-            for (PurchaseLine line : list) {
-                jTableShow.setValueAt(line.getProductName(), i, 0);
-                jTableShow.setValueAt(line.getQuantity(), i, 1);
-                i++;
-            }
+        for (int i = 0; i < list.size(); i++) {
+            DefaultTableModel table = (DefaultTableModel) jTableShow.getModel();
+            table.addRow(new Object[]{list.get(i).getProductName(), list.get(i).getQuantity()});
+        }
     }
     
     /**
@@ -160,8 +157,7 @@ public class PurchaseInformationInterface extends javax.swing.JFrame {
 
         jTableShow.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nombre", "Cantidad"

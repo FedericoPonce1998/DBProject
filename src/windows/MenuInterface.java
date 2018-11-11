@@ -8,6 +8,9 @@ package windows;
 import Animacion.Animacion;
 import Controllers.MainController;
 import Models.User;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -514,6 +517,7 @@ public class MenuInterface extends javax.swing.JFrame {
         this.previousInterface.setVisible(false);
         this.previousInterface.dispose();
         FriendsInterface interf = new FriendsInterface();
+        interf.listFriends();
         interf.setVisible(true);
         interf.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -582,6 +586,7 @@ public class MenuInterface extends javax.swing.JFrame {
         this.previousInterface.setVisible(false);
         this.previousInterface.dispose();
         AddPurchase interf = new AddPurchase(); //necesita setear el usuId?? Se supone que solo puede ser el current. Solo se deberia
+        interf.showTable();
         interf.setVisible(true);                //setear el reunion id cuando la compra es de reunion. Para eso se podria llamar con bool
         interf.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -589,14 +594,19 @@ public class MenuInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelAddPurchaseMouseClicked
 
     private void jLabelListOrDeletePurchaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelListOrDeletePurchaseMouseClicked
-        // ver o eliminar compra
-        this.previousInterface.setVisible(false);
-        this.previousInterface.dispose();
-        PurchaseInterface interf = new PurchaseInterface();
-        interf.setVisible(true);
-        interf.setLocationRelativeTo(this);
-        this.setVisible(false);
-        this.dispose();
+        try {
+            // ver o eliminar compra
+            this.previousInterface.setVisible(false);
+            this.previousInterface.dispose();
+            PurchaseInterface interf = new PurchaseInterface();
+            interf.showPurchases();
+            interf.setVisible(true);
+            interf.setLocationRelativeTo(this);
+            this.setVisible(false);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLabelListOrDeletePurchaseMouseClicked
 
     private void jLabelAddServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddServiceMouseClicked

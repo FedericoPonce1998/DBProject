@@ -12,7 +12,10 @@ import Models.MeetingService;
 import Models.PersonalPurchase;
 import Models.PersonalService;
 import Models.User;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,8 +38,14 @@ public class ServiceController {
         //firts I have to check if the meeting exists
         Meeting meeting = db.getMeeting(meetingId);
         if (meeting != null) {
-            String newId = UUID.randomUUID().toString();
-            return db.insertData("servicioreunion(servicioid, nombre, empresa, descripcion, costo, reunionid) " 
+            String newId;
+            try {
+                newId = MainController.getHash(name+company+description+price+meetingId);
+            } catch (NoSuchAlgorithmException ex) {
+                newId = UUID.randomUUID().toString();
+                Logger.getLogger(ServiceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return db.insertData("serviciosreuniones(servicioid, nombre, empresa, descripcion, costo, reunionid) " 
                     + "VALUES('" + newId + "', '" + name + "', '" + company + "', '" + description + "', " + price + ", '" + meetingId + "');");
         }
         return "";
@@ -47,8 +56,14 @@ public class ServiceController {
         //firts I have to check if the user exists
         User user = db.getUser(userId);
         if (user != null) {
-            String newId = UUID.randomUUID().toString();
-            return db.insertData("serviciocompra(servicioid, empresa, nombre, fechaprogramada, descripcion, usuid) " 
+            String newId;
+            try {
+                newId = MainController.getHash(name+company+description+date.toString()+userId);
+            } catch (NoSuchAlgorithmException ex) {
+                newId = UUID.randomUUID().toString();
+                Logger.getLogger(ServiceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return db.insertData("servicioscompras(servicioid, empresa, nombre, fechaprogramada, descripcion, usuid) " 
                     + "VALUES('" + newId + "', '" + company + "', '" + name + "', TO_TIMESTAMP('" + date + "', 'YYYY-MM-DD HH24:MI:SS.FF'), '" + description + "', '" + userId + "');");
         }
         return "";
@@ -66,14 +81,14 @@ public class ServiceController {
     
     public boolean deleteMeetingService(String serviceId) {
         DBConnection db = DBConnection.Instance();
-        String sqlSentence = "WHERE idservicio = " + serviceId;
-        return db.deleteData("servicioreunion", sqlSentence) != "";
+        String sqlSentence = "WHERE servicioid = '" + serviceId + "'";
+        return !db.deleteData("serviciosreuniones", sqlSentence).isEmpty();
     }
     
     public boolean deletePersonalService(String serviceId) {
         DBConnection db = DBConnection.Instance();
-        String sqlSentence = "WHERE idservicio = " + serviceId;
-        return db.deleteData("serviciopersonal",  sqlSentence) != "";
+        String sqlSentence = "WHERE servicioid = '" + serviceId + "'";
+        return !db.deleteData("serviciospersonales",  sqlSentence).isEmpty();
     }
     
     public boolean payPersonalService(String serviceId, Double amount) {
@@ -83,6 +98,6 @@ public class ServiceController {
         if (service == null) return false;
         User purchaseOwner = db.getUser(service.getReferenceId());
         if (purchaseOwner == null) return false;
-        return bc.createBill(service.getDescription(), amount, service.getDate(), null, service.getServiceId(), purchaseOwner.getUserName(), null, false, true) != "";
+        return !bc.createBill(service.getDescription(), amount, service.getDate(), null, service.getServiceId(), purchaseOwner.getUserName(), null, false, true).isEmpty();
     }
 }

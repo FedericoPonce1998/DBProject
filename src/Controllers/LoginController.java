@@ -27,15 +27,14 @@ public class LoginController {
     }
     
     public User logInUser(String usuid, String password) throws SQLException {  
-        /*DBConnection db = DBConnection.Instance();
+        DBConnection db = DBConnection.Instance();
         User currentLoggedinUser = db.getUser(usuid);
         if (currentLoggedinUser.getUserName().equals(usuid) && currentLoggedinUser.getPassword().equals(password)) {
             MainController mc = MainController.instance();
             mc.setCurrentUser(currentLoggedinUser);
             return currentLoggedinUser;
         }
-        return null;*/
-        return new User(usuid, "fede", password, "sabat pebet", "fm@gmail");
+        return null;
     }
     
     public void logOutUser() {
@@ -64,11 +63,11 @@ public class LoginController {
         DBConnection db= DBConnection.Instance();
         User user = db.getUser(userName);
         String result = "";
-        String data1 = "usuarios set usupass = " + newPassword + " where usuid = " + userName;
+        String data1 = "usuarios set usupass = '" + newPassword + "' where usuid = '" + userName + "';";
         if (user.getPassword().equals(oldPassword)) {
             result = db.updateData(data1);
         }
-        return result != "";
+        return !result.isEmpty();
     }
 }
 

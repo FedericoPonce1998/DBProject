@@ -7,6 +7,7 @@ package windows;
 
 import Controllers.MainController;
 import Controllers.PurchaseController;
+import Models.Bill;
 import Models.IPurchase;
 import Models.MeetingPurchase;
 import Models.PersonalPurchase;
@@ -15,6 +16,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,10 +51,10 @@ public class PurchaseInterface extends javax.swing.JFrame {
                 jLabelMessage.setForeground(Color.red);
                 return;
             }
-        int i = 0;
-        for (IPurchase purchase : this.toShow) {
-            jTablePurchases.setValueAt(purchase.getDescription(), i, 0);
-            i++;
+        this.toShow = list;
+        for (int i = 0; i < list.size(); i++) {
+            DefaultTableModel table = (DefaultTableModel) jTablePurchases.getModel();
+            table.addRow(new Object[]{list.get(i).getDescription()});
         }
     }
     
@@ -83,13 +85,17 @@ public class PurchaseInterface extends javax.swing.JFrame {
 
         jTablePurchases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null}
+
             },
             new String [] {
                 "Descripcion"
             }
         ));
+        jTablePurchases.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablePurchasesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablePurchases);
         if (jTablePurchases.getColumnModel().getColumnCount() > 0) {
             jTablePurchases.getColumnModel().getColumn(0).setResizable(false);
@@ -182,6 +188,19 @@ public class PurchaseInterface extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jTablePurchasesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePurchasesMouseClicked
+        int row = jTablePurchases.rowAtPoint(evt.getPoint());
+        if (row >= 0) {
+            IPurchase selectedPurchase = this.toShow.get(row);
+            PurchaseInformationInterface interf = new PurchaseInformationInterface();
+            interf.setPurchase(selectedPurchase);
+            interf.showPurchase();
+            interf.setVisible(true);
+            this.setVisible(false);
+            dispose();
+        }
+    }//GEN-LAST:event_jTablePurchasesMouseClicked
 
     /**
      * @param args the command line arguments

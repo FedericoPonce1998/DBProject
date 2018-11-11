@@ -26,9 +26,12 @@ public class FriendsInterface extends javax.swing.JFrame {
     
     ArrayList<Friends> list;
     
-    public void list(ArrayList<Friends> list) {
-        this.list = list;
-        for (Friends friend : list) {
+    public void listFriends() {
+        MainController mc = MainController.instance();
+        UserController uc = UserController.getInstanceUser();
+        ArrayList<Friends> friends = uc.getFriends(mc.getCurrentUser().getUserName());
+        this.list = friends;
+        for (Friends friend : friends) {
             DefaultTableModel model = (DefaultTableModel) jTableFriends.getModel();
             model.addRow(new Object[]{friend.getUserId2()});
         }
@@ -44,7 +47,7 @@ public class FriendsInterface extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFriends = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -58,10 +61,7 @@ public class FriendsInterface extends javax.swing.JFrame {
 
         jTableFriends.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Usuario", "Nombre"
@@ -80,9 +80,14 @@ public class FriendsInterface extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 260, 290));
 
-        jButton1.setText("+");
-        jButton1.setToolTipText("Agregar amigo");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 30));
+        jButtonAdd.setText("+");
+        jButtonAdd.setToolTipText("Agregar amigo");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled.png"))); // NOI18N
         jLabel3.setToolTipText("Inicio");
@@ -147,6 +152,13 @@ public class FriendsInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableFriendsMouseClicked
 
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        AddFriend interf = new AddFriend();
+        interf.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
     public void friendsList(){
         int row = 1;
         MainController main = MainController.instance();
@@ -200,7 +212,7 @@ public class FriendsInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAdd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

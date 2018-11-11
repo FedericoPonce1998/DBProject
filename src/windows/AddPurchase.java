@@ -62,7 +62,6 @@ public class AddPurchase extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 480));
         setMinimumSize(new java.awt.Dimension(300, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 480));
@@ -77,7 +76,6 @@ public class AddPurchase extends javax.swing.JFrame {
 
         tableLines.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
                 {null, null}
             },
             new String [] {
@@ -86,6 +84,7 @@ public class AddPurchase extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableLines);
         if (tableLines.getColumnModel().getColumnCount() > 0) {
+            tableLines.getColumnModel().getColumn(0).setResizable(false);
             tableLines.getColumnModel().getColumn(1).setResizable(false);
         }
 
@@ -170,6 +169,7 @@ public class AddPurchase extends javax.swing.JFrame {
     private void btnAddLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLineActionPerformed
         DefaultTableModel table = (DefaultTableModel) tableLines.getModel();
         table.addRow(new Object[]{"",""});
+        
     }//GEN-LAST:event_btnAddLineActionPerformed
 
     private void btnDeleteLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLineActionPerformed
@@ -191,12 +191,12 @@ public class AddPurchase extends javax.swing.JFrame {
         PurchaseController pc = PurchaseController.instance();
         if (tableLines.getRowCount() > 0){
             String id;
-            if (meetingId != null){
+            if (this.meetingId != null){
                 id = pc.createMeetingPurchase(meetingId, txtDescription.toString(), Double.parseDouble(txtCost.toString()));
                 for (int i = 0; i < tableLines.getRowCount(); i++){
                     String prod = tableLines.getValueAt(i, 0).toString();
                     String cant = tableLines.getValueAt(i, 1).toString();
-                    pc.addMeetingPurchaseLine(Integer.toString(i), id, prod, Double.parseDouble(cant));
+                    pc.addMeetingPurchaseLine(id, prod, Double.parseDouble(cant));
                 }
                 MeetingController mc = MeetingController.instance();
                 MeetingInformationInterface meetingInfo = new MeetingInformationInterface();
@@ -206,11 +206,11 @@ public class AddPurchase extends javax.swing.JFrame {
                 dispose();
             }
             else{
-                id = pc.createPersonalPurchase(txtDescription.toString(), MainController.instance().getCurrentUser().getUserName());
+                id = pc.createPersonalPurchase(txtDescription.getText(), MainController.instance().getCurrentUser().getUserName());
                 for (int i = 0; i < tableLines.getRowCount(); i++){
                     String prod = tableLines.getValueAt(i, 0).toString();
                     String cant = tableLines.getValueAt(i, 1).toString();
-                    pc.addPersonalPurchaseLine(Integer.toString(i), id, prod, Double.parseDouble(cant));
+                    pc.addPersonalPurchaseLine(id, prod, Double.parseDouble(cant));
                 }
                 MainController mc = MainController.instance();
                 mc.getHome().setVisible(true);
